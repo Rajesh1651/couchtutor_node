@@ -1,0 +1,483 @@
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="format-detection" content="telephone=no">
+	<!-- Bootstrap CSS -->
+	<link rel="icon" href="<%=WEBSITE_IMG_URL%>favicon.ico" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>bootstrap.min.css" type="text/css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>owl.carousel.min.css" type="text/css">
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>jquery.noty.css">
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>noty_theme_default.css">
+	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>custom.css">
+
+	<link href="<%=WEBSITE_CSS_PATH%>custom-developer.css" rel="stylesheet">
+
+
+	<%- defineContent("css") %>
+
+
+		<title>
+			<%= settings["Site.site_title"] %>
+		</title>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="<%=WEBSITE_JS_PATH%>jquery-min.js"></script>
+
+	<script src="<%=WEBSITE_JS_PATH%>all.js"></script>
+
+
+	<script src="<%=WEBSITE_JS_PATH%>popper.min.js"></script>
+	<script src="<%=WEBSITE_JS_PATH%>bootstrap.min.js"></script>
+	<script src="<%=WEBSITE_JS_PATH%>owl.carousel.min.js"></script>
+	
+
+
+</head>
+
+<body>
+
+	<script type="text/javascript">       
+
+        /* For set the time for flash messages */
+        $(document).ready(function($) {
+            window.setTimeout(function() {
+                $(".mws-form-message.success").hide('slow');
+                $(".mws-form-message.error").hide('slow');
+            }, 6000);
+        });    
+       
+    </script>
+
+<div class="loading-cntant" style="display: none;">
+	<figure>
+		<div class="imagesContainer icon icon-heart"> 
+			<div class="video-play-button" href="#"> 
+				<span><img src="<%-WEBSITE_IMG_URL%>/load_icon.png" alt="icon"></span> 
+			</div> 
+			<img class="fadeInClass" src='<%-WEBSITE_IMG_URL%>/load_logo.png' alt=''> 
+		</div>
+	</figure>  
+</div>
+
+
+
+	<%- include(WEBSITE_MODULES_PATH + "/elements/header.html" ); %>
+
+		<%- include(WEBSITE_MODULES_PATH + "/elements/flash_message.html" ); %>
+
+
+
+			<%-body%>			
+			
+
+
+
+				<%- include(WEBSITE_MODULES_PATH + "/elements/newsletter.html" ); %>
+
+					<!-- <div class="subject_group">
+		<div class="container">
+			<div class="topsubject">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#collapse_toggle1" role="button"
+						aria-expanded="false" aria-controls="collapse_toggle1">Top Subjects</a></h3>
+				<div class="collapse" id="collapse_toggle1">
+					<ul>
+						<li><a href="javascript:void(0)">ACT Tutors</a></li>
+						<li><a href="javascript:void(0)">GMAT Tutors </a></li>
+						<li><a href="javascript:void(0)">MCAT Tutors</a></li>
+						<li><a href="javascript:void(0)">Algebra Tutors</a></li>
+						<li><a href="javascript:void(0)">GMAT Tutors</a></li>
+						<li><a href="javascript:void(0)">Physics Tutors</a></li>
+						<li><a href="javascript:void(0)">AP Tutors</a></li>
+						<li><a href="javascript:void(0)">Grammar Tutors</a></li>
+						<li><a href="javascript:void(0)">PSAT Tutors</a></li>
+						<li><a href="javascript:void(0)">Arabic Tutors</a></li>
+						<li><a href="javascript:void(0)">GRE Tutors</a></li>
+						<li><a href="javascript:void(0)">Reading Tutors</a></li>
+						<li><a href="javascript:void(0)">Biology Tutors</a></li>
+						<li><a href="javascript:void(0)">GRE Tutors</a></li>
+						<li><a href="javascript:void(0)">SAT Tutors</a></li>
+						<li><a href="javascript:void(0)">Calculus Tutors</a></li>
+						<li><a href="javascript:void(0)">IB Tutors</a></li>
+						<li><a href="javascript:void(0)">Spanish Tutors</a></li>
+						<li><a href="javascript:void(0)">Chemistry Tutors</a></li>
+						<li><a href="javascript:void(0)">IELTS Tutors</a></li>
+						<li><a href="javascript:void(0)">SSAT Tutors</a></li>
+						<li><a href="javascript:void(0)">French Tutors</a></li>
+						<li><a href="javascript:void(0)">IGCSE Tutors</a></li>
+						<li><a href="javascript:void(0)">Statistics Tutors</a></li>
+						<li><a href="javascript:void(0)">GCSE Tutors</a></li>
+						<li><a href="javascript:void(0)">ISEE Tutors</a></li>
+						<li><a href="javascript:void(0)">Test Prep Tutors</a></li>
+						<li><a href="javascript:void(0)">Geometry Tutors</a></li>
+						<li><a href="javascript:void(0)">LSAT Tutors</a></li>
+						<li><a href="javascript:void(0)">TOEFL Tutors</a></li>
+						<li><a href="javascript:void(0)">German Tutors</a></li>
+						<li><a href="javascript:void(0)">Math Tutors</a></li>
+						<li><a href="javascript:void(0)">Writing Tutors</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="test_prep">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#collapse_toggle2" role="button"
+						aria-expanded="false" aria-controls="collapse_toggle2">TEST PREP</a></h3>
+				<div class="collapse" id="collapse_toggle2">
+					<ul>
+						<li class="test_title"><a href="javascript:void(0)">High School Test PREP</a></li>
+						<li><a href="javascript:void(0)">AP Test PREP</a></li>
+						<li><a href="javascript:void(0)">IB Test prep</a></li>
+						<li><a href="javascript:void(0)">IGCSE Test PREP</a></li>
+						<li><a href="javascript:void(0)">GED Test Prep</a></li>
+						<li><a href="javascript:void(0)">ACT Test Prep</a></li>
+						<li><a href="javascript:void(0)">SAT Test Prep</a></li>
+						<li><a href="javascript:void(0)">SSAT Test Prep</a></li>
+						<li><a href="javascript:void(0)">PSAT Test Prep</a></li>
+						<li><a href="javascript:void(0)">PSAT Test Prep</a></li>
+					</ul>
+					<ul>
+						<li class="test_title"><a href="javascript:void(0)">Grad School Test PREP</a></li>
+						<li><a href="javascript:void(0)">GMAT Exam Prep</a></li>
+						<li><a href="javascript:void(0)">GRE Exam Prep</a></li>
+						<li><a href="javascript:void(0)">LSAT Exam Prep</a></li>
+						<li><a href="javascript:void(0)">MCAT Exam Prep</a></li>
+					</ul>
+					<ul>
+						<li class="test_title"><a href="javascript:void(0)">Language Test Prep</a></li>
+						<li><a href="javascript:void(0)">GMAT Exam Prep</a></li>
+						<li><a href="javascript:void(0)">GRE Exam Prep</a></li>
+						<li><a href="javascript:void(0)">LSAT Exam Prep</a></li>
+						<li><a href="javascript:void(0)">MCAT Exam Prep</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div> -->
+					<!-- <div class="language_location">
+		<div class="container">
+			<div class="language_panel">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#collapse_toggle3" role="button"
+						aria-expanded="false" aria-controls="collapse_toggle3">Learn a Language</a></h3>
+				<div class="collapse" id="collapse_toggle3">
+					<ul>
+						<li><a href="javascript:void(0)">Learn English (ESL)</a></li>
+						<li><a href="javascript:void(0)">Learm Chineese-Madarin</a></li>
+						<li><a href="javascript:void(0)">Learn Spanish</a></li>
+						<li><a href="javascript:void(0)">Learn Arabic</a></li>
+						<li><a href="javascript:void(0)">Learn French</a></li>
+						<li><a href="javascript:void(0)">Learn German</a></li>
+						<li><a href="javascript:void(0)">Learn Latin</a></li>
+						<li><a href="javascript:void(0)">Learn Farsi</a></li>
+						<li><a href="javascript:void(0)">Learn Hindi</a></li>
+						<li><a href="javascript:void(0)">Learn Italian</a></li>
+						<li><a href="javascript:void(0)">Learn Korean</a></li>
+						<li><a href="javascript:void(0)">Learn Portuguese</a></li>
+						<li><a href="javascript:void(0)">Learn Tagalog</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="popular_locations">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#collapse_toggle4" role="button"
+						aria-expanded="false" aria-controls="collapse_toggle4">Popular International Locations</a></h3>
+				<div class="collapse" id="collapse_toggle4">
+					<ul>
+						<li><a href="javascript:void(0)">Abu Dhabi Tutoring</a></li>
+						<li><a href="javascript:void(0)">Doha Tutoring</a></li>
+						<li><a href="javascript:void(0)">Miami Tutoring</a></li>
+						<li><a href="javascript:void(0)">Seattle Tutoring</a></li>
+						<li><a href="javascript:void(0)">Atlanta Tutoring</a></li>
+						<li><a href="javascript:void(0)">Dubai Tutoring</a></li>
+						<li><a href="javascript:void(0)">Montreal Tutoring</a></li>
+						<li><a href="javascript:void(0)">Seoul Tutoring</a></li>
+						<li><a href="javascript:void(0)">Bethlaham Tutoring</a></li>
+						<li><a href="javascript:void(0)">Dublin Tutoring</a></li>
+						<li><a href="javascript:void(0)">Moscow Tutoring</a></li>
+						<li><a href="javascript:void(0)">Seoul Tutoring</a></li>
+						<li><a href="javascript:void(0)">Beijing Tutoring</a></li>
+						<li><a href="javascript:void(0)">Hartford Tutoring</a></li>
+						<li><a href="javascript:void(0)">Munich Tutoring</a></li>
+						<li><a href="javascript:void(0)">Shanghai Tutoring</a></li>
+						<li><a href="javascript:void(0)">Beirut Tutoring</a></li>
+						<li><a href="javascript:void(0)">Hong Kong Tutoring</a></li>
+						<li><a href="javascript:void(0)">New York City Tutoring</a></li>
+						<li><a href="javascript:void(0)">Singapore Tutoring</a></li>
+						<li><a href="javascript:void(0)">Berlin Tutoring</a></li>
+						<li><a href="javascript:void(0)">Houston Tutoring</a></li>
+						<li><a href="javascript:void(0)">Osaka Tutoring</a></li>
+						<li><a href="javascript:void(0)">St. Louis Tutoring</a></li>
+						<li><a href="javascript:void(0)">Boston Tutoring</a></li>
+						<li><a href="javascript:void(0)">Jeddah Tutoring</a></li>
+						<li><a href="javascript:void(0)">Ottawa Tutoring</a></li>
+						<li><a href="javascript:void(0)">Sydney Tutoring</a></li>
+						<li><a href="javascript:void(0)">Brooklyn Tutoring</a></li>
+						<li><a href="javascript:void(0)">Kansas City Tutoring</a></li>
+						<li><a href="javascript:void(0)">Paris Tutoring</a></li>
+						<li><a href="javascript:void(0)">Tokyo Tutoring</a></li>
+						<li><a href="javascript:void(0)">Calgary Tutoring</a></li>
+						<li><a href="javascript:void(0)">London Tutoring</a></li>
+						<li><a href="javascript:void(0)">Philadelphia Tutoring</a></li>
+						<li><a href="javascript:void(0)">Toronto Tutoring</a></li>
+						<li><a href="javascript:void(0)">Chicago Tutoring</a></li>
+						<li><a href="javascript:void(0)">Los Angeles Tutoring</a></li>
+						<li><a href="javascript:void(0)">Phoenix Tutoring</a></li>
+						<li><a href="javascript:void(0)">Vancouver Tutoring</a></li>
+						<li><a href="javascript:void(0)">Dallas Tutoring</a></li>
+						<li><a href="javascript:void(0)">Madrid Tutoring</a></li>
+						<li><a href="javascript:void(0)">Riyadh Tutoring</a></li>
+						<li><a href="javascript:void(0)">Washington DC Tutoring</a></li>
+						<li><a href="javascript:void(0)">Denver Tutoring</a></li>
+						<li><a href="javascript:void(0)">Jerusalem Tutoring</a></li>
+						<li><a href="javascript:void(0)">San Diego Tutoring</a></li>
+						<li><a href="javascript:void(0)">Dhahran Tutoring</a></li>
+						<li><a href="javascript:void(0)">Melbourne Tutoring</a></li>
+						<li><a href="javascript:void(0)">San Francisco Tutoring</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div> -->
+
+
+					<%- include(WEBSITE_MODULES_PATH + "/elements/footer.html" ); %>
+
+
+
+						<!-- Login Modal -->
+						
+
+						<%- include(WEBSITE_MODULES_PATH + "/elements/login_singup_model.html" ); %>
+
+		
+						
+
+
+							<%- defineContent("script") %>
+
+
+							
+								<script>
+
+
+									$(document).ready(function () {
+										$('.navbar-toggler').click(function () {
+											$(this).toggleClass('open');
+											$('.navbar').toggleClass('show');
+										});
+									});
+
+
+									$(".data-img-bg").css('background', function () {
+										var bg = ('url(' + $(this).data("image-src") + ') no-repeat');
+										return bg;
+									});
+
+									// Sticky header js
+									var sticky = $('header'),
+										scroll = $(window).scrollTop();
+									if (scroll >= 82) {
+										sticky.addClass('fixed');
+									} else {
+										sticky.removeClass('fixed');
+									}
+
+
+									$(window).scroll(function () {
+										var sticky = $('header'),
+											scroll = $(window).scrollTop();
+										if (scroll >= 82) {
+											sticky.addClass('fixed');
+										} else {
+											sticky.removeClass('fixed');
+										}
+									});
+
+									$(document).ready(function () {
+										var bigimage = $("#big");
+										var thumbs = $("#thumbs");
+										//var totalslides = 10;
+										var syncedSecondary = true;
+
+										bigimage
+											.owlCarousel({
+												items: 1,
+												slideSpeed: 2000,
+												nav: true,
+												autoplay: true,
+												dots: false,
+												loop: true,
+												responsiveRefreshRate: 200,
+												navText: [
+													'<i class="fa fa-arrow-left" aria-hidden="true"></i>',
+													'<i class="fa fa-arrow-right" aria-hidden="true"></i>'
+												]
+											})
+											.on("changed.owl.carousel", syncPosition);
+
+										thumbs
+											.on("initialized.owl.carousel", function () {
+												thumbs
+													.find(".owl-item")
+													.eq(0)
+													.addClass("current");
+											})
+											.owlCarousel({
+												items: 4,
+												margin: 11,
+												nav: true,
+												dots: false,
+												autoplay: true,
+												navText: [
+													'<i class="fa fa-arrow-left" aria-hidden="true"></i>',
+													'<i class="fa fa-arrow-right" aria-hidden="true"></i>'
+												],
+												smartSpeed: 200,
+												slideSpeed: 500,
+												slideBy: 4,
+												responsiveRefreshRate: 100,
+												responsive: {
+													0: {
+														items: 3
+													},
+													480: {
+														items: 4
+													},
+												}
+											})
+											.on("changed.owl.carousel", syncPosition2);
+
+										function syncPosition(el) {
+											//if loop is set to false, then you have to uncomment the next line
+											//var current = el.item.index;
+
+											//to disable loop, comment this block
+											var count = el.item.count - 1;
+											var current = Math.round(el.item.index - el.item.count / 2 - 0.5);
+
+											if (current < 0) {
+												current = count;
+											}
+											if (current > count) {
+												current = 0;
+											}
+											//to this
+											thumbs
+												.find(".owl-item")
+												.removeClass("current")
+												.eq(current)
+												.addClass("current");
+											var onscreen = thumbs.find(".owl-item.active").length - 1;
+											var start = thumbs
+												.find(".owl-item.active")
+												.first()
+												.index();
+											var end = thumbs
+												.find(".owl-item.active")
+												.last()
+												.index();
+
+											if (current > end) {
+												thumbs.data("owl.carousel").to(current, 100, true);
+											}
+											if (current < start) {
+												thumbs.data("owl.carousel").to(current - onscreen, 100, true);
+											}
+										}
+
+										function syncPosition2(el) {
+											if (syncedSecondary) {
+												var number = el.item.index;
+												bigimage.data("owl.carousel").to(number, 100, true);
+											}
+										}
+
+										thumbs.on("click", ".owl-item", function (e) {
+											e.preventDefault();
+											var number = $(this).index();
+											bigimage.data("owl.carousel").to(number, 300, true);
+										});
+									});
+
+
+									$('.reviews_carousel').owlCarousel({
+										loop: true,
+										margin: 0,
+										nav: true,
+										dots: false,
+										responsive: {
+											0: {
+												items: 1,
+											},
+											768: {
+												items: 2
+											},
+											992: {
+												items: 2
+											},
+											1200: {
+												items: 3
+											}
+										}
+									});
+
+									$('.featuring_carousel').owlCarousel({
+										margin: 0,
+										nav: false,
+										dots: true,
+										items: 1,
+										autoplay: false,
+										mouseDrag: false,
+										responsive: {
+											0: {
+												items: 1,
+												autoplay: true,
+												mouseDrag: true,
+												touchDrag: true,
+											},
+											768: {
+												items: 3,
+												autoplay: true,
+												mouseDrag: true,
+											},
+											992: {
+												items: 4
+											},
+											1200: {
+												items: 4
+											}
+										}
+									});
+									/* make equal height */
+									function resizeequalheight() { equalHeight($(".tutor_review_txt")); equalHeight($(".featuring_txtbox")); } function equalHeight(group) { tallest = 0; group.height(''); group.each(function () { thisHeight = $(this).height(); if (thisHeight > tallest) { tallest = thisHeight; } }); group.height(tallest); } $(function () { $(window).resize(function () { setTimeout('resizeequalheight()', 250) }); setTimeout('resizeequalheight()', 250) });
+
+
+									if ('loading' in HTMLImageElement.prototype) {
+										const images = document.querySelectorAll("img.lazyload");
+										images.forEach(img => {
+											img.src = img.dataset.src;
+										});
+									} else {
+										// Dynamically import the LazySizes library
+										let script = document.createElement("script");
+										script.async = true;
+										script.src =
+											"https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.8/lazysizes.min.js";
+										document.body.appendChild(script);
+									}
+								</script>
+
+
+
+
+
+</body>
+
+
+</html>

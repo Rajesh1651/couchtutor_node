@@ -1,0 +1,27 @@
+var path 							= 	require('path');
+const { check, validationResult } 	= 	require('express-validator');
+const {ObjectId} 					= 	require('mongodb');
+
+
+/** For locale **/
+var anyObjectForLocale	=	{};
+const i18n 	= require("i18n");
+i18n.configure({
+    locales:LANGUAGE_FOLDER_CODE_ARRAY,
+    defaultLocale: DEFAULT_LANGUAGE_FOLDER_CODE,
+    directory: WEBSITE_LOCALE_ROOT_PATH,
+	updateFiles: false,
+	register: anyObjectForLocale
+});
+
+
+validationObject = {
+ 
+	validateForBlogs : [
+		check('block_name',		anyObjectForLocale.__("ADMIN.CMS.PLEASE_ENTER_BLOG_TITLE_HERE")).trim().notEmpty(),
+		check('page_name',		anyObjectForLocale.__("ADMIN.CMS.PLEASE_ENTER_PAGE_TITLE_HERE")).trim().notEmpty(),
+		check('decription',			anyObjectForLocale.__("ADMIN.CMS.PLEASE_ENTER_DESCRIPTION_HERE")).trim().notEmpty(),	 
+	]
+}
+ 
+module.exports = validationObject;

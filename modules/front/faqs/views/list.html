@@ -1,0 +1,52 @@
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL%>contactbg.jpg">
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+    </div>
+</div>
+
+<div class="main no-record-eaual-height">
+    <div class="detail_page faq-page ">
+       <div class="container">
+          <div class="lstdetail-view">
+             <div class="detail_tabing_section">
+                <div class="tab-content">
+                   <div role="tabpanel" class="tab-pane active" id="specifications">
+                      <div class="about-product">
+                         <div class="panel-group" id="accordion_job" role="tablist" aria-multiselectable="true">
+                             
+                            <% if(typeof result !==typeof undefined && result.length> 0){
+                                let blogIndex = 0;
+                                result.map(faqList=>{
+                                %>
+                                   
+                                          <div class="panel-heading">
+                                                <h4 class="panel-title"><%- (faqList.question) ? faqList.question : "" ; %></h4>
+                                          </div>
+                                          <div>
+                                             <div class="panel-body answer-div">
+                                                <p>  <%- (faqList.answer) ? faqList.answer : "" ; %></p>
+                                             </div>
+                                          </div>
+
+
+                             <% blogIndex++; }); } %>                             
+                             
+                         </div>
+                        
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ 
+ <script>
+   $( function() {
+         $( "#accordion_job" ).accordion({
+         heightStyle: "content"
+     });
+ });
+  </script>
+

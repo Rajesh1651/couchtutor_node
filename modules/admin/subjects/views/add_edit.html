@@ -1,0 +1,227 @@
+<% 
+	var result			= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id				= 	result._id;	
+	var image 			= 	(typeof result.image !== typeof undefined)?	result.image 	: ""; 
+	var formData_image 	=	(result[IMAGE_FIELD_NAME])	? result[IMAGE_FIELD_NAME]	:ADD_PROFILE_IMAGE_ICON;
+	
+	var color_code_icon 			= 	(typeof result.color_code_icon !== typeof undefined)?	result.color_code_icon 	: ""; 
+	console.log(color_code_icon);
+
+	formData = (formData) ?	formData : result ;
+%>
+
+
+
+<link href="<%=WEBSITE_ADMIN_CSS_PATH%>colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.subject.edit_page_heading"); %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.subject.add_page_heading"); %></h2>
+					<% } %>	
+					
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-subjects" data-submit-btn-id="subjects-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+						<div class="row clearfix">
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="subject_name" class="control-label">
+											 <%= __("admin.system.subject_name")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="subject_name" class="form-control" name="subject_name" value="<%= formData.subject_name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.subject_name){  %>
+										<span id="subject_name_error" class="error"><%= error.subject_name.msg %></span>
+									<% } %>
+								</div>
+
+								<div class="form-group">
+									<div class="form-line">
+										<label for="color_code" class="control-label">
+											 <%= __("admin.system.color_code")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="color_code" class="form-control colorpicker" name="color_code" value="<%= formData.color_code %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.color_code){  %>
+										<span id="color_code_error" class="error"><%= error.color_code.msg %></span>
+									<% } %>
+								</div>
+
+
+								<div class="form-group">
+									<div class="form-line">
+										<label for="color_code_hover" class="control-label">
+											 <%= __("admin.system.color_code_hover")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="color_code_hover" class="form-control colorpicker" name="color_code_hover" value="<%= formData.color_code_hover %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.color_code_hover){  %>
+										<span id="color_code_hover_error" class="error"><%= error.color_code_hover.msg %></span>
+									<% } %>
+								</div>
+
+
+								<div class="form-group">
+									<div class="form-line">
+										<label for="color_code_icon" class="control-label">
+											 <%= __("admin.system.color_code_icon")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="color_code_icon" class="form-control colorpicker" name="color_code_icon" value="<%= formData.color_code_icon %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.color_code_icon){  %>
+										<span id="color_code_icon_error" class="error"><%= error.color_code_icon.msg %></span>
+									<% } %>
+								</div>
+                             
+								<%											 
+								if(result.show_at_home==1){
+									   value=1;
+									   checked = 'checked="checked"';
+									}else{
+								   value= null;
+								   checked = '';
+								}	
+								%>								
+
+
+								<div class="form-group"> <div class="form-line"> 
+									<input class="userCheckBox filled-in" id="show_at_home" <%- checked %> name="show_at_home" type="checkbox" value="<%- value %>"> 
+									<label for="show_at_home" class="control-label"><%= __("admin.system.show_at_home")%></label> 
+								</div> <span class="error help-inline">  </span>
+							 </div>
+							</div>
+							<div class="col-sm-6">
+							<div class="col-sm-12 align-center">
+								<div class="form-group add-image">
+									
+									<% if(id){ %>
+										<input name="old_image" id="old_image" type="hidden" class="form-control"  value="<%= image %>"/>
+									<% } %>	
+									
+									<input name="image" id="image" class="form-control image-input-file" type="file"/>
+									<span class="help-inline required profile_image" id="ContentTypeNameSpan">
+										<div id="pImage">	 
+											<figure>
+											<img src="<%= formData_image %>?dim=120x120&type=resize" width="120" height="120" alt="Profile image" class="" style="background: linear-gradient(135deg, <%= color_code_icon %> 0%, <%= color_code_icon %> 100%); padding:10px;" />
+										</figure>	
+										</div>
+									</span>
+									<div class="m-t-10">
+										<a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="<%= "Allowed file extensions are : " +SUBJECT_IMAGE_EXTENSION%>" class="btn bg-teal btn-block btn-sm waves-effect changePhoto"> <%= __("admin.system.upload_image")%> <span class="required"> *</span></a>
+									</div>
+									<span id="p_image_error" class="error"></span>
+									<% if(typeof error != "undefined" && error.image){  %>
+										<span id="image_error" class="error"><%= error.image.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="description" class="control-label">
+											<%= __("admin.subject.description")%> <span class="required"> *</span>
+										</label>
+										<textarea rows="4"  id="description" class="form-control no-resize ckeditor"  name="description"><%= formData.description %></textarea>
+									</div>
+									<% if(typeof error != "undefined" && error.description){  %>
+										<span id="description_error" class="error"><%= error.description.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_list_url%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_list_url%>/add" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ 
+	<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>ckeditor/ckeditor.js" type="text/javascript"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){	
+
+
+			CKEDITOR.replace('description', {
+				filebrowserUploadUrl: '<%= WEBSITE_ADMIN_URL%>ckeditor_uploader/',
+			});
+			
+			/**
+			 * User image Upload
+			 */
+			$(document).on("click", ".changePhoto", function(){
+				if(!$(".add-image #image").hasClass("added")){
+					$(".add-image #image").trigger("click");
+					$(".add-image #image").addClass("added");
+					window.setTimeout(function(){
+						$(".add-image #image").removeClass("added");
+					},500);
+				}
+			});
+
+			/**
+			 *Show user image after select
+			 */
+			$("#image").on("change", function(){
+				var files = !!this.files ? this.files : [];
+				if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+				if (/^image/.test( files[0].type)){
+					// only image file
+					var reader = new FileReader(); // instance of the FileReader
+					reader.readAsDataURL(files[0]); // read the local file
+					reader.onloadend = function(){
+
+						$("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
+					}
+				}
+				$("span#p_image_error").text("");
+			});
+
+
+	        var $colorpicker = $('.colorpicker');
+			var $colorpickerMode = $colorpicker.data('colorpicker-mode') ? $colorpicker.data('colorpicker-mode') : 'hex';
+			var $colorpickerinline = $colorpicker.data('colorpicker-inline') ? true : false;
+			$colorpicker.colorpicker({
+				'format': $colorpickerMode,
+				'inline': $colorpickerinline
+			});
+
+
+		});
+	</script>
+

@@ -1,0 +1,281 @@
+<% 
+	var result			= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id				= 	result._id;		
+	formData = (formData) ?	formData : result ;
+%>
+
+
+<!-- Ckeditor -->
+<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>ckeditor/ckeditor.js" type="text/javascript"></script>
+
+ 
+<script src="<%=WEBSITE_ADMIN_JS_PATH%>coupon.js" type="text/javascript"></script>
+
+
+<link href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+
+<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>momentjs/moment.js" type="text/javascript"></script>
+
+<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js" type="text/javascript"></script>
+<script src="<%=WEBSITE_ADMIN_JS_PATH%>custom_calendar.js" type="text/javascript"></script> 
+
+
+<!--- ckeditor js end  here -->
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.coupon.edit_page_heading"); %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.coupon.add_page_heading"); %></h2>
+					<% } %>	
+					
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-coupon" data-submit-btn-id="coupon-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+				
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="coupon_code" class="control-label">
+											 <%= __("admin.system.coupon_code")%> <span class="required"> *</span>
+										</label>
+										<input type="text" class="form-control" name="coupon_code" value="<%= formData.coupon_code %>" id="DealDiscountPromoCode"/>
+									</div>							
+
+									<% if(typeof error != "undefined" && error.coupon_code){  %>
+										<span id="coupon_code_error" class="error"><%= error.coupon_code.msg %></span>
+									<% } %>
+								</div>								
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+								   <div class='tooltipHelp' style="cursor:pointer;">
+									  <i class="random_code fa fa-rotate-right fa-2x"> </i>
+								   </div>
+								</div>
+							 </div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="description" class="control-label">
+											<%= __("admin.coupon.description")%> <span class="required"> *</span>
+										</label>
+										<textarea rows="4"  id="textarea" class="form-control no-resize"  name="description" maxlength="<%- COUPON_DESCRIPTION_LENGTH %>"><%= formData.description %></textarea>
+									</div>
+									<span id="rchars"><%- COUPON_DESCRIPTION_LENGTH %> </span> <%- __("admin.global.character_left") %>
+									<% if(typeof error != "undefined" && error.description){  %>
+										<span id="description_error" class="error"><%= error.description.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						
+
+						<div class="row clearfix">
+							<div class="col-sm-12">
+							   <div class="form-group">
+								  <div class="form-line">
+
+									<label for="discount_type" class="mws-form-label">
+										<%= __("admin.coupon.discount_type")%> <span class="required"> *</span>
+									</label>									
+									 <div class="mws-form-item selectdrop">
+
+                                         <select name="discounttype" class="form-control autocomplete" id="discount_type">
+										<option value=""><%= __("admin.global.please_select"); %></option>
+										<%
+										if(typeof DISCOUNT_TYPE!== typeof undefined && Object.keys(DISCOUNT_TYPE).length > 0){
+											Object.keys(DISCOUNT_TYPE).map(discount_type=>{										
+												
+											%>
+											<option value="<%- discount_type %>"><%- discount_type %></option>	
+										<% 	});
+										} %>
+									</select>
+
+										
+									 </div>
+								  </div>
+								  <span class="error help-inline discounttype">
+								
+								  </span>
+							   </div>
+							</div>
+						 </div>
+					
+
+
+						 <div class="row clearfix">
+							<div class="col-sm-12">
+							   <div class="form-group">
+								  <div class="form-line">
+									<label for="discount" class="mws-form-label">
+										<%= __("admin.coupon.discount")%> <span class="required"> *</span>
+									</label>
+									<input type="text" class="form-control" name="discount" value="<%= formData.discount %>"/>									
+								  </div>
+								  <span class="error help-inline discount">
+								
+								  </span>
+							   </div>
+							</div>
+						 </div>
+
+
+
+						 <div class="row clearfix">
+							<div class="col-sm-12">
+							   <div class="form-group">
+								  <div class="form-line" id="max_discount">
+									<label for="max_discount_allowed" class="mws-form-label">
+										<%= __("admin.coupon.max_discount_allowed")%> <span class="required"> *</span>
+									</label>
+
+									<input type="text" class="form-control" name="max_discount_allowed" value="<%= formData.max_discount_allowed %>"/>										
+								  </div>
+								
+								  <span class="error help-inline max_discount_allowed">								 
+								  </span>
+							   
+							   </div>
+							</div>
+						 </div>
+
+
+						 <div class="row clearfix">
+							<div class="col-sm-12">
+							   <div class="form-group">
+								  <div class="form-line">
+
+									<label for="usage_limit" class="mws-form-label">
+										<%= __("admin.coupon.usage_limit")%> <span class="required"> *</span>
+									</label>
+
+									 <div class="mws-form-item selectdrop">
+										<select name="usage_limit" class="form-control autocomplete" id="usage_limit">
+											<option value=""><%= __("admin.global.please_select"); %></option>
+																				
+
+												
+										</select>
+
+									 </div>
+								  </div>
+								  <span class="error help-inline usage_limit">
+								
+								  </span>
+							   </div>
+							</div>
+						 </div>
+
+
+						 <div class="row clearfix" id="quantity_div">
+							<div class="col-sm-6">
+							   <div class="form-group">
+								  <div class="form-line" >
+
+									<label for="quantity" class="mws-form-label">
+										<%= __("admin.coupon.quantity")%> <span class="required"> *</span>
+									</label>
+									<input type="text" class="form-control" name="quantity" value="<%= formData.quantity %>"/>								 
+								  </div>
+							   </div>
+							   <span class="error help-inline quantity">							  
+							   </span>
+							</div>
+							<div class="col-sm-6">
+							   <div class="form-group">
+								  <span class='tooltipHelp' title="" data-html="true" data-toggle="tooltip"  data-original-title="<%= __("admin.coupon.quantity")  %>" style="cursor:pointer;">
+								  <i class="fa fa-question-circle fa-2x"> </i>
+								  </span>
+							   </div>
+							</div>
+						 </div>
+
+
+
+
+
+						<div class="row clearfix">							
+							<div class="alert alert-warning"><%= __("admin.coupon.coupon_date_blank_msg")%> </div>
+						</div>
+					   <div class="row clearfix">
+						  <div class="col-sm-6">
+							 <div class="form-group">
+								<div class="form-line" >
+									<label for="startdate" class="control-label">
+										<%= __("admin.coupon.startdate")%> <span class="required"> *</span>
+									</label>
+									<input type="text" id="startdate" class="form-control" name="startdate" value="<%= formData.startdate %>" readonly/>
+								</div>
+								<span class="error help-inline startdate">
+							
+								</span>
+							 </div>
+						  </div>
+
+						  <div class="col-sm-6">
+							<div class="form-group">
+							   <div class="form-line" >
+								   <label for="lastdate" class="control-label">
+									   <%= __("admin.coupon.lastdate")%> <span class="required"> *</span>
+								   </label>
+								   <input type="text" id="lastdate" class="form-control" name="lastdate" value="<%= formData.lastdate %>" readonly/>
+							   </div>
+							   <span class="error help-inline lastdate">
+							   
+							   </span>
+							</div>
+						 </div>
+					   </div>
+					
+
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_list_url%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_list_url%>/add" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	var  N_TIME_USEAGE_LIMIT = '<%  N_TIME_USEAGE_LIMIT %>';
+	var cal_date_format = JS_DATE_FORMAT;	
+	
+	var maxLength = COUPON_DESCRIPTION_LENGTH;
+
+$('textarea').keyup(function() {
+  var textlen = maxLength - $(this).val().length;
+  $('#rchars').text(textlen);
+});
+	
+</script>
+
+	

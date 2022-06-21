@@ -1,0 +1,165 @@
+<% 
+	var result			= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id				= 	result._id;	
+	
+	formData = (formData) ?	formData : result ;
+%>
+
+
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.plans.edit_page_heading"); %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.plans.add_page_heading"); %></h2>
+					<% } %>	
+					
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url + '/' + type%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-plans" data-submit-btn-id="plans-add-btn-id" method="post" role="form" >	 
+						
+
+						<div class="row clearfix">
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="plan_name" class="control-label">
+											 <%= __("admin.system.plan_name")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="plan_name" class="form-control" name="plan_name" value="<%= formData.plan_name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.plan_name){  %>
+										<span id="plan_name_error" class="error"><%= error.plan_name.msg %></span>
+									<% } %>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="plan_price" class="control-label">
+											 <%= __("admin.system.plan_price")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="plan_price" class="form-control" name="plan_price" value="<%= formData.plan_price %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.plan_price){  %>
+										<span id="plan_price_error" class="error"><%= error.plan_price.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>		
+						
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="plan_duration" class="control-label">
+											 <%= __("admin.system.plan_duration")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="plan_duration" class="form-control" name="plan_duration" value="<%= formData.plan_duration %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.plan_duration){  %>
+										<span id="plan_duration_error" class="error"><%= error.plan_duration.msg %></span>
+									<% } %>
+								</div>
+							</div>							
+						</div>	
+						
+
+
+						<div class="row clearfix">
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="plan_hours" class="control-label">
+											 <%= __("admin.system.plan_hours")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="plan_hours" class="form-control" name="plan_hours" value="<%= formData.plan_hours %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.plan_hours){  %>
+										<span id="plan_hours_error" class="error"><%= error.plan_hours.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="plan_order " class="control-label">
+											 <%= __("admin.system.plan_order")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="plan_order" class="form-control" name="plan_order" value="<%= formData.plan_order %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.plan_order){  %>
+										<span id="plan_order_error" class="error"><%= error.plan_order.msg %></span>
+									<% } %>
+								</div>
+							</div>							
+						</div>	
+
+
+
+
+					
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="description" class="control-label">
+											<%= __("admin.subject.description")%> <span class="required"> *</span>
+										</label>
+										<textarea rows="4"  id="description" class="form-control no-resize ckeditor"  name="description"><%= formData.description %></textarea>
+									</div>
+									<% if(typeof error != "undefined" && error.description){  %>
+										<span id="description_error" class="error"><%= error.description.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+
+
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_list_url + '/edit/' + id +'/'+ type %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_list_url%>/add/<%=type%>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_list_url +'/' + type%>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ 
+	<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>ckeditor/ckeditor.js" type="text/javascript"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){	
+
+
+			CKEDITOR.replace('description', {
+				filebrowserUploadUrl: '<%= WEBSITE_ADMIN_URL%>ckeditor_uploader/',
+			});
+						
+
+		});
+	</script>
+

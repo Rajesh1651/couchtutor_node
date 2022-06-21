@@ -1,0 +1,103 @@
+<% if(success_status){ %>
+	<script type="text/javascript">
+		//function notify flash success message
+		$(document).ready(function(){
+			noty({
+				layout : 'topRight', 
+				theme : 'noty_theme_default', 
+				type : 'success',     
+				text: '<%= success_flash_message %>',   
+				timeout : 15000,
+				closeButton:true,
+				animation : {
+					easing: 'swing',
+					speed: 150 // opening & closing animation speed
+				}		
+			});
+		});
+	</script>
+<% } %>
+
+
+<% if(error_status){ %>
+	<script type="text/javascript">
+		//function notify flash success message
+		$(document).ready(function(){
+			noty({
+				layout : 'topRight', 
+				theme : 'noty_theme_default', 
+				type : 'error',     
+				text: '<%= error_flash_message %>',     
+				timeout : 15000,
+				closeButton:true,
+				animation : {
+					easing: 'swing',
+					speed: 150 // opening & closing animation speed
+				}		
+			});
+		});
+	</script>
+<% } %>
+
+
+<script type="text/javascript">
+	function showSuccessMessageBottomRight(msg){
+		noty({        
+			layout : 'bottomRight', 
+			theme : 'noty_theme_default', 
+			type : 'success',      
+			text: msg ,     
+			timeout : 15000,
+			closeButton:true,
+			animation : {
+				easing: 'swing',
+				speed: 150 // opening & closing animation speed
+			}		
+		});
+	}
+
+	function showErrorMessageBottomRight(msg){
+		noty({         
+			layout : 'bottomRight',
+			theme : 'noty_theme_default',
+			type : 'error',     
+			text: msg ,     
+			timeout : 15000,
+			closeButton:true,
+			animation : {
+				easing: 'swing',
+				speed: 150 // opening & closing animation speed
+			}		
+		});
+	}
+
+	function showSuccessMessageTopRight(msg){
+		noty({
+			layout : 'topRight', 
+			theme : 'noty_theme_default', 
+			type : 'success',     
+			text: msg ,     
+			timeout : 15000,
+			closeButton:true,
+			animation : {
+				easing: 'swing',
+				speed: 150 // opening & closing animation speed
+			}		
+		});
+	}
+
+	function showErrorMessageTopRight(msg){
+		noty({
+			layout : 'topRight', 
+			theme : 'noty_theme_default', 
+			type : 'error',     
+			text: msg ,     
+			timeout : 15000,
+			closeButton:true,
+			animation : {
+				easing: 'swing',
+				speed: 150 // opening & closing animation speed
+			}		
+		});
+	}
+</script>	

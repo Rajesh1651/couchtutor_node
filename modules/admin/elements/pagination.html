@@ -1,0 +1,55 @@
+<% if(paginate.hasPreviousPages || paginate.hasNextPages(pageCount)){ %> 
+	<div class="row">
+		<div class="text-right">
+			<div class="pagination_text">Total <%= itemCount %> entries </div>
+			<ul class="pagination">
+				<% if(paginate.hasPreviousPages){ %> 
+					<li>
+						<a href="<%= paginate.href(true) %>">
+							Previous
+						</a>
+					</li>
+				<% } else { %>
+					<li class=" disabled">
+						<a href="javascript:void(0)">
+							Previous
+						</a>
+					</li>
+				<% } %>
+				
+				<% 
+					if(pages){ 
+						pages.forEach(function(page){ 
+							if(paginate.page == page.number){
+								li_class = 'class=active';
+							}
+							else {
+								li_class = 'class=inactive';
+							}
+						%>
+						<li <%= li_class %>>
+							<a href="<%= page.url %>">
+								<%=  page.number %>
+							</a>
+						</li>
+					<% }) %>
+				<% } %>
+				
+				<% if(paginate.hasNextPages(pageCount)){ %> 
+					<li>
+						<a href="<%= paginate.href() %>">
+							Next
+						</a>
+					</li>
+				<% } else { %>
+					<li class=" disabled">
+						<a href="javascript:void(0)">
+							Next
+						</a>
+					</li>
+				<% } %>
+				
+			</ul>
+		</div>
+	</div>
+<% } %>

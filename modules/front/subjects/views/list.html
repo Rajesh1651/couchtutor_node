@@ -1,0 +1,104 @@
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL%>subjectbg.jpg">
+    <div class="container">
+      <h1>Subjects</h1>
+    </div>
+  </div>
+  <div class="subjects main_subjects subject_re">
+    <div class="container">
+      <div class="section-title">
+        <h2>Choose your subject</h2>
+        <p>from subjects</p>
+      </div>
+      <ul class="subject_listing mainsubject_listing">
+
+
+        <% if(results.length > 0) { %>
+
+            <% results.forEach(function(result,index){
+              
+             
+              
+              %>
+
+                <li>   
+                  
+                  <script> 
+                   $( document ).ready(function() {
+                    $(".subject_txtbox1_<%= index %>").css("background-color",'<%- result.color_code %>; !important');
+                    $(".subject_image1_<%= index %>").css("background-color",'<%- result.color_code_icon %>; !important');
+
+                   
+
+                    $(".subject_txtbox1_<%= index %>").hover(function(){
+                      $(this).css("background-color", "<%=result.color_code_hover %>");
+                      }, function(){
+                      $(this).css("background-color", "<%=result.color_code %>");
+                    });
+                     });
+                </script>
+                  
+                    <div class="subject_txtbox subject_txtbox1_<%= index %>">
+                      <div class="subjecttop">
+                        <figure class=" subject_image1_<%= index %>">
+                          <img src="<%=SUBJECT_URL%><%-result.image%>" alt="img" loading="lazy">
+                        </figure>
+                        <strong><%- (result.subject_name) ? result.subject_name : '' %></strong>
+                      </div>
+                      <div class="subject_name">
+                        <ul>
+
+                          <% result.topics.forEach(function(topic){ %>
+                            <li><%- (topic.subject_name) ? topic.subject_name : '' %></li>
+
+                            <% }) %>                          
+                        </ul>
+                        <div class="text-center view_more view_new"> <a href="<%=WEBSITE_URL%>subject/<%-result.slug%>" class="btn btn-primary" >View
+                            all</a>
+                        </div>
+                      </div>
+          
+                    </div>
+                  </li>
+
+
+                <% }) %>
+                <% } else {%>
+                    <center><h1>No Result Found.</h1></center>
+                   
+               <% }%>
+
+
+      
+      </ul>
+
+      <!-- <ul class="pagination justify-content-center">
+        <li class="page-item disabled"><a class="page-link prev_page" href="javascript:void(0);"
+                tabindex="-1" aria-disabled="true">
+                <figure><img src="<%=WEBSITE_IMG_URL%>pagination-left-arrow.png" alt="img"></figure>
+                Previous
+            </a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">...</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">9</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">10</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">11</a></li>
+        <li class="page-item"><a class="page-link next_page" href="javascript:void(0);">Next<figure><img
+                        src="<%=WEBSITE_IMG_URL%>pagination-right-arrow.png" alt="img"></figure></a>
+        </li>
+    </ul>  -->
+
+
+
+      <!-- <div class="text-center bottom_text">
+        <p><span>Have any questions?</span> Visit our <a href="javascript:void(0)">FAQ</a> Or <a
+            href="javascript:void(0)">Contact
+            Us</a></p>
+        <a href="javascript:void(0)" class="btn btn-primary">See our plan and
+          pricing</a>
+      </div> -->
+    </div>
+  </div>

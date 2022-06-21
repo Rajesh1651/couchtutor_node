@@ -1,0 +1,98 @@
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>
+						Add Text Setting
+					</h2>
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href='<%=admin_list_url+"/"+type%>' ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> Back</button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+					
+					<%- include(WEBSITE_ADMIN_MODULES_PATH + "/elements/multilanguage_tabs.html"); %>
+					
+					<form id="add-text-setting" data-submit-btn-id="text-setting-add-btn-id" method="post" class="on_click_submit" role="form">
+						<!-- Tab panes -->
+						<div class="tab-content mt-20">
+							<% if(typeof language_list !== typeof undefined && Array.isArray(language_list) && language_list.length > 0){ %>
+								<div class="row clearfix">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<div class="form-line">
+												<label for="key" class="control-label">
+													Key <span class="required"> *</span> 
+												</label>
+												<% if(typeof language_list !== typeof undefined && Array.isArray(language_list) && language_list.length > 1){ %>
+													<span class="float-right">
+														<b>These fields are same in all languages</b>
+													</span>
+												<% } %>
+												<input type="text" id="key" class="form-control" name="key" value="<%= formData.key %>"/>
+											</div>
+											<% if(typeof error != "undefined" && error.key){  %>
+												<span id="key_error" class="error"><%= error.key.msg %></span>
+											<% } %>
+										</div>
+									</div>
+								</div>
+								<% 
+								if(typeof language_list !== typeof undefined && Array.isArray(language_list) && language_list.length > 1){ %>
+									<div class="row clearfix seperator-line field-seperator"><hr/></div>
+								<% 
+								}
+								if(typeof language_list !== typeof undefined && Array.isArray(language_list) && language_list.length > 0){ 
+									language_list.forEach(function(languages){ 
+										languageId 		= (languages._id) ?  languages._id : '';
+										languageCode 	= (languages.lang_code) ?  languages.lang_code : '';
+										
+										value 			= 	(formData.text_settings_descriptions && formData.text_settings_descriptions[languageId] && formData.text_settings_descriptions[languageId]["value"]) ? formData.text_settings_descriptions[languageId]["value"] : "";
+										
+								%>
+										<div role="tabpanel" class="tab-pane multi-lang-tab-pane fade in <%= (languageCode == DEFAULT_LANGUAGE_CODE) ? "active" : ""; %>" id="multi_lang_<%= languageCode; %>">
+											<div class="row clearfix">
+												<div class="col-sm-12">
+													<div class="form-group">
+														<div class="form-line">
+															<label for="body_<%= languageCode; %>" class="control-label">
+																Value
+																<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+																	<span class="required"> *</span>
+																<% } %> 
+															</label>
+															<input type="hidden" name="text_settings_descriptions[<%= languageId %>][language_id]" value="<%= languageId; %>"/>
+															
+															<input type="text" id="value_<%= languageCode; %>" class="form-control" name="text_settings_descriptions[<%=languageId%>][value]" value="<%= value; %>"/>
+														</div>
+														<% 
+															if(languageCode ==  DEFAULT_LANGUAGE_CODE){ 
+																let erroKey	=	'text_settings_descriptions.'+DEFAULT_LANGUAGE_MONGO_ID+'.value';
+																if(typeof error != "undefined" && error[erroKey]){  %>
+																	<span id="key_error" class="error"><%= error[erroKey].msg %></span>
+																	<% 
+																} 
+															} %>
+													</div>
+												</div>
+											</div>
+										</div>
+							<% 		}); 
+								} 
+							} %>
+						</div>
+						
+						<button type="submit" id="text-setting-add-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" ><i class="material-icons font-14">save</i> Submit</button>
+						
+						<a href="javascript:location.reload(true);" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i> Reset</button></a>
+						
+						<a href='<%=admin_list_url+"/"+type%>'><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i>Cancel</button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

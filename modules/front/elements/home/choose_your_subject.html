@@ -1,0 +1,39 @@
+<% if(subjects.length> 0) { %>
+	<div class="subjects">
+		<div class="container">
+			<div class="section-title">
+				<h2>Choose your subject</h2>
+				<p>from subjects</p>
+			</div>
+			<ul class="subject_listing">
+
+				<% subjects.forEach(function(subject,index){ %>
+					<script>
+						$(document).ready(function () {
+							$(".subject_txtbox1_<%= index %>").css("background-color", '<%- subject.color_code %>; !important');
+							$(".subject_image1_<%= index %>").css("background-color", '<%- subject.color_code_icon %>; !important');
+
+							$(".subject_txtbox1_<%= index %>").hover(function () {
+								$(this).css("background-color", "<%=subject.color_code_hover %>");
+							}, function () {
+								$(this).css("background-color", "<%=subject.color_code %>");
+							});
+						});
+					</script>
+
+					<li> <a href="<%=WEBSITE_URL%>subject/<%-subject.slug%>"
+							class="subject_txtbox subject_txtbox1_<%= index %>">
+							<figure class="subject_image1_<%= index %>">
+								<img src="<%=SUBJECT_URL%><%-subject.image%>" alt="img" loading="lazy">
+							</figure>
+							<strong>
+								<%- (subject.subject_name) ? subject.subject_name : '' %>
+							</strong>
+						</a> </li>
+					<% }) %>
+			</ul>
+			<div class="text-center view_more"> <a href="<%=WEBSITE_URL%>subjects" class="btn btn-primary">View all</a>
+			</div>
+		</div>
+	</div>
+	<% } %>

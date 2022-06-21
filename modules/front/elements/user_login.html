@@ -1,0 +1,92 @@
+<%
+
+ login_email_id = 'login_email';
+ login_pass_id = 'login_password';
+
+	if (userType== STUDENT_ROLE_SLUG)
+	{
+		 login_email_id = 'stu_login_email';
+		 login_pass_id = 'stu_login_password';
+	} else (userType == TUTOR_ROLE_SLUG)
+	{
+		 login_email_id = 'tut_login_email';
+		 login_pass_id = 'tut_login_password';
+	}
+
+
+	if (typeof currentUrl !== "undefined") {
+
+		return_url = currentUrl;
+		
+	 }
+	 else{
+		return_url = "";
+	 }
+
+    
+	
+	%>
+
+
+	<div class="form-group">
+		<input class="form-control userLoginEmail" type="text" name="email" id="<%-login_email_id %>" placeholder="Email">
+		<span class="error  help-inline stu_login_email_error" id="email_error_div">
+	
+		</span>
+	</div>
+
+	<div class="form-group">
+		<div class="password_input">	
+			<input class="form-control pwd" type="password" name="password" id="<%-login_pass_id %>" placeholder="Password">	
+			<a href="javascript:void(0)" class="view_password reveal"><img
+					src="<%-WEBSITE_IMG_URL %>view_password.svg" alt="icon" loading="lazy"></a>
+		</div>
+	
+		<span class="error help-inline stu_login_password_error" id="password_error_div">
+			
+		</span>
+	</div>
+
+
+	<div class="row">
+
+		<div class="col-12 text-right">
+			<div class="form-group forgot_password">
+
+				<% if (userType==TUTOR_ROLE_SLUG) { %>
+					<a onClick="userForgetPassword('tutorFormModal')" href="javascript:void(0)">Forgot Password</a>
+					<% } else{ %>
+						<a onClick="userForgetPassword('studentFormModal')" href="javascript:void(0)">Forgot
+							Password</a>
+						<% } %>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group text-center submit_btn">
+		<button type="submit" class="login-button btn btn-primary">Signin</button>
+	</div>
+
+	<div class="sepration">
+		<b>OR</b>
+	</div>
+ <div class="signup_option">
+	<a class="fb_signup" href="#">
+		<figure><img src="<%-WEBSITE_IMG_URL %>/fb_btn_icon.svg" alt="icon"></figure>
+		Signin With Facebook
+	</a>
+
+	<a class="google_signup" href="#" class="google-login">
+		<figure><img src="<%-WEBSITE_IMG_URL %>/google_btn_icon.svg" alt="google-login"></figure>
+		Signin With Google
+	</a>
+</div> 
+
+
+<div class="form-group text-center">
+	<p class="bottom_txt">Don't have an account?<a href="javascript:void(0)"
+			onClick="openSigninSignupBox('<%-userType %>', 'signup')"> Signup</a>
+	</p>
+</div>
+
+<input class="form-control" type="hidden" name="return_url" value="<%-return_url %>">

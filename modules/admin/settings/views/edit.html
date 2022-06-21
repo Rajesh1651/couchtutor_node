@@ -1,0 +1,198 @@
+<% 
+	var result	= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id		= 	result._id;	
+	formData 	= 	(formData) ?	formData : result ;
+%>
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>Add Setting</h2>
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> Back</button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-cms" data-submit-btn-id="cms-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+						  
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="title" class="control-label">
+											Title <span class="required"> *</span>
+										</label>
+										<input type="text" id="title" class="form-control" name="title" value="<%= formData.title %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.title){  %>
+										<span id="title_error" class="error"><%= error.title.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="key_value" class="control-label">
+											Key Value <span class="required"> *</span>
+										</label>
+										<input type="text" id="key_value" class="form-control" name="key_value" value="<%= formData.key_value %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.key_value){  %>
+										<span id="key_value_error" class="error"><%= error.key_value.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="input_type" class="control-label">Input Type  <span class="required"> *</span></label>
+										<select class="form-control show-tick"  name="input_type" id="input_type">
+											<option value="">Select Input Type</option>
+											<%
+												if(SETTING_INPUT_TYPE_DROPDOWN && SETTING_INPUT_TYPE_DROPDOWN.length > 0){
+													SETTING_INPUT_TYPE_DROPDOWN.map(function(record){
+														var selected = '';
+														if(String(formData.input_type) == String(record.input_id)){
+															selected = 'selected = selected';
+														}
+													
+														%>
+														<option value="<%=record.input_id%>" <%= selected %>><%=record.input_name%></option>
+													<% 	
+													});
+												}
+											%>
+								        </select>
+									</div>
+									<% if(typeof error != "undefined" && error.input_type){  %>
+										<span id="input_type_error" class="error"><%= error.input_type.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="validate_type" class="control-label">Validate Type</label>
+										<select class="form-control show-tick"  name="validate_type" id="validate_type">
+											<option value="">Select Validate Type</option>
+											<%
+												if(SETTINGS_VALIDATE_TYPE_DROPDOWN && SETTINGS_VALIDATE_TYPE_DROPDOWN.length > 0){
+													SETTINGS_VALIDATE_TYPE_DROPDOWN.map(function(record){
+														var selected = '';
+														if(String(formData.input_type) == String(record.input_id)){
+															selected = 'selected = selected';
+														}
+													
+														%>
+														<option value="<%=record.input_id%>" <%= selected %>><%=record.input_name%></option>
+													<% 	
+													});
+												}
+											%>
+								        </select>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="order" class="control-label">
+											Order
+										</label>
+										<input type="text" id="order" class="form-control" name="order" value="<%= formData.order %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.order){  %>
+										<span id="order_error" class="error"><%= error.order.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="value" class="control-label">
+											Value <span class="required"> *</span>
+										</label>
+										<input type="text" id="value" class="form-control" name="value" value="<%= formData.value %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.value){  %>
+										<span id="value_error" class="error"><%= error.value.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<div class="switch">
+											<label for="required" class="control-label font-14"><b>Required</b> </label>
+											<label>
+												<%
+													var requiredChecked = '';
+													if(formData.required){
+														requiredChecked = 'checked = checked';
+													}
+												%>
+												<input type="checkbox" value="1" name="required" id="required" <%= requiredChecked %>>
+												<span class="lever switch-col-green"></span>
+											</label>
+										</div>
+									</div>
+									<span id="required_error" class="error"></span>
+								</div>
+							</div>
+						 
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<div class="switch">
+											<label for="editable" class="control-label font-14"><b>Editable</b> </label>
+											<label>
+												<%
+													var editableChecked = '';
+													if(formData.editable){
+														editableChecked = 'checked = checked';
+													}
+												%>
+												<input type="checkbox" value="1" name="editable" id="editable"  <%= editableChecked %>>
+												<span class="lever switch-col-green"></span>
+											</label>
+										</div>
+									</div>
+									<span id="editable_error" class="error"></span>
+								</div>
+							</div>
+						</div>
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i>Submit</button>
+						
+						<a href="<%=admin_list_url%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i> Reset </button></a>
+						
+						<a href="<%= admin_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i>Cancel</button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%- contentFor("css") %>
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css">
+
+<%- contentFor("script") %>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/js/bootstrap-select.js"></script>

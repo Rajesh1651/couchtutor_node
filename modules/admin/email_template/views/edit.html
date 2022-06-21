@@ -1,0 +1,201 @@
+<% 
+	var result	= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id		= 	result._id;	
+	formData 	= 	(formData) ?	formData : result ;
+%>
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.email_template.edit_page_heading"); %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.email_template.add_page_heading"); %></h2>
+					<% } %>	
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-cms" data-submit-btn-id="cms-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="name" class="control-label">
+											<%= __("admin.email_template.name")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="name" class="form-control" name="name" value="<%= formData.name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.name){  %>
+										<span id="name_error" class="error"><%= error.name.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="action" class="control-label">
+											<%= __("admin.email_template.action")%> <span class="required"> *</span>
+										</label>
+										<select id="action" class="form-control" name="action">
+											<%- (typeof email_action_list!== typeof undefined && email_action_list) ? email_action_list :"";%>
+										</select>
+									</div>
+									<% if(typeof error != "undefined" && error.action){  %>
+										<span id="action_error" class="error"><%= error.action.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="constants" class="control-label">
+											<%= __("admin.email_template.constant")%>
+										</label>
+										<select id="constants" class="form-control" name="constants">
+											<option value=""><%= __("admin.email_template.select_constant")%></option>
+										</select>
+									</div>
+									<% if(typeof error != "undefined" && error.constants){  %>
+										<span id="constants_error" class="error"><%= error.constants.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<button type="button" class="btn bg-indigo waves-effect m-t-25" onclick="insertHTML()">
+									<i class="material-icons font-14">colorize</i> <%= __("admin.email_template.insert_veriable")%>
+								</button>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="subject" class="control-label">
+											<%= __("admin.email_template.subject")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="subject" class="form-control" name="subject" value="<%= formData.subject %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.subject){  %>
+										<span id="subject_error" class="error"><%= error.subject.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="body" class="control-label">
+											<%= __("admin.email_template.body")%> <span class="required"> *</span>
+										</label>
+										<textarea rows="4"  id="body" class="form-control no-resize ckeditor"  name="body"><%= formData.body %></textarea>
+									</div>
+									<% if(typeof error != "undefined" && error.body){  %>
+										<span id="body_error" class="error"><%= error.body.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_list_url%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_list_url%>/add" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ 
+<%- contentFor("css") %>
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css">
+
+<%- contentFor("script") %>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>ckeditor/ckeditor.js"></script>
+	<script type="text/javascript">
+
+		/**
+		 * Function to get email action options on change
+		 */
+		$("#action").change(function(e){
+			appendConstants();
+		});
+
+		/**
+		 * Function to get email action options on page load
+		 */
+		$(function(){
+			appendConstants();
+		});
+
+		/**
+		 * Function to append email constants
+		 */
+		function appendConstants(){
+			var value 	= 	$("#action").val();
+			var options =	'<option value="">Select Constant</option>';
+			$("#constants").html(options);
+			$('#constants').selectpicker('refresh');
+			if(value){
+				$.ajax({
+					type	:	"POST",
+					url		: 	"<%=admin_list_url%>/get_action_options",
+					data	: 	{"action" : value},
+					success	: 	function(response){
+						if(response && response.status == "<%= STATUS_SUCCESS%>"){
+							var result = (response.result)	 ? response.result :[];
+							result.map(function(records){
+								if(records){
+									options  += "<option value='"+records+"'>"+records+"</option>";
+								}
+							});
+
+							$("#constants").html(options);
+							$('#constants').selectpicker('refresh');
+						}else if(response && response.message){
+							notice(response.status,response.message);
+						}
+					},
+				});
+			}
+		}// end appendConstants()
+
+		/**
+		* Insert constant in ckeditor
+		*/
+		function insertHTML(){
+			var constant = $("#constants").val();
+			if(constant){
+				$(".ckeditor").each(function(index){
+					var id = $(this).attr("id");
+					if(id){
+						var newStr = '{'+constant+'}';
+						var oEditor = CKEDITOR.instances[id] ;
+						oEditor.insertHtml(newStr) ;
+					}
+				});
+			}
+		}// end insertHTML()
+	</script>

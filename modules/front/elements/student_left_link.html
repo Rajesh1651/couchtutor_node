@@ -1,0 +1,91 @@
+
+
+
+
+
+<div class="account_left">
+	<button class="close_menu_btn" type="button"><img src="<%=WEBSITE_IMG_URL%>close_btn.svg" alt="img"></button>
+	  <div class="profile_box">
+		<div class="profile-upload_box">
+		  <figure class="profile_pic"> <img src="<%=WEBSITE_IMG_URL%>tutor_profile_img.jpg" alt="img"> </figure>
+		  <div class="img-upload_box">
+			<input type="file" name="pic">
+			<a href="javascript:void(0)"> <img src="<%=WEBSITE_IMG_URL%>camera-white.svg" alt="img"></a> </div>
+		</div>
+		<h3><%= auth.full_name %></h3>
+		<p><%= auth.email %></p>
+	  </div>
+	 
+		
+		
+		
+	  <ul class="dashboard_menu" id="accordion">
+		<li><a href="<%= WEBSITE_URL %>tutor/dashboard">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>dashboard_icon.png" alt="img"></figure>
+		  Dashboard</a></li>
+		<li> <a data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>setting_icon.png" alt="img"></figure>
+		  Account Settings</a>
+		  <div id="collapse1" class="collapse" data-parent="#accordion">
+			<ul class="submenu">
+			  <li><a href="javascript:void(0);">Edit Profile</a></li>			 
+			</ul>
+		  </div>
+		</li>
+		<!-- <li> <a data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>session_icon.png" alt="img"></figure>
+		  Session</a>
+		  <div id="collapse2" class="collapse" data-parent="#accordion">
+			<ul class="submenu">
+			  <li><a href="javascript:void(0);">Tutor Profile Basic</a></li>
+			  <li><a href="javascript:void(0);">Tutor Profile work experience</a></li>
+			  <li><a href="javascript:void(0);">Tutor Profile Certificates</a></li>
+			  <li><a href="javascript:void(0);">Tutor Profile Subjects I Teach</a></li>
+			  <li><a href="javascript:void(0);">Tutor Profile Availability</a></li>
+			</ul>
+		  </div>
+		</li>
+		<li> <a data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>worksheet_icon.png" alt="img"></figure>
+		  Worksheets</a>
+		  <div id="collapse3" class="collapse" data-parent="#accordion">
+			<ul class="submenu">
+			  <li><a href="javascript:void(0);">Worksheets</a></li>
+			  <li><a href="javascript:void(0);">Worksheets</a></li>
+			  <li><a href="javascript:void(0);">Worksheets</a></li>
+			  <li><a href="javascript:void(0);">Worksheets</a></li>
+			  <li><a href="javascript:void(0);">Worksheets</a></li>
+			</ul>
+		  </div>
+		</li>
+		<li><a href="javascript:void(0);">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>webinars_icon.png" alt="img"></figure>
+		  Create Webinars</a></li>
+		<li> <a data-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>webinar_list_icon.png" alt="img"></figure>
+		  Webinar List</a>
+		  <div id="collapse4" class="collapse" data-parent="#accordion">
+			<ul class="submenu">
+			  <li><a href="javascript:void(0);">Webinar List</a></li>
+			  <li><a href="javascript:void(0);">Webinar List</a></li>
+			  <li><a href="javascript:void(0);">Webinar List</a></li>
+			  <li><a href="javascript:void(0);">Webinar List</a></li>
+			  <li><a href="javascript:void(0);">Webinar List</a></li>
+			</ul>
+		  </div>
+		</li>
+		<li><a href="javascript:void(0);">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>report_icon.png" alt="img"></figure>
+		  Progress Reports</a></li>
+		<li><a href="javascript:void(0);">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>message_icon.png" alt="img"></figure>
+		  Messages</a></li>
+		<li><a href="javascript:void(0);">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>billing_icon.png" alt="img"></figure>
+		  My Billings</a></li> -->
+
+		<li><a href="<%= WEBSITE_URL %>logout">
+		  <figure><img src="<%=WEBSITE_IMG_URL%>logout_icon.png" alt="img"></figure>
+		  Logout</a></li>
+	  </ul>
+	</div>

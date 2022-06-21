@@ -1,0 +1,28 @@
+<% if(howItWorksBlock.length > 0) { %>
+
+
+<div class="howitwork">
+	<div class="container">
+	  <div class="section-title">
+		<h2>How it works</h2>
+	  </div> 
+  
+	  
+	  <!-- Nav tabs -->
+	  <div class="tab_panel">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item"> <a class="nav-link active" id="students-tab" data-toggle="tab" href="#students" role="tab"
+			  aria-controls="students" aria-selected="true">Students</a> </li>
+		  <li class="nav-item"> <a class="nav-link" id="tutors-tab" data-toggle="tab" href="#tutors" role="tab"
+			  aria-controls="tutors" aria-selected="false">Tutors</a> </li>
+		</ul>
+	  </div>
+  
+
+	  <!-- Tab panes -->
+	  <%- (howItWorksBlock) ? howItWorksBlock[0].decription : '' %>
+  
+	</div>
+  </div>
+  
+  <% } %>

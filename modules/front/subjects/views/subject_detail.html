@@ -1,0 +1,60 @@
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL%>subjectbg.jpg">
+    <div class="container">
+      <h1><%- (result.subject_name) ? result.subject_name : '' %></h1>
+    </div>
+  </div>
+
+  <div class="subjects main_subjects Subjects_detail">
+    <div class="container">     
+
+      <div class="section_detail_title">
+        <h2><%- (result.subject_name) ? result.subject_name : '' %></h2>
+        <!-- <figure class="text-center"><img width="200" src="<%=WEBSITE_IMG_URL%>science_icon.svg" alt="img" loading="lazy"></figure>         -->
+
+          <%- (result.description) ? result.description : '' %>
+
+
+      </div>
+      <ul class="subject_listing">
+
+        <li>
+
+            
+
+          <div class="subject_txtbox subject_txtbox1_<%= result._id %>">
+            <div class="subjecttop">
+              <figure class="subject_image1_<%= result._id %>">
+                <img src="<%=SUBJECT_URL%><%-result.image%>" alt="img" loading="lazy">
+              </figure>
+              <strong><%- (result.subject_name) ? result.subject_name : '' %></strong>
+            </div>
+            <div class="subject_name">
+              <ul>
+                <% subjectTopic.forEach(function(topic){ %>
+                    <li><%- (topic.subject_name) ? topic.subject_name : '' %></li>
+                    <% }) %>                  
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="text-center bottom_text">
+        <p><span>Have any questions?</span> Visit our <a href="javascript:void(0)">FAQ</a> Or <a
+            href="javascript:void(0)">Contact Us</a></p>
+        <a href="javascript:void(0)" class="btn btn-primary">See our plan and pricing</a>
+      </div>
+    </div>
+  </div>
+  <script> 
+    $( document ).ready(function() {
+     $(".subject_txtbox1_<%= result._id %>").css("background-color",'<%- result.color_code %>; !important');
+     $(".subject_image1_<%= result._id %>").css("background-color",'<%- result.color_code_icon %>; !important');
+
+     $(".subject_txtbox1_<%= result._id %>").hover(function(){
+       $(this).css("background-color", "<%=result.color_code_hover %>");
+       }, function(){
+       $(this).css("background-color", "<%=result.color_code %>");
+     });
+      });
+ </script>

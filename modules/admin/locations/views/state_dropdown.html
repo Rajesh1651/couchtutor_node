@@ -1,0 +1,13 @@
+<select onchange="getCityData(this.value)" data-live-search="true" class="form-control show-tick" id="state_id" name="state_id" >
+	<option value=""><%= __("admin.global.select_state")%></option>
+	<%
+	if(typeof results!== typeof undefined && results.length > 0){
+		results.map(result=>{
+			var selectedFlag	= (typeof selectedValue !== typeof undefined && selectedValue  && selectedValue == result._id)	? "selected" : "";
+			%>
+			<!-- Remove approved and rejected from approval request list -->
+			<option value="<%= result._id %>"  <%=selectedFlag%>><%=result.title%></option>
+		<% 		 
+		});
+	} %>
+</select>

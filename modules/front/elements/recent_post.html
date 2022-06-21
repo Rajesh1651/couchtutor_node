@@ -1,0 +1,21 @@
+<div class="recentpost">
+	<h4>Recent posts</h4>
+	<ul>
+		<% if(typeof latestPost !==typeof undefined && latestPost.length> 0){
+			let latestBlogIndex = 0;
+			latestPost.map(latestBlogList=>{
+			%>
+			<li>
+				<div class="postimg">
+					<figure><img src="<%=BLOG_URL + latestBlogList['image'] %>" alt="img"></figure>
+				</div>
+				<div class="postcontent">
+					<strong><a href="<%=WEBSITE_URL + 'blog-detail/' + latestBlogList.slug %>">
+							<%- (latestBlogList.title) ? latestBlogList.title : "" ; %>
+						</a></strong>
+					<span>Posted by <b>Couch Tutors</b>, Jan 29,2020 07:01 am</span>
+				</div>
+			</li>
+			<% latestBlogIndex++; }); } %>
+	</ul>
+</div>

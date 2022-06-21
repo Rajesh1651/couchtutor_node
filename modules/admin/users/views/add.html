@@ -1,0 +1,231 @@
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>Add User</h2>
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url%>/<%= user_type %>" >
+								<button type="button" class="btn bg-indigo waves-effect">
+									<i class="material-icons font-14">keyboard_backspace</i> Back
+								</button>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+					<form id="add-user" data-submit-btn-id="user-add-btn-id" method="post"  role="form" enctype="multipart/form-data">
+						<div class="row clearfix">
+							<div class="col-sm-12 align-center">
+								<div class="form-group add-image">
+									<input name="profile_image" id="profile_image" class="form-control image-input-file" type="file"/>
+									<span class="help-inline required profile_image" id="ContentTypeNameSpan">
+										<div id="pImage">
+											<img src="<%=ADD_PROFILE_IMAGE_ICON%>?dim=120x120&type=crop" alt="Profile image" class="profileImage" />
+										</div>
+									</span>
+									<div class="m-t-10">
+										<a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="<%= "Allowed file extensions are : " +ALLOWED_IMAGE_EXTENSIONS%>" class="btn bg-teal btn-block btn-sm waves-effect changePhoto">Upload Image</a>
+									</div>
+									<% if(typeof error != "undefined" && error.profile_image){  %>
+										<span id="profile_image_error" class="error"><%= error.profile_image.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="first_name" class="control-label">First Name <span class="required"> *</span> </label>
+										<input name="first_name" id="first_name" type="text" class="form-control" value="<%= formData.first_name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.first_name){  %>
+										<span id="first_name_error" class="error"><%= error.first_name.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="last_name" class="control-label">Last Name <span class="required"> *</span> </label>
+										<input name="last_name" id="last_name" type="text" class="form-control" value="<%= formData.last_name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.last_name){  %>
+										<span id="last_name_error" class="error"><%= error.last_name.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">	
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="email" class="control-label">Email <span class="required"> * </span> </label>
+										<input name="email" id="email" type="text" class="form-control" value="<%= formData.email %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.email){  %>
+										<span id="email_error" class="error"><%= error.email.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6 country-code-mask">
+								<label for="mobile_number" class="control-label">Mobile Number <span class="required"> *</span> </label>
+								<div class="input-group">
+									<div class="form-line">
+										<input name="phone_number" id="userMobile" type="text" class="form-control" value="<%= formData.phone_number %>"/>
+										<input name="phone" id="userPhone" type="hidden" value="<%= formData.phone %>" class="userphonecode"/>
+										<input name="dial_code" id="dial_code" type="hidden" value="<%= formData.dial_code %>" class="dial_code"/>
+									</div>
+									<% if(typeof error != "undefined" && error.phone_number){  %>
+										<span id="phone_error" class="error"><%= error.phone_number.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row clearfix">		
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-lie">
+										<label for="gender" class="control-label">Gender <span class="required">* </span> </label>
+										<br />
+										<%
+										if(typeof GENDER_DROPDOWN!== typeof undefined && Object.keys(GENDER_DROPDOWN).length > 0){
+											Object.keys(GENDER_DROPDOWN).map(genderStatus=>{
+												
+												checked = '';
+												if(genderStatus == formData.gender){
+													checked = 'checked="true"';
+												}
+												
+											%>
+												<input id="<%=genderStatus%>" name="gender"  class="with-gap" type="radio" value="<%=genderStatus%>" <%= checked %> />
+												<label for="<%=genderStatus%>"><%= (GENDER_DROPDOWN[genderStatus]) ? GENDER_DROPDOWN[genderStatus] :""; %></label>
+										<% 	});
+										} %>
+									</div>
+									<% if(typeof error != "undefined" && error.gender){  %>
+										<span id="gender_error" class="error"><%= error.gender.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="dateofbirth" class="control-label">Date Of Birth <span class="required">* </span> </label><br />
+										<input type="text" class="datepicker form-control" name="dateofbirth" id="dateofbirth" readonly='true' value="<%= formData.dateofbirth %>" />
+									</div>
+									<% if(typeof error != "undefined" && error.dateofbirth){  %>
+										<span id="dateofbirth_error" class="error"><%= error.dateofbirth.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="password" class="control-label">Password <span class="required"> *</span>
+										</label>
+										<input name="password" id="password" type="password" class="form-control" value="<%= formData.password %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.password){  %>
+										<span id="password_error" class="error"><%= error.password.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="confirm_password" class="control-label">Confirm Password <span class="required"> *</span>
+										</label>
+										<input name="confirm_password" id="confirm_password" type="password" class="form-control"  value="<%= formData.confirm_password %>" />
+									</div>
+									<% if(typeof error != "undefined" && error.confirm_password){  %>
+										<span id="confirm_password_error" class="error"><%= error.confirm_password.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i>Submit</button>
+						
+						<a href="javascript:location.reload(true);" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i> Referesh </button></a>
+						
+						<a href="<%= admin_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i>Cancel </button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- contentFor("css") %>
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>daterange/daterangepicker.css">
+	<link href="<%=WEBSITE_ADMIN_CSS_PATH%>intl-tel-input/intlTelInput.css" rel="stylesheet">	
+	
+<%- contentFor("script") %>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>daterange/daterangepicker.js"></script>
+	<script src="<%=WEBSITE_ADMIN_JS_PATH%>intl-tel-input/intlTelInput.js" type="text/javascript" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			phoneNumValidate('userMobile', 'phone_error', 'userPhone');
+		});
+	
+		$(document).ready(function(){
+			/**
+			 * User image Upload
+			 */
+			$(document).on("click", ".changePhoto", function(){
+				if(!$(".add-image #profile_image").hasClass("added")){
+					$(".add-image #profile_image").trigger("click");
+					$(".add-image #profile_image").addClass("added");
+					window.setTimeout(function(){
+						$(".add-image #profile_image").removeClass("added");
+					},500);
+				}
+			});
+
+			/**
+			 *Show user image after select
+			 */
+			$("#profile_image").on("change", function(){
+				var files = !!this.files ? this.files : [];
+				if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+				if (/^image/.test( files[0].type)){
+					// only image file
+					var reader = new FileReader(); // instance of the FileReader
+					reader.readAsDataURL(files[0]); // read the local file
+					reader.onloadend = function(){
+
+						$("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
+					}
+				}
+				$("span#profile_image_error").text("");
+			});
+
+			/**
+			 * For date of birth
+			 */
+			var options		= 	{};
+			options.locale 	=	{
+				format	: 	'<%=DATE_RANGE_DATE_FORMAT%>',
+			};
+			options.startDate		= 	moment().tz('<%=DEFAULT_TIME_ZONE%>').format('<%=DATE_RANGE_DATE_FORMAT%>');
+			options.autoUpdateInput	= 	false;
+			options.singleDatePicker= 	true;
+			options.showDropdowns	= 	true;
+			options.maxDate			= 	moment().tz('<%=DEFAULT_TIME_ZONE%>').format('<%=DATE_RANGE_DATE_FORMAT%>');
+			options.drops			= 	"up";
+
+			var configDemo = $('.datepicker');
+			configDemo.daterangepicker(options);
+			configDemo.on('apply.daterangepicker', function(e,picker){
+				var displayStartDate 	=	picker.startDate.format('<%=DATE_RANGE_DATE_FORMAT%>');
+				$('.datepicker').val(displayStartDate);
+			});
+		});
+	</script>

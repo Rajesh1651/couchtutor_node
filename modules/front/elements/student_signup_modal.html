@@ -1,0 +1,113 @@
+
+
+<form  id="studentSignUpForm" class="mws-form" >
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" name="first_name" class="form-control" placeholder="First Name *">
+                
+                <span class="error help-inline stu_first_name student_signup_first_name_error">
+                   
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" name="last_name" class="form-control" placeholder="Lasr Name *">
+                
+                <span class="error help-inline stu_last_name student_signup_last_name_error">
+                  
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <input type="text" name="email" class="form-control" placeholder="Email *">
+       
+        <span class="error help-inline stu_email student_signup_email_error">
+           
+        </span>
+    </div>
+    
+    
+    
+    <div class="form-group">
+    
+        <input type="text" name="phone_number" class="form-control" placeholder="Phone *" id="studentUserMobile">
+        <input type="hidden" name="phone" class="userphonecode"  id="studentUserPhone">
+        <input type="hidden" name="dial_code" class="dial_code"  id="stu_dial_code">
+    
+        <span class="error help-inline student_UserPhone_error stu_phone student_signup_phone_error">
+           
+        </span>
+    </div>
+    
+    
+    <div class="form-group">
+        <div class="password_input password_with_tooltip">
+     
+            <input type="password" name="password" class="form-control userPassword pwd" placeholder="Password *" id="student_password">
+    
+    
+            <a href="javascript:void(0)" class="view_password reveal"><img src="<%- WEBSITE_IMG_URL %>/view_password.svg"
+                    alt="icon" loading="lazy"></a>
+            <span class='tooltipHelp' title="" data-html="true" data-toggle="tooltip"
+                data-original-title="Password must have minimum 8 characters and should contain atleast 1 alphabet and 1 number and 1 special character." style="cursor:pointer;">
+                <i class="fa fa-question-circle fa-1x"> </i>
+            </span>
+    
+    
+        </div>
+        <span class="error help-inline stu_password student_signup_password_error">
+            
+        </span>
+    </div>
+    <div class="form-group">
+        <div class="password_input">
+    
+            <input type="password" name="confirm_password" class="form-control cpwd" placeholder="Confirm Password *" id="student_confirm_password">
+    
+            <a href="javascript:void(0)" class="view_password creveal"><img src="<%- WEBSITE_IMG_URL %>/view_password.svg"
+                    alt="icon" loading="lazy"></a>
+        </div>
+        <span class="error  help-inline stu_confirm_password student_signup_confirm_password_error">
+            
+        </span>
+    </div>
+    
+    
+    
+    <div class="form-group text-center">
+        <div class="styled-selectors">
+            <div>
+    
+                <input type="checkbox" name="student_termsncond" class="student_termsncond" placeholder="Confirm Password *" id="student_termsncond" value="false">
+    
+                <label for="student_termsncond">Terms & Conditions <a
+                        href="#"
+                        target="_blank">terms of use</a> and <a
+                        href="#"
+                        target="_blank">privacy policy</a></label>
+                </br>
+                <span class="error  help-inline student_termsncond tutor_signup_student_termsncond_error">
+                   
+                </span>
+            </div>
+        </div>
+        <div class="form-group submit_btn">
+            <button type="submit" class="btn btn-primary">Signup</button>
+        </div>
+        <p class="bottom_txt">Already registered? <a href="javascript:void(0)"
+                onClick="openSigninSignupBox('<%-STUDENT_ROLE_SLUG %>', 'login')">Signin</a>
+        </p>
+    </div>
+    
+    </form>
+    
+    
+    
+       
+    

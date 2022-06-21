@@ -1,0 +1,66 @@
+<% 
+	var result			= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id				= 	result._id;	
+	var image 			= 	(typeof result.image !== typeof undefined)?	result.image 	: ""; 
+	var formData_image 	=	(result[IMAGE_FIELD_NAME])	? result[IMAGE_FIELD_NAME]	:ADD_PROFILE_IMAGE_ICON;
+	
+	formData = (formData) ?	formData : result ;
+%>
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.countries.edit_page_heading"); %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.countries.add_page_heading"); %></h2>
+					<% } %>	
+					
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_country_list_url%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-cms" data-submit-btn-id="cms-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+						 
+						
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="title" class="control-label">
+											 <%= __("admin.system.title")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="title" class="form-control" name="title" value="<%= formData.title %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.title){  %>
+										<span id="title_error" class="error"><%= error.title.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						 
+						
+						 
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_country_list_url%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_country_list_url%>/add" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_country_list_url %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,96 @@
+<div class="choose_plan">
+   <div class="container">
+      <div class="choose_plan_content">
+         <h1>Choose your plan</h1>
+         <p>Simple pricing for Everyone</p>
+
+      </div>
+   </div>
+</div>
+<div class="plan_list">
+   <div class="container">
+      <div class="choose_plantxt">
+         <h2>Pay as you go</h2>
+         <p>Only pay for the tutoring time you request - no extra fees or commitments</p>
+         <strong class="plan_price">USD 100<span>/hr</span></strong> <a href="javascript:void(0);" class="signup_btn">Sign
+            up Now</a>
+         <p class="any_questions"><strong>Have any questions?</strong> Visit our <a href="<%=WEBSITE_URL%>faqs">FAQ</a> Or <a
+               href="<%=WEBSITE_URL%>contact">Contact Us</a></p>
+      </div>
+      <div class="sepration plan_sepration"> <b>OR</b> </div>
+      <ul class="plan_listing custm_plan_listing">
+
+
+         <% if(typeof result !==typeof undefined && result.length> 0){
+            let PlanIndex = 0;
+            result.map(planList=>{
+               let liclass = 'class = sliver_plan';
+               let standard_label = false;
+               if (planList.is_recommended == ACTIVE) {
+                  liclass = 'class = diamond_plan';
+                   standard_label = true;
+               }
+            %>
+
+            <li <%- liclass %>>
+               <div class="plantxt">
+
+                  <% if(standard_label){ %>
+                  <div class="recommended_label">Recommended</div>
+                  <% } %>
+
+                  <h3><%- (planList.plan_name) ? planList.plan_name : "" ; %></h3>
+                  <p><%- (planList.description) ? planList.description : "" ; %></p>
+                  <span class="hrs_label"><%- (planList.plan_hours) ? planList.plan_hours : INACTIVE ; %> Hours</span> <span class="day_label">For <%- (planList.plan_duration) ? planList.plan_duration : INACTIVE ; %> Day(s)</span> <strong
+                     class="price_label">USD <%- (planList.plan_price) ? planList.plan_price : INACTIVE ; %> </strong> 
+
+
+                     <% if(!auth){ %>
+                        
+                    <a class="buynow_btn" href="javascript:void(0)"
+                        onClick="openSigninSignupBox('<%- STUDENT_ROLE_SLUG %>','login')">Buy Now</a> 
+
+                    <% } else {
+                     
+                     if (auth.user_role_id == STUDENT_ROLE_ID){
+                     %> 
+                     <a class="buynow_btn" href="javascript:void(0)">
+                        Buy Now
+                    </a>
+
+                    <% }} %>  
+
+
+
+                  <span class="apply_txt">Have a promocode? <a href="javascript:void(0)">Apply Now</a></span>
+               </div>
+            </li>
+
+            <% PlanIndex++; }); } %>   
+
+
+
+
+      
+         <!-- <li class="diamond_plan">
+            <div class="plantxt">
+               <div class="recommended_label">Recommended</div>
+               <h3>Diamond</h3>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</p>
+               <span class="hrs_label">70 Hours</span> <span class="day_label">For 365 Days(Yearly)</span> <strong
+                  class="price_label">$1,215.00 </strong> <a href="javascript:void(0)" class="buynow_btn">Buy Now</a>
+               <span class="apply_txt">Have a promocode? <a href="javascript:void(0)">Apply Now</a></span>
+            </div>
+         </li>
+         <li class="gold_plan">
+            <div class="plantxt">
+               <h3>Gold</h3>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</p>
+               <span class="hrs_label">18 Hours</span> <span class="day_label">For 30 Days(Monthly)</span> <strong
+                  class="price_label">$2,430.00 </strong> <a href="javascript:void(0)" class="buynow_btn">Buy Now</a>
+               <span class="apply_txt">Have a promocode? <a href="javascript:void(0)">Apply Now</a></span>
+            </div>
+         </li> -->
+      </ul>
+   </div>
+</div>

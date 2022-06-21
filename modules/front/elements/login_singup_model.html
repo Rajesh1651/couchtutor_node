@@ -1,0 +1,187 @@
+<!-- Login  Modal -->
+<div class="modal fade login_modal" id="studentFormModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<div class="user_tab">
+					<ul class="nav nav-tabs" id="myTab2" role="tablist">
+						<li class="nav-item" role="presentation"> <a class="nav-link active" id="login-tab"
+								data-toggle="tab" href="#login" role="tab" aria-controls="login"
+								aria-selected="true">Student Login</a> </li>
+						<li class="nav-item" role="presentation"> <a class="nav-link" id="signup-tab" data-toggle="tab"
+								href="#signup" role="tab" aria-controls="signup" aria-selected="false">Tutor Login</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-content" id="myTabContent2">
+					<div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+						<div class="login_content">
+							<h1>Student Login</h1>
+							<p>Signin to Continue</p>
+							<div class="lead_form">
+
+								<form action="" id="studentLoginForm">
+									<input type="hidden" name="user_role_id" value="<%-STUDENT_ROLE_ID %>">
+
+									<%- include(WEBSITE_MODULES_PATH + "/elements/user_login.html" ,{'userType':
+										STUDENT_ROLE_SLUG} ); %>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+						<div class="login_content">
+							<h1>Tutor Login</h1>
+							<p>Signin to Continue</p>
+							<div class="lead_form">
+
+								<form action="" id="tutorLoginForm">
+									<input type="hidden" name="user_role_id" value="<%-TUTOR_ROLE_ID %>">
+
+									<%- include(WEBSITE_MODULES_PATH + "/elements/user_login.html" ,{'userType':
+										TUTOR_ROLE_SLUG} ); %>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Login  Modal End-->
+
+
+
+
+
+<!-- Sign up Modal -->
+<div class="modal fade login_modal" id="tutorFormModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<div class="user_tab">
+					<ul class="nav nav-tabs" id="myTab2" role="tablist">
+
+						<li class="nav-item" role="presentation"> <a class="nav-link" id="tutor-login-tab"
+								data-toggle="tab" href="#tutor-login" role="tab" aria-controls="tutor-login"
+								aria-selected="true">
+								Student Signup</a> </li>
+						<li class="nav-item" role="presentation"> <a class="nav-link" id="tutor-signup-tab"
+								data-toggle="tab" href="#tutor-signup" role="tab" aria-controls="tutor-signup"
+								aria-selected="false">
+								Tutor Signup
+							</a> </li>
+					</ul>
+				</div>
+				<div class="tab-content" id="myTabContent2">
+					<div class="tab-pane fade" id="tutor-login" role="tabpanel" aria-labelledby="tutor-login-tab">
+						<div class="login_content signup_form">
+							<h1>Student Signup</h1>
+							<p>Create your new account to continue</p>
+							<div class="lead_form">
+
+								<%- include(WEBSITE_MODULES_PATH + "/elements/student_signup_modal.html" ) %>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="tutor-signup" role="tabpanel" aria-labelledby="tutor-signup-tab">
+						<div class="login_content signup_form">
+							<h1>Tutor Signup</h1>
+							<p>Create your new account to continue</p>
+							<div class="lead_form">
+								<%- include(WEBSITE_MODULES_PATH + "/elements/tutor_signup_modal.html" ) %>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Sign up Modal End-->
+
+
+<!-- Sign up Modal -->
+<div class="modal fade login_modal" aria-labelledby="userForgetPassword" id="userForgetPasswordModal" tabindex="-1"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<div class="user_tab">
+					<ul class="nav nav-tabs" id="myTab2" role="tablist">
+						<li class="nav-item" role="presentation"> <a class="nav-link active" id="forgot-password-tab"
+								data-toggle="tab" href="#forgot-password" role="tab" aria-controls="forgot-password"
+								aria-selected="true">
+								Forgot Password</a> </li>
+					</ul>
+				</div>
+				<div class="tab-content" id="myTabContent2">
+					<div class="tab-pane active show  fade " id="forgot-password" role="tabpanel"
+						aria-labelledby="login-tab">
+						<div class="login_content signup_form">
+							<h1>Forgot Password</h1>
+							<div class="lead_form">
+
+								<form id="userForgetPasswordForm" class="mws-form">
+
+									<!-- {{ Form::open(['method' => 'post', 'role' => 'form', 'url' => route('User.forgotPassword'), 'class' => 'mws-form', 'id' => 'userForgetPasswordForm']) }} -->
+
+									<div class="form-group">
+										<input type="text" name="email" id="forget_password_email" class="form-control"
+											placeholder="Enter Email *">
+										<!-- {{ Form::text('email', null, ['id' => 'forget_password_email', 'class' => 'form-control', 'placeholder' => trans('front_messages.global.email_address') . ' *']) }} -->
+										<span class="error help-inline forgot_email_error"
+											id="password_error_div"></span>
+									</div>
+
+
+									<div class="form-group submit_btn">
+										<button type="submit" class="login-button btn btn-primary"
+											id="submitPhoneBtn">Submit </button>
+									</div>
+									<div class="forgotpassword"><a onClick="openLoginBox('userForgetPasswordModal')"
+											href="javascript:void(0)">Signin</a>
+									</div>
+									<input type="hidden" name="user_type_slug" id="user_type_slug"
+									value="<%-STUDENT_ROLE_SLUG %>">
+								</form>
+
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Sign up Modal End-->
+
+<div id="submitForgetPasswordOtpModalDiv"></div>
+
+
+
+
+<!-- <script src="<%=WEBSITE_JS_PATH%>custom_calendar.js" type="text/javascript"></script> -->
+<script src="<%=WEBSITE_JS_PATH%>loginSignupValidation.js" type="text/javascript"></script>

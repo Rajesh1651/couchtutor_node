@@ -1,0 +1,15 @@
+<%
+	var result			= (typeof result !== typeof undefined && result)	?	result		:{};	
+%>
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL%>contactbg.jpg">
+	<div class="container">
+		<h1><%=(typeof result.title !== typeof undefined)	? result.title	: " "; %></h1>
+	</div>
+</div>
+<div class="contact-section">
+	<div class="container">
+		
+		<%-(typeof result.decription !== typeof undefined) ? result.decription :  " "; %>
+		
+	</div>
+</div>

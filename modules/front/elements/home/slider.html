@@ -1,0 +1,43 @@
+	<div class="main_banner data-img-bg" data-image-src="<%- (main_slider.full_image_path) ? main_slider.full_image_path : '' %>
+		">
+		
+		<div class="container">
+		  <div class="banner_content">
+			<div class="banner_txt_top">
+			  <h1><%- (main_slider.title) ? main_slider.title : '' %></h1>
+			  <p><%- (main_slider.slider_text) ? main_slider.slider_text : '' %></p>
+			  <form>
+				<div class="tutor_input">
+				  <input type="text" class="form-control" placeholder="What do you need help with?">
+				  <button class="btn btn-primary" type="button">Find tutor</button>
+				</div>
+			  </form>
+			</div>
+			<div class="banner_txt_btm">
+			  <ul>
+				<li>
+				  <div class="info_txt">
+					<figure><img src="<%=WEBSITE_IMG_URL%>mail_icon.svg" alt="img" loading="lazy"></figure>
+					<strong>Email us</strong>
+					<p><a href="mailto:learner@couchtutors.com">learner@couchtutors.com</a></p>
+				  </div>
+				</li>
+				<li>
+				  <div class="info_txt">
+					<figure><img src="<%=WEBSITE_IMG_URL%>call_icon.svg" alt="img" loading="lazy"></figure>
+					<strong>Call us</strong>
+					<p>+1 (815) 246-3506</p>
+				  </div>
+				</li>
+				<li>
+				  <div class="info_txt">
+					<figure><img src="<%=WEBSITE_IMG_URL%>whatsapp_icon.svg" alt="img" loading="lazy"></figure>
+					<strong>WhatsApp us</strong>
+					<p>+1 (815) 246-3506</p>
+				  </div>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+	  </div>

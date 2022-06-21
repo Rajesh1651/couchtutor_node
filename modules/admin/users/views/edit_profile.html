@@ -1,0 +1,92 @@
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>
+						<%= __("admin.user.edit_profile")%>
+					</h2>
+				</div>
+				<div class="body">
+					<%
+						var result		= 	(typeof result !== typeof undefined)?	result 	: {};	
+						var formData 		= 	(formData) ?	formData : result ;
+					%>
+					<form id="update-profile" data-submit-btn-id="update-profile-btn-id" method="post" class="on_click_submit" role="form">
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="full_name" class="control-label"><%= __("admin.user.full_name")%><span class="required"> *</span> </label>
+										<input name="full_name" id="full_name" type="text" class="form-control" value="<%= formData.full_name %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.full_name){  %>
+										<span id="full_name_error" class="error"><%= error.full_name.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line  cursor-not-allowed">
+										<label for="email" class="control-label"><%= __("admin.system.email")%><span class="required"> *</span> </label>
+										<input name="email" id="email" type="text" class="form-control" value="<%= formData.email %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.email){  %>
+										<span id="email_error" class="error"><%= error.email.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="alert alert-info">
+									<i class="material-icons font-18 pull-left">info</i>&nbsp; <%= __("admin.user.password_leave_blank_if_not_want_change")%>
+								</div>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="old_password" class="control-label"><%= __("admin.system.old_password")%> </label>
+										<input name="old_password" id="old_password" value="<%= formData.old_password %>" type="password" class="form-control"/>
+									</div>
+									<% if(typeof error != "undefined" && error.old_password){  %>
+										<span id="old_password_error" class="error"><%= error.old_password.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="password" class="control-label"><%= __("admin.system.password")%> </label>
+										<input name="password" id="password" type="password" value="<%= formData.password %>" class="form-control"/>
+									</div>
+									<% if(typeof error != "undefined" && error.password){  %>
+										<span id="password_error" class="error"><%= error.password.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="confirm_password" class="control-label"><%= __("admin.system.confirm_password")%> </label>
+										<input name="confirm_password" id="confirm_password" type="password" value="<%= formData.confirm_password %>" class="form-control"/>
+									</div>
+									<% if(typeof error != "undefined" && error.confirm_password){  %>
+										<span id="confirm_password_error" class="error"><%= error.confirm_password.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<a href="javascript:location.reload(true);" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i> <%= __("admin.system.reset")%> </button></a>
+						
+						<a href="<%= WEBSITE_ADMIN_URL%>dashboard" ><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

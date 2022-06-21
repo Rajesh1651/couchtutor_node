@@ -1,0 +1,108 @@
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL%>contactbg.jpg">
+	<div class="container">
+		<h1>Contact Us</h1>
+	</div>
+</div>
+<div class="contact-section">
+	<div class="container">
+		<div class="section-title">
+			<h2>Get in touch with us</h2>
+			<p>Any Question or Remark? Just write us message!</p>
+		</div>
+		<div class="contactlist">
+			<div class="contactleft">
+				<h3>Message Us</h3>
+				<p>Fill up the form and our team will get back to you within 24 hours</p>
+				<ul>
+					<li>
+						<figure><img src="<%=WEBSITE_IMG_URL%>address_icon.svg" alt="img"></figure>
+						<strong>Address</strong> 1st Floor, 37, Arjun Marg, Block E,
+						DLF Phase 1, Gurgaon 122001,
+						Haryana
+					</li>
+					<li>
+						<figure><img src="<%=WEBSITE_IMG_URL%>email_icon.svg" alt="img"></figure>
+						<strong>Email us</strong> <a href="mailto:learner@couchtutors.com">learner@couchtutors.com</a>
+					</li>
+					<li>
+						<figure><img src="<%=WEBSITE_IMG_URL%>callus_icon.svg" alt="img"></figure>
+						<strong>Call us</strong> +1 (815) 246-3506
+					</li>
+					<li>
+						<figure><img src="<%=WEBSITE_IMG_URL%>whatsapp_icon2.svg" alt="img"></figure>
+						<strong>WhatsApp us</strong> +1 (815) 246-3506
+					</li>
+				</ul>
+			</div>
+			<div class="contactright">
+				<div class="contact_form">
+					<form  method="post" role="form" class="mws-form">
+						<!-- <form  action="/contact" method="post" role="form" class="mws-form"></form> -->
+
+						<div class="form-group">
+							<input name="first_name" id="first_name" type="text" value="<%= formData.first_name %>"
+								class="form-control" placeholder="First Name *" />
+							<span class="error help-inline first_name first_name_error">
+								<% if(typeof error !="undefined" && error.first_name){ %>
+									<%= error.first_name.msg %>
+										<% } %>
+							</span>
+						</div>
+						<div class="form-group">
+							<input name="last_name" id="last_name" type="text" value="<%= formData.last_name %>"
+								class="form-control" placeholder="Last Name *" />
+							<span class="error help-inline last_name last_name_error">
+								<% if(typeof error !="undefined" && error.last_name){ %>
+									<%= error.last_name.msg %>
+										<% } %>
+							</span>
+						</div>
+						<div class="form-group">
+							<input name="email" id="email" type="text" value="<%= formData.email %>"
+								class="form-control" placeholder="Email Address *" />
+							<span class="error help-inline email email_error">
+								<% if(typeof error !="undefined" && error.email){ %>
+									<%= error.email.msg %>
+										<% } %>
+							</span>
+						</div>
+						<div class="form-group">
+							<div class="phone_group">
+								<input name="phone_number" id="userMobile" type="text"
+									value="<%= formData.phone_number %>" class="form-control"
+									placeholder="Mobile Number *" />								
+
+								<span class="error help-inline phone_number phone_error">
+									<% if(typeof error !="undefined" && error.phone_number){ %>
+										<%= error.phone_number.msg %>
+											<% } %>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<input name="subject" id="subject" type="text" value="<%= formData.subject %>"
+								class="form-control" placeholder="Subject *" />
+							<span class="error help-inline subject subject_error">
+								<% if(typeof error !="undefined" && error.subject){ %>
+									<%= error.subject.msg %>
+										<% } %>
+							</span>
+						</div>
+						<div class="form-group">
+							<textarea name="message" id="message"
+								placeholder="Message *" class="form-control"><%= formData.message %></textarea>
+							<span class="error help-inline message message_error">
+								<% if(typeof error !="undefined" && error.message){ %>
+									<%= error.message.msg %>
+										<% } %>
+							</span>
+						</div>
+						<div class="contact_btn submit_btn">						
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

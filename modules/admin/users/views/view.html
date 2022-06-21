@@ -1,0 +1,99 @@
+<%
+	var result			= (typeof result !== typeof undefined && result)	?	result		:{};
+	var userId			= (typeof result._id !== typeof undefined)			? 	result._id	:"";
+	var userType		= (typeof user_type != typeof undefined) ? user_type: "";
+%>
+<div class="container-fluid">
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>User Detail</h2>
+					<ul class="header-dropdown m-r--5 btn-right-top-margin visible-md visible-lg visible-sm">
+						<li>
+							<a href="<%=admin_list_url%>/<%= user_type %>/edit/<%=userId%>" target="_blank" class="m-r-5">
+								<button type="button" class="btn bg-green waves-effect">
+									<i class="material-icons font-14">mode_edit</i> Edit
+								</button>
+							</a>
+						</li>
+						<li>
+							<a href="<%=admin_list_url%>/<%= user_type %>">
+								<button type="button" class="btn bg-indigo waves-effect">
+									<i class="material-icons font-14">keyboard_backspace</i> Back
+								</button>
+							</a>
+						</li>
+					</ul>
+					<!-- Only For Mobile View-->
+					<ul class="header-dropdown m-r--5 visible-xs">
+						<li class="dropdown">
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="material-icons">more_vert</i>
+							</a>
+							<ul class="dropdown-menu pull-right m-w-200">
+								<li>
+									<a href="<%=admin_list_url%>/<%= user_type %>/edit/<%=userId%>" target="_blank">
+										<i class="material-icons">mode_edit</i>Edit
+									</a>
+								</li>
+								<li>
+									<a href="<%=admin_list_url%>/<%= user_type %>" >
+										<i class="material-icons">keyboard_backspace</i> Back
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="body table-responsive" id="aniimated-thumbnials">
+					<table  class="row-border hover table table-bordered" cellspacing="0" width="100%">
+						 
+						
+						 
+						<tr>
+							<th class="text-right" width="25%">Image</th>
+							<td>
+								<% if(typeof result[IMAGE_FIELD_NAME] !== typeof undefined && result[IMAGE_FIELD_NAME] !=""){ %>
+									<a href="<%= result[IMAGE_FIELD_NAME]%>"   class="items-image" data-lightbox="roadtrip">
+										<img width="120" src="<%= result[IMAGE_FIELD_NAME]%>?dim=120x120&type=resize" alt="Profile image"  />
+									</a>
+								<% } %>
+							</td>
+						</tr>	
+					 
+						<tr>
+							<th class="text-right" width="20%">Full Name</th>
+							<td><%=(typeof result.full_name !== typeof undefined)	? result.full_name	: "N/A"; %></td>
+						</tr>
+						<tr>
+							<th class="text-right">Email </th>
+							<td><%-(typeof result.email !== typeof undefined) ? '<a href="mailto:'+result.email+'">'+result.email+'</a>' :  "N/A"; %></td>
+						</tr>
+						<tr>
+							<th class="text-right">Phone Number</th>
+							<td><%= (typeof result.phone_number !== typeof undefined) ? result.phone_number :"N/A";%></td>
+						</tr>
+						
+						<tr>
+							<th class="text-right">Status</th>
+							<%
+								var status 	=	(result.active && result.active == ACTIVE) ? '<span class="label label-success m-r-5">Active</span>': '<span class="label label-danger m-r-5">Inactive</span>';
+								status 		+= 	(result.is_verified && result.is_verified == VERIFIED ) ? '<span class="label label-info">Verified</span>': '<span class="label label-warning">Not Verified</span>';
+							%>
+							<td><%- status%></td>
+						</tr>
+						
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- contentFor('css') %>
+	<link href="<%=WEBSITE_ADMIN_CSS_PATH%>lightbox.css" rel="stylesheet">
+
+<%- contentFor('script') %>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PATH%>lightbox.js"></script>
+
+

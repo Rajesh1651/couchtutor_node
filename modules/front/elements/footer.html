@@ -1,0 +1,101 @@
+<footer>
+	<div class="container">
+		<div class="footer_top">
+			<div class="footer_about">
+				<figure><img src="<%=WEBSITE_IMG_URL%>logo2.png" alt="img" loading="lazy"></figure>
+				<ul class="footer_contact">
+					<li><i><img src="<%=WEBSITE_IMG_URL%>mail_blue_icon.svg" alt="img" loading="lazy"></i> <a
+							href="javascript:void(0)">learner@couchtutors.com</a> <a
+							href="javascript:void(0)">careers@couchtutors.com</a></li>
+					<li><i><img src="<%=WEBSITE_IMG_URL%>call_blue_icon.svg" alt="img" loading="lazy"></i> <a
+							href="javascript:void(0)">+1 (815) 246-3506</a></li>
+				</ul>
+			</div>
+			<div class="footer_educating">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#footer_collapse1" role="button"
+						aria-expanded="false" aria-controls="footer_collapse1">Educating the World</a></h3>
+				<div class="collapse" id="footer_collapse1">
+					<ul>
+						<li><a href="<%=WEBSITE_URL%>pages/about-us">About Us</a></li>
+						<li><a href="<%=WEBSITE_URL%>contact">Contact Us</a></li>
+						<li><a href="<%=WEBSITE_URL%>faqs">FAQ</a></li>
+						<li><a href="javascript:void(0)">Reviews</a></li>
+						<li><a href="javascript:void(0)">Safety & Security</a></li>
+						
+						<li><a href="javascript:void(0)">In the News</a></li>
+						<li><a href="<%=WEBSITE_URL%>plans/<%=STUDENT_PLAN%>">Subscription Plan</a></li>
+
+
+						
+					</ul>
+				</div>
+			</div>
+			<div class="footer_learnwithus">
+				<h3><a class="mobile_show" data-toggle="collapse" href="#footer_collapse2" role="button"
+						aria-expanded="false" aria-controls="footer_collapse2">Learn With Us</a></h3>
+				<div class="collapse" id="footer_collapse2">
+					<ul>
+						<li><a href="javascript:void(0)">Find a Tutor</a></li>
+						<li><a href="javascript:void(0)">Studie Buddies</a></li>
+						<li><a href="javascript:void(0)">Request a Tutor</a></li>
+						<li><a href="javascript:void(0)">Languages</a></li>
+						<li><a href="javascript:void(0)">Request a Tutor</a></li>
+						<li><a href="javascript:void(0)">Homework Help</a></li>
+						<li><a href="javascript:void(0)">Get Math Help</a></li>
+						<li><a href="javascript:void(0)">Schools, Universities and Govenrmental Organizations</a>
+						</li>
+						<li><a href="javascript:void(0)">Learning Resources</a></li>
+						<li><a href="<%=WEBSITE_URL%>blog">Blog</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer_bottom">
+		<div class="container">
+			<div class="footer_bottom_txt">
+				<ul class="footer_social">
+					<li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
+					<li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i> </a></li>
+					<li><a href="#" class="instagram"> <img src="<%=WEBSITE_IMG_URL%>instagram2.svg" alt="image"
+								loading="lazy"> <img src="<%=WEBSITE_IMG_URL%>instagram-white2.svg" alt="image"
+								class="hover" loading="lazy"></a></li>
+					<li><a href="#" class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i> </a></li>
+					<li><a href="#" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i> </a></li>
+				</ul>
+				<div class="copyright">
+					<p><%= settings["Site.copyright_text"] %></p>
+				</div>
+				<ul class="footer_btm_link">
+					<li><a href="<%=WEBSITE_URL%>pages/term-condition" target="_blank">Terms & Conditions</a></li>
+					<li><a href="<%=WEBSITE_URL%>pages/privacy-and-policy" target="_blank">Privacy Policy</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script>
+	function getMessage() {		
+		var email = $('.news_letter_email').val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/newsletters-save',
+			data: {email: email },
+			dataType: 'JSON',
+			success: function (response) {
+				if(response.status == 'success'){
+				showSuccessMessageTopRight(response.message);
+				 $('.news_letter_email').val("");
+				}
+				else{
+					 showErrorMessageTopRight(response.message);
+					 $('.news_letter_email').val("");
+					
+				}
+			},
+
+		});
+	}
+</script>

@@ -1,0 +1,127 @@
+<% 
+	var result			= 	(typeof result !== typeof undefined)?	result 	: {};	
+	var id				= 	result._id;	
+	var image 			= 	(typeof result.image !== typeof undefined)?	result.image 	: ""; 
+	var formData_image 	=	(result[IMAGE_FIELD_NAME])	? result[IMAGE_FIELD_NAME]	:ADD_PROFILE_IMAGE_ICON;
+	
+	formData = (formData) ?	formData : result ;
+%>
+ 
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<% if(id){ %>
+						<h2> <%= __("admin.system.edit"); %> <%= dynamic_variable %></h2>
+					<% } else { %>	
+						<h2> <%= __("admin.system.add"); %> <%= dynamic_variable %></h2>
+					<% } %>	
+					
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url+"/"+type%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back")%></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+ 
+					<form id="add-cms" data-submit-btn-id="cms-add-btn-id" method="post" role="form"  enctype="multipart/form-data">	 
+						
+						<% if(MASTER_TYPES_WITH_IMAGE.indexOf(type) !== -1){ %>
+							<div class="row clearfix">
+								<div class="col-sm-12 align-center">
+									<div class="form-group add-image">
+										
+										<% if(id){ %>
+											<input name="old_image" id="old_image" type="hidden" class="form-control"  value="<%= image %>"/>
+										<% } %>	
+										
+										<input name="image" id="image" class="form-control image-input-file" type="file"/>
+										<span class="help-inline required profile_image" id="ContentTypeNameSpan">
+											<div id="pImage">
+												<img src="<%= formData_image %>?dim=120x120&type=resize" alt="Profile image" class="profileImage" />
+											</div>
+										</span>
+										<div class="m-t-10">
+											<a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="<%= "Allowed file extensions are : " +ALLOWED_IMAGE_EXTENSIONS%>" class="btn bg-teal btn-block btn-sm waves-effect changePhoto"> <%= __("admin.system.upload_image")%></a>
+										</div>
+										<span id="p_image_error" class="error"></span>
+										<% if(typeof error != "undefined" && error.image){  %>
+											<span id="image_error" class="error"><%= error.image.msg %></span>
+										<% } %>
+									</div>
+								</div>
+							</div>
+						<% } %>
+						
+						
+						<div class="row clearfix">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="title" class="control-label">
+											 <%= __("admin.system.title")%> <span class="required"> *</span>
+										</label>
+										<input type="text" id="title" class="form-control" name="title" value="<%= formData.title %>"/>
+									</div>
+									<% if(typeof error != "undefined" && error.title){  %>
+										<span id="title_error" class="error"><%= error.title.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						<button type="submit" id="admin-login-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" data-loading-text='<i class="material-icons font-14">save</i> Loading...' ><i class="material-icons font-14">save</i> <%= __("admin.system.submit")%></button>
+						
+						<% if(id){ %>
+							<a href="<%=admin_list_url+"/"+type%>/edit/<%= id %>" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } else { %>	
+							<a href="<%=admin_list_url+"/"+type%>/add" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i>  <%= __("admin.system.reset")%> </button></a>
+						<% } %>	
+						
+						<a href="<%= admin_list_url+"/"+type %>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i> <%= __("admin.system.cancel")%></button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			 
+			
+			/**
+			 * User image Upload
+			 */
+			$(document).on("click", ".changePhoto", function(){
+				if(!$(".add-image #image").hasClass("added")){
+					$(".add-image #image").trigger("click");
+					$(".add-image #image").addClass("added");
+					window.setTimeout(function(){
+						$(".add-image #image").removeClass("added");
+					},500);
+				}
+			});
+
+			/**
+			 *Show user image after select
+			 */
+			$("#image").on("change", function(){
+				var files = !!this.files ? this.files : [];
+				if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+				if (/^image/.test( files[0].type)){
+					// only image file
+					var reader = new FileReader(); // instance of the FileReader
+					reader.readAsDataURL(files[0]); // read the local file
+					reader.onloadend = function(){
+
+						$("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
+					}
+				}
+				$("span#p_image_error").text("");
+			});
+		});
+	</script>
