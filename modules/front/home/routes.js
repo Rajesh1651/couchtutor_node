@@ -5,7 +5,7 @@ const {index} 	= require(modelPath);
 
 
 /** Routing is used to render index page **/
-app.all(FRONT_END_NAME,isLoggedIn,(req, res)=>{
+app.all(FRONT_END_NAME,/*isLoggedIn,*/(req, res)=>{
 	/** Set current view folder **/
   app.set('views', __dirname + '/views');
 	index(req, res);	

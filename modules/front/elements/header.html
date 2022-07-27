@@ -5,9 +5,13 @@
 		var STUDENT_ROLE_SLUG = '<%=STUDENT_ROLE_SLUG%>';
 		var TUTOR_ROLE_SLUG = '<%=TUTOR_ROLE_SLUG%>';
 		var JS_DATE_FORMAT = '<%=JS_DATE_FORMAT%>';
-
 		var WEBSITE_URL = '<%=WEBSITE_URL%>';
+		var TUTOR_INTRODUCTION_LENGTH = '<%=TUTOR_INTRODUCTION_LENGTH%>';
+		var RESUME_EXTENSION = '<%=RESUME_EXTENSION%>';
+		var IMAGE_UPLOAD_FILE_MAX_SIZE_TWO = '<%=IMAGE_UPLOAD_FILE_MAX_SIZE_TWO%>';
 
+		var MESSAGE_SUBJECT_MAX_LENGTH = '<%=MESSAGE_SUBJECT_MAX_LENGTH%>';
+		var MESSAGE_MAX_LENGTH = '<%=MESSAGE_MAX_LENGTH%>';
 
 		var ERROR_ENTER_EMAIL_ADDRESS = 'Please enter email address.';
 		var ERROR_ENTER_VALID_EMAIL_ADDRESS = "Please enter valid email address.";
@@ -23,8 +27,12 @@
 		var ERROR_ACCEPT_TERMS_CONDITION = "Please accept terms and conditions.";
 
 		var PLEASE_ENTER_VALID_MOBILE_NO = 'Please enter a valid phone no.';
+        var ERROR_ENTER_VALID_VALUE ="Please enter value.";
+
+        var SLOTE_INTERVAL_TIME = 3600;
 
 
+		
 	</script>
 
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>intl-tel-input/intlTelInput.css">
@@ -52,13 +60,13 @@
 							<li class="user_box dropdown "><a href="javascript:void(0)"
 									class="profile_toggle  dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false">
-									<figure><img src="<%=WEBSITE_IMG_URL%>user_img.jpg" alt="img"></figure>
+									<figure><img src='<%= (auth.image) ? USERS_URL + auth.image : WEBSITE_IMG_URL + "tutor_profile_img.jpg";%>' alt="img"></figure>
 									<%= auth.first_name %>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<ul>
 										<li><a class="dropdown-item" href="#">Dashboard</a></li>
-										<li><a class="dropdown-item" href="#">My Account</a></li>									
+										<li><a class="dropdown-item" href="#">My Account</a></li>
 										<li><a class="dropdown-item" href="<%= WEBSITE_URL %>logout">Logout</a></li>
 									</ul>
 								</div>
@@ -94,24 +102,26 @@
 								<li class="user_box dropdown "><a href="javascript:void(0)"
 										class="profile_toggle  dropdown-toggle" id="dropdownMenuLink"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<figure><img src="<%=WEBSITE_IMG_URL%>user_img.jpg" alt="img"></figure>
+										<figure><img src='<%= (auth.image) ? USERS_URL + auth.image : WEBSITE_IMG_URL + "tutor_profile_img.jpg";%>' alt="img"></figure>
 										<%= auth.first_name %>
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									
-										<ul>							
-											<% if(auth.user_role_id == TUTOR_ROLE_ID) {%>
-												<li><a class="dropdown-item" href="<%= WEBSITE_URL %>tutor/dashboard">Dashboard</a></li>
-												<li><a class="dropdown-item" href="<%= WEBSITE_URL %>tutor/edit_profile">My Account</a></li>
-											   
+
+										<ul>
+											<% if(auth.user_role_id==TUTOR_ROLE_ID) {%>
+												<li><a class="dropdown-item"
+														href="<%= WEBSITE_URL %>tutor/dashboard">Dashboard</a></li>
+												<li><a class="dropdown-item"
+														href="<%= WEBSITE_URL %>tutor/edit_profile">My Account</a></li>
+
 												<% } else { %>
-													<li><a class="dropdown-item" href="<%= WEBSITE_URL %>student/dashboard"">Dashboard</a></li>
-													<li><a class="dropdown-item" href="#">My Account</a></li>
-											       
-													<% }  %>
-											
-											
-											<li><a class="dropdown-item" href="<%= WEBSITE_URL %>logout">Logout</a></li>
+													<li><a class="dropdown-item"
+															href="<%= WEBSITE_URL %>student/dashboard"">Dashboard</a></li>
+													<li><a class=" dropdown-item" href="<%= WEBSITE_URL %>student/edit_profile">My Account</a></li>
+
+													<% } %>
+
+														<li><a class="dropdown-item" href="<%= WEBSITE_URL %>logout">Logout</a></li>
 										</ul>
 									</div>
 								</li>
@@ -120,18 +130,18 @@
 				</div>
 
 				<% if(!auth){ %>
-					<div class="btn_group"> <a href="javascript:void(0);"
+					<div class="btn_group"> <a href="<%= WEBSITE_URL %>tutors"
 							class="btn btn-primary btn-outline-primary">Find a
 							tutor</a> <a href="javascript:void(0);" class="btn btn-primary">Become a tutor</a> </div>
 					<% } %>
 						<!-- Mobile Visible -->
 						<div class="mobile_contact">
 							<ul class="footer_contact ">
-								<li><i><img src="<%=WEBSITE_IMG_URL%>mail_blue_icon.svg" alt="img" loading="lazy"></i> <a
-										href="javascript:void(0)">learner@couchtutors.com</a> <a
+								<li><i><img src="<%=WEBSITE_IMG_URL%>mail_blue_icon.svg" alt="img" loading="lazy"></i>
+									<a href="javascript:void(0)">learner@couchtutors.com</a> <a
 										href="javascript:void(0)">careers@couchtutors.com</a></li>
-								<li><i><img src="<%=WEBSITE_IMG_URL%>call_blue_icon.svg" alt="img" loading="lazy"></i> <a
-										href="javascript:void(0)">+1
+								<li><i><img src="<%=WEBSITE_IMG_URL%>call_blue_icon.svg" alt="img" loading="lazy"></i>
+									<a href="javascript:void(0)">+1
 										(815) 246-3506</a></li>
 							</ul>
 						</div>
@@ -147,11 +157,11 @@
 	var user_login_url = '/login';
 	var tutor_signup_url = '/tutor/signup';
 	var student_signup_url = '/student/signup';
- 
+
 	var submit_forgetPassword_otp_url = '/forgot-password';
-    var forget_password_otp_modal_url = '/user/forget-verify-otp';
- 
-  
+	var forget_password_otp_modal_url = '/user/forget-verify-otp';
+
+
 
 
 

@@ -26,92 +26,72 @@
                             <li><a href="#" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i> </a></li>
                         </ul>
                         <div class="comment_box">
-                            <h3>COMMENT ( 
-                                 <% if(result.comments ){ %> 
-                                    <%- result.comments.length %> 
+                            <h3>COMMENT (
+                                <% if(result.comments ){ %>
+                                    <%- result.comments.length %>
 
-                                    <% } else { %>
-                                        0
+                                        <% } else { %>
+                                            0
 
-                                        <% }  %>
-                                    )  </h3>
+                                            <% } %>
+                                                )
+                            </h3>
                             <ul>
-                              
-                                <% if(result.comments && result.comments.length > 0) { result.comments.map(function(comment,index){
-                                       
-                                    
-                                    getUserDetailById(comment.user_id).then((userData) => {
-                                
-                                        full_name = (userData['full_name'])? userData['full_name'] : "";
-                                
-                                        profileImage = (userData['image'])? userData['image']:"user-male.png";  
-                                    
-                                  %>                            	
-                                
-                                
-                                 
-                                
-                                  <%  }); %>
-                                  
-                                  <li>
-                                    <div class="comment_txtbox">
-                                        <div class="comment_userimg">
-                                            <figure>
-                                                <a href="<%=USERS_URL%><%=profileImage%>"   class="items-image" data-lightbox="roadtrip">
-                                                <img src="<%=USERS_URL%><%=profileImage%>" alt="img">
-                                            </a>
-                                            </figure>
-                                        </div>
-                                        <div class="comment_usertext">
-                                            <h4> <%- full_name%></h4>
-                                            <strong></strong>
-                                            <p><%- comment.comment%></p>
-                                        </div>
-                                    </div>
-                                </li> 
-                                
-                                    <% }); } %>
 
-                               
-                               
+                                <% if(result.comments && result.comments.length> 0) {
+                                    result.comments.map(function(comment,index){
+
+
+                                    getUserDetailById(comment.user_id).then((userData) => {
+
+                                     full_name = (userData.full_name)? userData.full_name : "";
+                                     profileImage = (userData.image)? userData.image:"user-male.png";
+
+                                    %>
+                                    <% }); %>
+
+                                        <li>
+                                            <div class="comment_txtbox">
+                                                <div class="comment_userimg">
+                                                    <figure>
+                                                        <a href="<%=USERS_URL%><%=profileImage%>" class="items-image"
+                                                            data-lightbox="roadtrip">
+                                                            <img src="<%=USERS_URL%><%=profileImage%>" alt="img">
+                                                        </a>
+                                                    </figure>
+                                                </div>
+                                                <div class="comment_usertext">
+                                                    <h4>
+                                                        <%- full_name%>
+                                                    </h4>
+                                                    <strong></strong>
+                                                    <p>
+                                                        <%- comment.comment%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <% }); } %>
+
+
+
                             </ul>
-                        </div>      
-                        
-                         <% if(!auth){ %>
+                        </div>
+
+                        <% if(!auth){ %>
 
                             <!-- <a class="btn btn-primary reply_btn" href="javascript:void(0);"
                             onClick="openBlogRepyBox('<%- result.slug %>')">REPLY COMMENT</a> -->
-                        <a class="btn btn-primary reply_btn" href="javascript:void(0)"
-                            onClick="openSigninSignupBox('<%- STUDENT_ROLE_SLUG %>','login')">REPLY COMMENT</a>                      
-                        <% } else { %> 
-                        <a class="btn btn-primary reply_btn" href="javascript:void(0);"
-                            onClick="openBlogRepyBox('<%- result.slug %>')">REPLY COMMENT</a>
-                     
-
-                        <% } %>
+                            <a class="btn btn-primary reply_btn" href="javascript:void(0)"
+                                onClick="openSigninSignupBox('<%- STUDENT_ROLE_SLUG %>','login')">REPLY COMMENT</a>
+                            <% } else { %>
+                                <a class="btn btn-primary reply_btn" href="javascript:void(0);"
+                                    onClick="openBlogRepyBox('<%- result.slug %>')">REPLY COMMENT</a>
 
 
-                        <!-- <div class="comment_form">
-                            <h3>REPLY COMMENT</h3>
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Your name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Email">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" placeholder="Message"></textarea>
-                                </div>
-                                <button class="btn btn-primary">Submit </button>
-                            </form>
-                        </div> -->
+                                <% } %>
+
                 </div>
             </div>
 
@@ -125,35 +105,36 @@
     </div>
 </div>
 
- <!--blog repy modal-->
- <div aria-hidden="false" aria-labelledby="replyModal" role="dialog" tabindex="-1" id="replyModalBox"
- class="dashboard_form login_signup modal fade in">
- <div class="modal-dialog" role="document">
-     <div class="modal-content leadform">
-        
-         <div class="modal-body">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
-             <div class="comment_form">
-                 <h3>Reply Blog Post</h3>
+<!--blog repy modal-->
+<div aria-hidden="false" aria-labelledby="replyModal" role="dialog" tabindex="-1" id="replyModalBox"
+    class="dashboard_form login_signup modal fade in">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content leadform">
 
-                 <form method="post" action="javascript void(0)" id="replyBlogForm" class="mws-form">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="comment_form">
+                    <h3>Reply Blog Post</h3>
 
-                    <input type="hidden" name="blog_slug" id="blog_slug">                
-                
-                    <div class="form-group">
-                    <textarea class="form-control blog-comment-reply" placeholder="Comments *" name="description"></textarea>                  
-                     <span class="error help-inline description_err">                       
-                     </span>
-                     <br>
-                 </div>
-                 <button class="btn btn-primary">Submit </button>
-             </form>
-             </div>
-         </div>
-     </div>
- </div>
+                    <form method="post" action="javascript void(0)" id="replyBlogForm" class="mws-form">
+
+                        <input type="hidden" name="blog_slug" id="blog_slug">
+
+                        <div class="form-group">
+                            <textarea class="form-control blog-comment-reply" placeholder="Comments *"
+                                name="description"></textarea>
+                            <span class="error help-inline description_err">
+                            </span>
+                            <br>
+                        </div>
+                        <button class="btn btn-primary">Submit </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--blog repy modal-->
 
@@ -166,75 +147,73 @@
     var ERROR_ENTER_DESCRIPTION_NAME = "Please enter comments.";
     var blog_reply_url = "/add_blog_comment/<%-result._id %>";
 
-/** Function is used for blog repy box **/
-function openBlogRepyBox(blog_slug){   
-	$('#replyModalBox').modal('show');
-	$('#blog_slug').val(blog_slug);
-}
+    /** Function is used for blog repy box **/
+    function openBlogRepyBox(blog_slug) {
+        $('#replyModalBox').modal('show');
+        $('#blog_slug').val(blog_slug);
+    }
 
 
 
 
-/** Function is used for blog repy box **/
-function openBlogRepyBox(blog_slug){
-	$('#replyModalBox').modal('show');
-	$('#blog_slug').val(blog_slug);
-}
+    /** Function is used for blog repy box **/
+    function openBlogRepyBox(blog_slug) {
+        $('#replyModalBox').modal('show');
+        $('#blog_slug').val(blog_slug);
+    }
 
-/* Sign up form of student User */
-	$('#replyBlogForm').formValidation({
-		message: 'This value is not valid',
-		fields: {
-			 
-			'description': {
-				row: '.form-group',
-				err : '.description_err',
-				validators: {
-					notEmpty: {
-						message: ERROR_ENTER_DESCRIPTION_NAME
-					}
-				}
-			},
-			
+    /* Sign up form of student User */
+    $('#replyBlogForm').formValidation({
+        message: 'This value is not valid',
+        fields: {
+
+            'description': {
+                row: '.form-group',
+                err: '.description_err',
+                validators: {
+                    notEmpty: {
+                        message: ERROR_ENTER_DESCRIPTION_NAME
+                    }
+                }
+            },
+
         }
-	}).on('success.form.fv', function(e) { 
-		e.preventDefault(); 
-		var reply_url = blog_reply_url;
-		blogReply("replyBlogForm",reply_url);
-		
-	});
+    }).on('success.form.fv', function (e) {
+        e.preventDefault();
+        var reply_url = blog_reply_url;
+        blogReply("replyBlogForm", reply_url);
 
-function blogReply(formId,reply_url){     
+    });
+
+    function blogReply(formId, reply_url) {
 
 
-/* signup function */
-$.ajax({
-        type:'POST',
-        url:reply_url,
-        data:$("#"+formId).serialize()+ "&modal=modal",
-        beforeSend:function(){
-            blockedUI();
-        },
-        success:function(r){ 
-            unblockedUI();
-            if(r.status == 'success'){                
-                window.location.href = r.url; 
-            }   
-            if(r.status == "error"){ 
-                $( ".error-message").empty();
-                $.each(r.errors, function( index, value ) { console.log(index+"--"+value);
-                      $( "."+index+"_err").html(value);
-                }); 
+        /* signup function */
+        $.ajax({
+            type: 'POST',
+            url: reply_url,
+            data: $("#" + formId).serialize() + "&modal=modal",
+            beforeSend: function () {
+                blockedUI();
+            },
+            success: function (r) {
+                unblockedUI();
+                if (r.status == 'success') {
+                    window.location.href = r.url;
+                }
+                if (r.status == "error") {
+                    $(".error-message").empty();
+                    $.each(r.errors, function (index, value) {
+                        console.log(index + "--" + value);
+                        $("." + index + "_err").html(value);
+                    });
+                }
+
             }
-            
-        }
-}); 
+        });
 
-}
+    }
 
 
 
 </script>
-
-
-

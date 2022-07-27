@@ -1,0 +1,41 @@
+<%
+
+var timeDropdownArray = getTimeDropdownArray();
+var timeDropdownArrayForStartTime 	=getTimeDropdownArrayForStartTime(); 
+  %>
+
+
+
+<li class="row clearfix additional_rows_<%- day_id %> availability">
+  <span>
+
+    <select name="<%- day_id %>_start_time[]"
+      class="start_time_input_box form-control no-input start_time_<%- day_id %>"
+      id="<%- day_id %>_start_time_<%- next_counter_value %>" data-day="<%- day_id %>"
+      data-slot="<%- next_counter_value %>">
+      <option value="">Start Time</option>
+      <%      
+      if(typeof timeDropdownArrayForStartTime!==typeof undefined && Object.keys(timeDropdownArrayForStartTime).length> 0){
+        Object.keys(timeDropdownArrayForStartTime).map(item=>{
+
+        %>
+
+        <option value="<%-item %>"><%- timeDropdownArrayForStartTime[item] %>  </option>
+        <% }); } %>    
+
+    </select>
+
+    <strong>To</strong>
+
+    <select name="<%- day_id %>_end_time[]" class="end_time_input_box form-control no-input end_time_<%- day_id %>"
+      id="<%- day_id %>_end_time_<%- next_counter_value %>" data-day="<%- day_id %>"
+      data-slot="<%- next_counter_value %>">
+      <option value="">End Time</option> 
+
+
+  </span>
+  <a class="close_popup" href="javascript:void(0)" onclick="remove(this, '<%- day_id %>');">
+    <img src="<%- WEBSITE_IMG_URL %>close_btn2.svg" alt="close icon">
+  </a>
+  
+</li>

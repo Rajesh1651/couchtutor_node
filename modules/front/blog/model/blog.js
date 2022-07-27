@@ -169,6 +169,7 @@ function Blog() {
 		/** Get blog details **/
 		getBlogDetails(req, res, next).then((response) => {
 
+
 			if (response.status != STATUS_SUCCESS) {
 				/** Send Error response **/
 				req.flash("error", response.message);
@@ -176,6 +177,7 @@ function Blog() {
 				return;
 			}
 			res.render('blog_detail', {
+				
 				result: response.result,
 				latestPost: response.latestPost,
 				currentUrl : req.url,

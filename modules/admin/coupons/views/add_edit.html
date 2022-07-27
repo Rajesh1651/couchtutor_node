@@ -108,14 +108,13 @@
 											<option value="<%- discount_type %>"><%- discount_type %></option>	
 										<% 	});
 										} %>
-									</select>
-
+									</select>									
 										
 									 </div>
 								  </div>
-								  <span class="error help-inline discounttype">
-								
-								  </span>
+								  <% if(typeof error != "undefined" && error.discounttype){  %>
+									<span id="discounttype_error" class="error"><%= error.discounttype.msg %></span>
+								<% } %>
 							   </div>
 							</div>
 						 </div>
@@ -130,10 +129,10 @@
 										<%= __("admin.coupon.discount")%> <span class="required"> *</span>
 									</label>
 									<input type="text" class="form-control" name="discount" value="<%= formData.discount %>"/>									
-								  </div>
-								  <span class="error help-inline discount">
-								
-								  </span>
+								  </div>								
+								  <% if(typeof error != "undefined" && error.discount){  %>
+									<span id="discount_error" class="error"><%= error.discount.msg %></span>
+								<% } %>
 							   </div>
 							</div>
 						 </div>
@@ -170,9 +169,15 @@
 
 									 <div class="mws-form-item selectdrop">
 										<select name="usage_limit" class="form-control autocomplete" id="usage_limit">
-											<option value=""><%= __("admin.global.please_select"); %></option>
-																				
-
+											<option value=""><%= __("admin.global.please_select"); %></option>	
+											<%
+											if(typeof USAGE_LIMIT!== typeof undefined && USAGE_LIMIT.length > 0){
+												USAGE_LIMIT.map(usage_limit=>{												
+													%>												
+													<option value="<%=usage_limit.value%>" ><%=usage_limit.name%></option>
+												<% 		 
+												});
+											} %>
 												
 										</select>
 
@@ -181,6 +186,9 @@
 								  <span class="error help-inline usage_limit">
 								
 								  </span>
+								  <% if(typeof error != "undefined" && error.usage_limit){  %>
+									<span id="usage_limit_error" class="error"><%= error.usage_limit.msg %></span>
+								<% } %>
 							   </div>
 							</div>
 						 </div>
@@ -221,7 +229,7 @@
 							 <div class="form-group">
 								<div class="form-line" >
 									<label for="startdate" class="control-label">
-										<%= __("admin.coupon.startdate")%> <span class="required"> *</span>
+										<%= __("admin.coupon.startdate")%> 
 									</label>
 									<input type="text" id="startdate" class="form-control" name="startdate" value="<%= formData.startdate %>" readonly/>
 								</div>
@@ -235,7 +243,7 @@
 							<div class="form-group">
 							   <div class="form-line" >
 								   <label for="lastdate" class="control-label">
-									   <%= __("admin.coupon.lastdate")%> <span class="required"> *</span>
+									   <%= __("admin.coupon.lastdate")%> 
 								   </label>
 								   <input type="text" id="lastdate" class="form-control" name="lastdate" value="<%= formData.lastdate %>" readonly/>
 							   </div>
@@ -266,7 +274,7 @@
 
 
 <script type="text/javascript">
-	var  N_TIME_USEAGE_LIMIT = '<%  N_TIME_USEAGE_LIMIT %>';
+	var  N_TIME_USEAGE_LIMIT = '<%=  N_TIME_USEAGE_LIMIT %>';
 	var cal_date_format = JS_DATE_FORMAT;	
 	
 	var maxLength = COUPON_DESCRIPTION_LENGTH;

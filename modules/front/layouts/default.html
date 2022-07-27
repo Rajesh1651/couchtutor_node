@@ -7,12 +7,22 @@
 	<meta name="format-detection" content="telephone=no">
 	<!-- Bootstrap CSS -->
 	<link rel="icon" href="<%=WEBSITE_IMG_URL%>favicon.ico" type="image/x-icon">
+
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">   
+
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
 		rel="stylesheet">
+
+		<!-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
+
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>font-awesome.min.css" type="text/css">
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>bootstrap.min.css" type="text/css">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<!-- <link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
+		<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>select2.css" type="text/css">
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>jquery.noty.css">
 	<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>noty_theme_default.css">
@@ -77,8 +87,6 @@
 
 			<%-body%>			
 			
-
-
 
 				<%- include(WEBSITE_MODULES_PATH + "/elements/newsletter.html" ); %>
 
@@ -256,9 +264,9 @@
 						<%- include(WEBSITE_MODULES_PATH + "/elements/login_singup_model.html" ); %>
 
 		
-						
-
-
+						<% if(auth){ %>
+							<%- include(WEBSITE_MODULES_PATH + "/elements/user/account_verify_model_boxes.html" ); %>					
+						<% } %>
 							<%- defineContent("script") %>
 
 

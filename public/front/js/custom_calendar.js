@@ -4,7 +4,8 @@
  * @params end_time_id as id of end_time input box
  * @params date_formate as date format
  */
-function showStartEndDate(start_time_id, end_time_id, date_formate) { 
+function showStartEndDate(start_time_id, end_time_id, date_formate) {   
+
     $('#' + end_time_id).bootstrapMaterialDatePicker({
         weekStart: 0,
         format: date_formate,

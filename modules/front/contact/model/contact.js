@@ -36,9 +36,7 @@ function Contact() {
 				modified 	: 	getUtcDate(),
 				created 	: 	getUtcDate()
 			},(err,result)=>{
-				if(err) return next(err);
-
-				console.log('success');
+				if(err) return next(err);		
 
 				req.flash(STATUS_SUCCESS, "Thank-you for submitting enquiry, We will contact you shortly.");
 				return res.redirect(WEBSITE_URL+'contact');

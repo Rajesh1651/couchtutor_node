@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="<%=WEBSITE_CSS_PATH%>multiselect/jquery.multiselect.css" type="text/css">
+<script type="text/javascript" src="<%=WEBSITE_JS_PATH%>multiselect/jquery.multiselect.js"></script>
+
+
+
+<div class="inner_banner data-img-bg" data-image-src="<%=WEBSITE_IMG_URL %>tutor-searchingbg.jpg">
+    <div class="container">
+        <h1>All Tutors</h1>
+    </div>
+</div>
+
+<div class="tutor_searching">
+    <div class="container">
+        <div class="find_tutor">
+
+            <div class="find_input">
+                <form method="get" class="signup_form mws-form">
+                    <div class="tutor_fillter cstm_tutor_fillter">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <select name="grade[]" id="" class="multi_select_check_grade form-control"
+                                        multiple="multiple">
+                                        <% responseData.grades.map(grade=>{
+                                            %>
+                                            <option value='<%= (grade) ? grade._id :""; %>'>
+                                                <%= (grade) ? grade.title :""; %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group subject-filter">
+                                    <select name="subject" id=""
+                                        class="form-control autocomplete select2-hidden-accessible" tabindex="-1"
+                                        aria-hidden="true">
+                                        <option value="" selected="selected">Select Subject</option>
+                                        <% responseData.subjects.map(subject=>{
+                                            %>
+
+                                            <option value='<%= (subject) ? subject.slug :""; %>'>
+                                                <%= (subject) ? subject.subject_name :""; %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+
+                                </div>
+
+                                <div class="tutor_fillter_link">
+                                    <button class="btn btn-primary">Find A Tutor
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <ul class="tutor_list">
+            <li>
+                <div class="tutor_textbox">
+                    <div class="image_left">
+                        <figure> <a class="items-image" data-lightbox="roadtripuser-male.png"
+                                href='<%= (formData.image) ? USERS_URL + formData.image : WEBSITE_IMG_URL + "tutor_profile_img.jpg";%>'>
+                                <div class=" usermgmt_image"><img class="img-circle"
+                                        src='<%= (formData.image) ? USERS_URL + formData.image : WEBSITE_IMG_URL + "tutor_profile_img.jpg";%>'
+                                        alt="Tutor Mailinator"></div>
+                            </a> </figure>
+                        <h3>
+                            <%-formData.full_name%>
+                        </h3> <span> Biology, Business </span> <span class="star"> <img
+                                src="<%=WEBSITE_IMG_URL%>rating_zero.png" alt="rating_zero">
+                        </span> <a href="javascript:void(0);" class="view_profile btn btn-primary">
+                            <figure><img src="<%=WEBSITE_IMG_URL%>user_icon.svg" alt="icon"></figure> View Profile
+                        </a>
+
+                        <a id="favourite_tutor_link_0" href="javascript:void(0);" class="heart_icon"
+                            onclick="markFavouriteTutor()">
+                            <img id="wishIcon_0" src="<%=WEBSITE_IMG_URL%>heart_icon.svg" alt="Add to Fave"> </a>
+
+                    </div>
+                    <div class="info_right">
+                        <div class="tutor_detail"> <span>Education: Degree-University Name</span> <span>Grade: 1st
+                                Grade, 2ndGrade, 3rd grade, 4th grade</span>
+                            <p>
+                                <%- (formData.tutorBasicDetail[0].brief_intro) ?
+                                    formData.tutorBasicDetail[0].brief_intro : "" ;%>
+                            </p>
+                        </div>
+                        <div class="bottom_button bottom_button_new">
+
+                            <% if(auth) {%>
+
+                                <a class="btn msg_btn open_send_message_popup hide_me" href="javascript:void(0)" data-id="<%-formData.slug%>">Send Message</a>
+
+                                <a class="btn btn-primary" href="javascript:void(0)" >Schedule a Session</a>
+
+                                <% } else { %>
+
+                                   
+                                     <a class="btn msg_btn" href="javascript:void(0)"
+                                        onclick="openSigninSignupBox('student','login')">Send Message</a> 
+                                    <a class="btn btn-primary" href="javascript:void(0)"
+                                        onclick="openSigninSignupBox('student','login')">Schedule a Session</a>
+
+                                    <% } %>
+
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+
+
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="login_signup  modal fade" id="messageModal" role="dialog"></div>
+
+<%- contentFor("css") %>
+
+    <%- contentFor("script") %>
+
+        <script type="text/javascript">
+            var message_popup_url = "message/messagePopUp";
+            var select_grade_placeholder = "Please Select Grade";
+
+            $(document).ready(function () {
+
+            }); 
+        </script>
+        <!-- <script type="text/javascript" src="<%=WEBSITE_JS_PATH%>favourite.js"></script> -->
+        <script type="text/javascript" src="<%=WEBSITE_JS_PATH%>tutor_list.js"></script>

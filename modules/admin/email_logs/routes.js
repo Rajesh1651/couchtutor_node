@@ -14,12 +14,12 @@ app.use(modulePath, checkAdminLogin, (req, res, next) => {
 
  
 /** Routing is used to get email logs list **/
-app.all(modulePath,  /* checkAdminLogin, */ (req, res, next) => {
+app.all(modulePath,   checkAdminLogin,  (req, res, next) => {
     adminEmailLog.getEmailLogList(req, res, next);
 });
 
 
 /** Routing is used to view email log details **/
-app.get(modulePath+"view/:id",	/* checkAdminLogin, */ (req, res,next)=>{
+app.get(modulePath+"view/:id",	checkAdminLogin,  (req, res,next)=>{
     adminEmailLog.viewEmailLogDetails(req, res,next);
 });

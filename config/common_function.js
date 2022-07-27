@@ -6,6 +6,7 @@ const fs = require('fs')
 var randomstring = require("randomstring");
 const { ObjectId } = require('mongodb');
 const { renderFile } = require("ejs");
+const moment = require('moment');
 
 /**
  * To check request method is post or get
@@ -780,5 +781,224 @@ getUserDetailById = (userId) => {
 
 
 }//End getUserDetailById()
+
+
+/**
+ * Function to get date in any format with utc format
+ *
+ * @param date 		as	Date object
+ * @param format 	as 	Date format *
+ * @return date string
+ */
+dateToTimeStamp = (date) => {
+	if (date) {
+		date = date.split("-");
+		var newDate = new Date(date[2], date[1] - 1, date[0]);
+		return newDate.getTime();
+	}
+	else {
+		var now = new Date();
+	}
+};//end dateToTimeStamp();
+
+
+
+/**
+* Function for get unread Count Result
+*
+* @param 	
+*
+* @return json
+*/
+//   getTotalUnreadMessageCount = (userId) => {
+
+// 	return new Promise(resolve => {
+
+// 		let unreadCountResult = 0;
+
+// 		try {
+
+// 			/** Set  Conditios **/
+// 			var conditions = {is_deleted: NOT_DELETED, active: ACTIVE,is_read:INACTIVE};
+
+// 			const messages = db.collection(MESSAGES_COLLECTION);
+// 			messages.countDocuments(conditions, (err, unreadCountResult) => {
+
+// 				if (unreadCountResult) {
+// 					/** Send success response **/
+// 					resolve(unreadCountResult);
+// 				} else {
+// 					/** Send blank response **/
+// 					resolve(unreadCountResult);
+// 				}
+// 			});
+// 		} catch (e) {
+// 			/** Send blank response **/
+// 			resolve(unreadCountResult);
+// 		}
+// 	});
+
+
+// }//End getTotalUnreadMessageCount()
+
+/** coll function */
+// getTotalUnreadMessageCount('ngfnfgn').then((aa) => {
+// 	console.log(aa);
+
+// })
+
+
+
+
+/**
+	 * CustomHelper::convert_date_to_timestamp()
+	 * @Description Function  to get timestamp value of any date
+	 * @param $date date
+	 * @return timestamp
+	 * */
+convert_date_to_timestamp = (date) => {
+	var datum = Date.parse(date);
+	return datum/1000;
+	
+}
+
+/**
+   * CustomHelper::convert_timestamp_to_date_time()
+   * @Description Function  to get timestamp value of any date
+   * @param $date date
+   * @return timestamp
+   * */
+
+convert_timestamp_to_date_time = (timestamp = null, format = "DISPLAY_DATE_TIME_FORMAT") => {	
+	
+	var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
+        yyyy = d.getFullYear(),
+        mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
+        dd = ('0' + d.getDate()).slice(-2),         // Add leading 0.
+        hh = d.getHours(),
+        h = hh,
+        min = ('0' + d.getMinutes()).slice(-2),     // Add leading 0.
+        ampm = 'AM',
+        time;
+
+    if (hh > 12) {
+        h = hh - 12;
+        ampm = 'PM';
+    } else if (hh === 12) {
+        h = 12;
+        ampm = 'PM';
+    } else if (hh == 0) {
+        h = 12;
+    }
+
+    // ie: 2014-03-24, 3:00 PM
+
+if(format =="DISPLAY_DATE_TIME_FORMAT"){
+	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+}
+else if(format =="MANAGE_SLOT_TIME_FORMAT_AM_PM"){
+	time = h + ':' + min + ' ' + ampm;
+}
+
+   
+    return time;
+	
+}
+
+
+ /**
+     * CustomHelper::getTimeDropdownArray()
+     * @param timeIntervalInSeconds as timeIntervalInSeconds
+     * @param timeZone as timeZone
+     * @return array
+     **/
+
+  getTimeDropdownArray = (timeZone = 'Asia/Calcutta', timeIntervalInSeconds = 900) => {
+ 
+	var timeStamp = Date.parse("1970-01-01 00:00")/1000;	
+	  endTimeStamp = timeStamp + 86400;
+	  timeDropdownArray = [];
+
+	  while (timeStamp < endTimeStamp) {
+		  timeDropdownArray[timeStamp] = convert_timestamp_to_date_time(timeStamp, "MANAGE_SLOT_TIME_FORMAT_AM_PM");
+		  timeStamp = timeStamp + timeIntervalInSeconds;
+	  }	 
+	  return timeDropdownArray;
+  }
+
+
+
+/**
+ * Start time must start from 12.00AM to 10.45PM Remove last
+ * CustomHelper::getTimeDropdownArrayForStartTime()
+ * @param timeIntervalInSeconds as timeIntervalInSeconds
+ * @param timeZone as timeZone
+ * @return array
+ **/
+
+  getTimeDropdownArrayForStartTime = (timeZone = 'Asia/Calcutta', timeIntervalInSeconds = 900) => {
+
+	 var timeStamp = Date.parse("1970-01-01 00:00")/1000;	
+	 var endTimeStamp = timeStamp + (SESSION_SLOT_INTERVAL - SLOTE_INTERVAL_TIME);	
+	 var timeDropdownArray = [];	
+
+	 while (timeStamp < endTimeStamp) {
+		 timeDropdownArray[timeStamp] = convert_timestamp_to_date_time(timeStamp, "MANAGE_SLOT_TIME_FORMAT_AM_PM");
+		 timeStamp = timeStamp + timeIntervalInSeconds;		
+	 }
+	
+	 return timeDropdownArray;
+ }
+
+
+
+ getServiceScheduleSlots = (duration, start, end) => {	
+
+	
+
+	var startdate = moment(start);
+	startdate.add(2, 'hours')
+
+
+console.log(startdate);
+	 // start = new Date(start);
+	 // end = new Date(end);
+	 
+	 
+
+	//  var startHour = $start->format('H');
+	//  $startMinute = $start->format('i');
+	//  $start_time = $start->format('H:i');
+
+	//  $end_time = $end->format('H:i');
+	//  $endHour = $end->format('H');
+	//  $endMinute = $end->format('i');
+	 var time = [];
+
+	 var i = 0;
+	//  while (($startHour != '00') && $startHour < $endHour) {
+	// 	 $startTime = $start_time;
+	// 	 $end = date('H:i', strtotime('+' . $duration . ' minutes', strtotime($start_time)));
+	// 	 $start_time = $end;
+
+	// 	 $start = new \DateTime($start_time);
+	// 	 $startHour = $start->format('H');
+	// 	 $startMinute = $start->format('i');
+
+	// 	 $i++;
+
+	// 	 if (($startHour < $endHour) || ($startHour <= $endHour && $startMinute <= $endMinute)) {
+	// 		 $time[$i]['start'] = $startTime;
+	// 		 $time[$i]['end'] = $end;
+			  
+	// 		 $time[$i]['end_time'] = ($startHour * 3600) + ($startMinute * 60);
+	// 		 $time[$i]['start_timestamp'] = strtotime($startTime);
+	// 		 $time[$i]['end_timestamp'] = strtotime($end);
+	// 	 }
+	//  }
+	 return time;
+ }
+
+
 
 

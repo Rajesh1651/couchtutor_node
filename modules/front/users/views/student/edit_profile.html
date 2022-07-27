@@ -1,0 +1,239 @@
+<link rel="stylesheet" href="http://learning.dev2.gipl.inet:1123/admin/plugins/bootstrap-select/css/bootstrap-select.css">
+<div class="accoutn_section">
+	<div class="container">
+		<div class="account_content">
+			<%- include(WEBSITE_MODULES_PATH + "/elements/student_left_link.html" ) %>
+
+				<div class="account_right">
+					<div class="setting_form dashboard_form tutor_edit_basic">
+						<div class="total_earning tutor_billing">
+
+
+							<form id="editTutorProfileForm" method="post" role="form" class="mws-form">
+
+								<div class="basic_info">
+									<div class="title_row">
+										<h2>Edit Basic Profile</h2>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>First Name <span class="field-required"> * </span></label>
+											<input name="first_name" id="first_name" type="text"
+												value="<%= formData.first_name %>" class="form-control"
+												placeholder="First Name *" />
+											<span class="error help-inline first_name first_name_error">
+												<% if(typeof error !="undefined" && error.first_name){ %>
+													<%= error.first_name.msg %>
+														<% } %>
+											</span>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Last Name <span class="field-required"> * </span></label>
+											<input name="last_name" id="last_name" type="text"
+												value="<%= formData.last_name %>" class="form-control"
+												placeholder="Last Name" />
+											<span class="error help-inline last_name last_name_error">
+												<% if(typeof error !="undefined" && error.last_name){ %>
+													<%= error.last_name.msg %>
+														<% } %>
+											</span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="country_id" class="control-label">Country<span
+													class="field-required">* </span></label>
+											<select class="autocomplete form-control show-tick" id="country_id"
+												data-live-search='true' onchange='getStateData(this.value)'
+												name="country_id">
+												<option value="">Please select country</option>
+												<%- country_list %>
+											</select>
+											<% if(typeof error !="undefined" && error.country_id){ %>
+												<span class="error help-inline">
+													<%= error.country_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="state_id" class="control-label">State <span
+													class="field-required"> *
+												</span></label>
+											<div id="state_id_div">
+												<select class="autocomplete form-control show-tick" id="state_id"
+													data-live-search='true' onchange="getCityData(this.value)"
+													name="state_id">
+													<option value="">Please select state</option>
+													<%- state_list %>
+												</select>
+											</div>
+											<% if(typeof error !="undefined" && error.state_id){ %>
+												<span class="error help-inline">
+													<%= error.state_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+								<div class="row clearfix">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="city_id" class="control-label">City <span
+													class="field-required"> *
+												</span></label>
+											<div id="city_id_div">
+												<select class="autocomplete form-control show-tick" id="city_id"
+													data-live-search='true' name="city_id">
+													<option value="">Please select city</option>
+													<%- city_list %>
+												</select>
+											</div>
+											<% if(typeof error !="undefined" && error.city_id){ %>
+												<span class="error help-inline">
+													<%= error.city_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+								<div class="row clearfix">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<div class="form-lie">
+												<label for="gender" class="control-label">
+													Gender <span class="required">* </span>
+												</label>
+												<br />
+												<% if(typeof GENDER_DROPDOWN!==typeof undefined &&
+													Object.keys(GENDER_DROPDOWN).length> 0){
+													Object.keys(GENDER_DROPDOWN).map(genderStatus=>{
+
+													checked = '';
+													if(genderStatus == formData.gender){
+													checked = 'checked="true"';
+													}
+
+													%>
+													<input id="<%=genderStatus%>" name="gender" class="with-gap"
+														type="radio" value="<%=genderStatus%>" <%=checked %> / >
+													<label for="<%=genderStatus%>">
+														<%= (GENDER_DROPDOWN[genderStatus]) ?
+															GENDER_DROPDOWN[genderStatus] :""; %>
+													</label>
+													<% }); } %>
+
+											</div>
+											<% if(typeof error !="undefined" && error.gender){ %>
+												<span id="gender_error" class="error">
+													<%= error.gender.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="dateofbirth" class="control-label">Date of
+												Birth <span class="field-required"> * </span></label>
+
+											<input class="form-control" id="date_of_birth" readonly="readonly"
+												name="dateofbirth" type="text" value="<%= formData.dateofbirth %>"
+												data-fv-field="dateofbirth">
+
+											<span class="error help-inline dateofbirth">
+												<% if(typeof error !="undefined" && error.dateofbirth){ %>
+													<%= error.dateofbirth.msg %>
+														<% } %>
+											</span>
+										</div>
+									</div>
+								</div>
+						</div>
+
+						<div class="change_password">
+							<h3>Please leave blank if you do not want to change password.</h3>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label> Password</label>
+										<input type="password" class="form-control pwd" name="password"
+											placeholder="Password" />
+										<!-- <a href="javascript:void(0)" class="view_password reveal"><img src="<%= WEBSITE_IMG_URL %>view_password.svg" alt="icon" loading="lazy"></a> -->
+										<span class="error help-inline password password_error" id="password_error_div">
+											<% if(typeof error !="undefined" && error.password){ %>
+												<%= error.password.msg %>
+													<% } %>
+										</span>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label> Confirm Password
+										</label>
+										<input type="password" class="form-control pwd" name="confirm_password"
+											placeholder="Confirm Password" />
+										<!-- <a href="javascript:void(0)" class="view_password reveal"><img src="<%= WEBSITE_IMG_URL %>view_password.svg" alt="icon" loading="lazy"></a> -->
+										<span class="error help-inline confirm_password confirm_password_error">
+											<% if(typeof error !="undefined" && error.confirm_password){ %>
+												<%= error.confirm_password.msg %>
+													<% } %>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="save-btn">
+									<button class="btn btn-primary" type="submit">
+										Update</button>
+									<a href='<%= WEBSITE_URL %>tutor/dashboard'>
+										<button class="btn btn-cancel" type="button">Cancel</button>
+									</a>
+								</div>
+							</div>
+						</div>
+
+
+						</form>
+					</div>
+				</div>
+		</div>
+		<div class="clearfix"></div>
+
+	</div>
+</div>
+
+<%- contentFor("css") %>
+	<link rel="stylesheet"
+		href="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+		type="text/css">
+
+	<%- contentFor("script") %>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				/** For Datepicker */
+				var cal_date_format = '<%= JS_DATE_FORMAT %>';
+				calendarForDOB('date_of_birth', cal_date_format);
+			}); 
+		</script>
+		<script src="<%=WEBSITE_JS_PLUGIN_PATH%>momentjs/moment.js" type="text/javascript"></script>
+		<script
+			src="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"
+			type="text/javascript"></script>
+		<script src="<%=WEBSITE_JS_PATH%>custom_calendar.js" type="text/javascript"></script>
+
+		<script type="text/javascript" src="<%=WEBSITE_JS_PATH%>get_state_city_ajax.js"></script>

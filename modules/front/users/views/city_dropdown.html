@@ -1,0 +1,13 @@
+<select data-live-search="true" class="form-control" id="city_id" name="city_id">
+	<option value=""><%= __("admin.system.select_city")%></option>
+	<%
+	if(typeof results!== typeof undefined && results.length > 0){
+		results.map(result=>{
+			var selectedFlag	= (typeof selectedValue !== typeof undefined && selectedValue  && selectedValue == result._id)	? "selected" : "";
+			%>
+			<!-- Remove approved and rejected from approval request list -->
+			<option value="<%= result._id %>"  <%=selectedFlag%>><%=result.title%></option>
+		<% 		 
+		});
+	} %>
+</select>

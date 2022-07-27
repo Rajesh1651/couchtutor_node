@@ -60,16 +60,23 @@
 
                     <% }} %>  
 
-
-
-                  <span class="apply_txt">Have a promocode? <a href="javascript:void(0)">Apply Now</a></span>
+                    <% if(!auth){ %>
+                     <span class="apply_txt">Have a promocode? <a href="javascript:void(0)" onClick="openSigninSignupBox('<%- STUDENT_ROLE_SLUG %>','login')">Apply Now</a></span>
+                     <% } else {
+                     
+                        if (auth.user_role_id == STUDENT_ROLE_ID){
+                        %> 
+                        <span class="apply_txt">Have a promocode? <a href="javascript:void(0)">Apply Now</a></span>
+                        <% }} %>  
+         
+                 
                </div>
             </li>
 
             <% PlanIndex++; }); } %>   
 
 
-
+           
 
       
          <!-- <li class="diamond_plan">

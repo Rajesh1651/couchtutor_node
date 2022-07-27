@@ -124,6 +124,64 @@
 								</div>
 							</div>
 						</div>
+
+
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="country_id" class="control-label"><%= __("admin.system.country"); %> <span class="required">* </span>:</label>
+										<select onchange="getStateData(this.value)" data-live-search="true" class="form-control show-tick" id="country_id" name="country_id" >
+											<option value=""><%= __("admin.global.select_country"); %></option>
+											<%- country_list %>
+										</select>
+									</div>
+									<% if(typeof error != "undefined" && error.country_id){  %>
+										<span id="country_id_error" class="error"><%= error.country_id.msg %></span>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="state_id" class="control-label"><%= __("admin.system.state"); %> <span class="required">* </span>:</label>
+										
+										<div id="state_id_div">
+											<select onchange="getCityData(this.value)" data-live-search="true" class="form-control show-tick" id="state_id" name="state_id" >
+												<option value=""><%= __("admin.global.select_state"); %></option>
+												<%- state_list %>
+											</select>
+										</div>
+									</div>
+									<% if(typeof error != "undefined" && error.state_id){  %>
+										<span id="state_id_error" class="error"><%= error.state_id.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="form-line">
+										<label for="city_id" class="control-label"><%= __("admin.system.city"); %> <span class="required">* </span>:</label>
+										<div id="city_id_div">	
+											<select data-live-search="true" class="form-control show-tick" id="city_id" name="city_id" >
+												<option value=""><%= __("admin.global.select_city"); %></option>
+												<%- city_list %>
+											</select>
+										</div>
+									</div>
+									<% if(typeof error != "undefined" && error.city_id){  %>
+										<span id="city_id_error" class="error"><%= error.city_id.msg %></span>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						
+
+
 						<div class="row clearfix">
 							<div class="col-sm-6">
 								<div class="form-group">
@@ -162,70 +220,26 @@
 	</div>
 </div>
 
+
 <%- contentFor("css") %>
-	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>daterange/daterangepicker.css">
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>daterange/daterangepicker.css">	
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css">
 	<link href="<%=WEBSITE_ADMIN_CSS_PATH%>intl-tel-input/intlTelInput.css" rel="stylesheet">	
 	
 <%- contentFor("script") %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		phoneNumValidate('userMobile', 'phone_error', 'userPhone');
+	});		
+</script>
+
+
+	<script type="text/javascript">
+		var defaultTimeZone = '<%=DEFAULT_TIME_ZONE%>';
+		var dateRangeFormat = '<%=DATE_RANGE_DATE_FORMAT%>';
+	</script>
+	<script type="text/javascript" src="<%= WEBSITE_ADMIN_JS_PLUGIN_PATH %>bootstrap-select/js/bootstrap-select.js"></script>
 	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>daterange/daterangepicker.js"></script>
 	<script src="<%=WEBSITE_ADMIN_JS_PATH%>intl-tel-input/intlTelInput.js" type="text/javascript" ></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			phoneNumValidate('userMobile', 'phone_error', 'userPhone');
-		});
-	
-		$(document).ready(function(){
-			/**
-			 * User image Upload
-			 */
-			$(document).on("click", ".changePhoto", function(){
-				if(!$(".add-image #profile_image").hasClass("added")){
-					$(".add-image #profile_image").trigger("click");
-					$(".add-image #profile_image").addClass("added");
-					window.setTimeout(function(){
-						$(".add-image #profile_image").removeClass("added");
-					},500);
-				}
-			});
-
-			/**
-			 *Show user image after select
-			 */
-			$("#profile_image").on("change", function(){
-				var files = !!this.files ? this.files : [];
-				if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-
-				if (/^image/.test( files[0].type)){
-					// only image file
-					var reader = new FileReader(); // instance of the FileReader
-					reader.readAsDataURL(files[0]); // read the local file
-					reader.onloadend = function(){
-
-						$("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
-					}
-				}
-				$("span#profile_image_error").text("");
-			});
-
-			/**
-			 * For date of birth
-			 */
-			var options		= 	{};
-			options.locale 	=	{
-				format	: 	'<%=DATE_RANGE_DATE_FORMAT%>',
-			};
-			options.startDate		= 	moment().tz('<%=DEFAULT_TIME_ZONE%>').format('<%=DATE_RANGE_DATE_FORMAT%>');
-			options.autoUpdateInput	= 	false;
-			options.singleDatePicker= 	true;
-			options.showDropdowns	= 	true;
-			options.maxDate			= 	moment().tz('<%=DEFAULT_TIME_ZONE%>').format('<%=DATE_RANGE_DATE_FORMAT%>');
-			options.drops			= 	"up";
-
-			var configDemo = $('.datepicker');
-			configDemo.daterangepicker(options);
-			configDemo.on('apply.daterangepicker', function(e,picker){
-				var displayStartDate 	=	picker.startDate.format('<%=DATE_RANGE_DATE_FORMAT%>');
-				$('.datepicker').val(displayStartDate);
-			});
-		});
-	</script>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PATH%>get_state_city_ajax.js"></script>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PATH%>user_add_edit.js"></script>

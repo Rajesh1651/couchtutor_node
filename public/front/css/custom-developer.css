@@ -3560,3 +3560,45 @@ white-space: inherit;
     min-width: 307px;
 }
  }
+
+
+ /* 404 page not found */
+.four-zero-four {
+    margin: 5% auto;
+    text-align: center;
+    width: 100%;
+    line-height: 1.42857;
+    font-family: "Roboto",Arial,Tahoma,sans-serif;
+    background-color: #fff;
+    transition: all 0.5s ease 0s;
+}
+
+.four-zero-four .go-homepage-btn {
+	background-color: #ff4d55;
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 0px;
+    padding: 12px 32px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.four-zero-four .go-homepage-btn:hover, .four-zero-four .go-homepage-btn:focus {
+    background-color: #18b9a2;
+    color: #fff;
+    text-decoration: none;
+}
+.four-zero-four .four-zero-four-container .error-code {
+    font-size: 160px;
+}
+.four-zero-four .four-zero-four-container .error-message {
+    color: #333;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: -40px;
+}
+.four-zero-four .four-zero-four-container .button-place {
+    margin-top: 32px;
+}

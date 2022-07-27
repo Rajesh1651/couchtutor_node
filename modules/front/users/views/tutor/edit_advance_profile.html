@@ -1,0 +1,442 @@
+<% formData=(formData) ? formData : {}; payment_hourly_rate=(formData.hourly_rate) ? formData.hourly_rate : 10;
+	payment_comission_percent=(formData.commission_percent) ? formData.commission_percent : 50;
+	brief_intro=(formData.brief_intro) ? formData.brief_intro : '' ; tutoring_benefits=(formData.tutoring_benefits) ?
+	formData.tutoring_benefits : '' ; hobbies=(formData.hobbies) ? formData.hobbies : '' ; %>
+
+
+	<div class="accoutn_section">
+		<div class="container">
+			<div class="account_content">
+				<%- include(WEBSITE_MODULES_PATH + "/elements/tutor_left_link.html" ) %>
+
+					<div class="account_right">
+
+
+						<div class="dashboard_form">
+
+
+
+							<div class="basic_info">
+								<div class="title_row">
+
+
+									<form id="tutorEditAdvanceProfileForm" method="post" role="form" class="mws-form">
+
+										<div class="basic_info">
+											<div class="title_row">
+												<h2>Edit Advance Profile</h2>
+											</div>
+										</div>
+
+
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label>Brief Introduction <span class="field-required"> *
+														</span></label>
+
+													<textarea name="brief_intro"
+														class="form-control description_textarea"
+														id="brief_intro_desc_textarea"
+														maxlength="<%=TUTOR_INTRODUCTION_LENGTH%>"
+														placeholder="Brief introduction"><%= formData.tutorBasicDetail[0].brief_intro %></textarea>
+													<p class="tutoring_desc_rchars"><span id="brief_intro_desc_rchars">
+															<%=TUTOR_INTRODUCTION_LENGTH%>
+														</span>Character remaining.
+													</p>
+													
+													<% if(typeof error !="undefined" && error.brief_intro){ %>
+														<span class="error help-inline brief_intro">
+															<%= error.brief_intro.msg %>
+														</span>
+														<% } %>
+												</div>
+											</div>
+										</div>
+
+
+
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="form-group">
+
+													<label>Why I love to tutor?</label>
+													<textarea name="tutoring_benefits"
+														class="form-control tutoring_benefits_textarea"
+														id="tutoring_benefits_desc_textarea"
+														maxlength="<%=TUTOR_INTRODUCTION_LENGTH%>"
+														placeholder="Why I love to tutor?"><%= formData.tutorBasicDetail[0].tutoring_benefits %></textarea>
+													<p class="tutoring_desc_rchars"> <span
+															id="tutoring_benefits_desc_rchars">
+															<%= TUTOR_INTRODUCTION_LENGTH %>
+														</span>Character remaining.
+													</p>
+													<% if(typeof error !="undefined" && error.tutoring_benefits){ %>
+														<span class="error help-inline tutoring_benefits">
+															<%= error.tutoring_benefits.msg %>
+														</span>
+														<% } %>
+												</div>
+											</div>
+										</div>
+
+
+
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label>Hobbies/Interests</label>
+													<textarea name="hobbies" class="form-control hobbies_textarea"
+														id="hobbies_desc_textarea"
+														maxlength="<%=TUTOR_INTRODUCTION_LENGTH%>"
+														placeholder="Hobbies/Interests"><%= formData.tutorBasicDetail[0].hobbies %></textarea>
+													<p class="tutoring_desc_rchars"><span id="hobbies_desc_rchars">
+															<%= TUTOR_INTRODUCTION_LENGTH %>
+														</span>
+														Character remaining.
+													</p>
+													<% if(typeof error !="undefined" && error.hobbies){ %>
+														<span class="error help-inline hobbies">
+															<%= error.hobbies.msg %>
+														</span>
+														<% } %>
+												</div>
+											</div>
+										</div>
+
+										<% if(typeof responseData.languageList!==typeof undefined &&
+											Object.keys(responseData.languageList).length> 0){
+											%>
+
+											<div class="languages_spoken">
+												<div class="title_row_new">
+													<h3>Spoken Languages<span class="field-required"> * </span></h3>
+												</div>
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="form-group level_group custom_checkboxs">
+															<div class="styled-selectors">
+
+																<% let tutorLanguagesArray=new Array();
+																	formData.tutorLanguages.map((tutorLanguages,index)=>
+																	{
+																	tutorLanguagesArray[index]=tutorLanguages.dropdown_id.toString();
+																	});
+
+																	responseData.languageList.map(language=>{
+
+
+																		checked = '';
+																		
+																	if(tutorLanguagesArray.indexOf(language._id.toString())!==-1){
+																		checked = 'checked="true"';
+																	}
+																	
+
+
+
+
+
+																	%>
+
+																	
+																	<div>
+																		<input id="tutor_language_<%=language._id%>"
+																			name="tutor_languages[]" class="filled-in"
+																			type="checkbox" value="<%=language._id%>"
+																			<%=checked %> />
+																		<label for="tutor_language_<%=language._id%>">
+																			<%= (language) ? language.title :""; %>
+																		</label>
+																	</div>
+																	<% });%>
+
+
+															</div>
+															<% if(typeof error !="undefined" && error.tutor_languages){
+																%>
+																<span class="error help-inline">
+																	<%= error.tutor_languages.msg %>
+																</span>
+																<% } %>
+														</div>
+													</div>
+												</div>
+											</div>
+											<% } %>
+
+
+												<% if(typeof responseData.areaOfExpertise!==typeof undefined &&
+													Object.keys(responseData.areaOfExpertise).length> 0){
+													%>
+													<div class="area_expertise">
+														<div class="title_row_new">
+															<h3>Area Of Expertise<span class="field-required">
+																	* </span> </h3>
+														</div>
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="form-group level_group custom_checkboxs">
+																	<div class="styled-selectors">
+
+																		<% let tutorExpertiseAreasArray=new Array();
+																			formData.tutorExpertiseAreas.map((tutorExpertis,index)=>
+																			{
+																			tutorExpertiseAreasArray[index]=tutorExpertis.dropdown_id.toString();
+																			});
+
+																			responseData.areaOfExpertise.map(areaOfExpertise=>
+																			{
+
+																				checked = '';
+
+																			if(tutorExpertiseAreasArray.indexOf(areaOfExpertise._id.toString())!==-1){
+																				checked = 'checked="true"';
+																			}								
+
+
+
+
+																			%>
+																			<div>
+																				<input
+																					id="tutor_expertise_<%=areaOfExpertise._id%>"
+																					name="tutor_expertise[]"
+																					class="filled-in" type="checkbox"
+																					value="<%=areaOfExpertise._id%>"
+																					<%=checked %> />
+																				<label
+																					for="tutor_expertise_<%=areaOfExpertise._id%>">
+																					<%= (areaOfExpertise) ?
+																						areaOfExpertise.title :""; %>
+																				</label>
+																			</div>
+																			<% });%>
+																	</div>
+																</div>
+																<% if(typeof error !="undefined" &&
+																	error.tutor_expertise){ %>
+																	<span class="error help-inline">
+																		<%= error.tutor_expertise.msg %>
+																	</span>
+																	<% } %>
+															</div>
+														</div>
+													</div>
+								</div>
+								<% } %>
+
+
+
+
+									<% if(typeof responseData.grades!==typeof undefined &&
+										Object.keys(responseData.grades).length> 0){
+										%>
+										<div class="languages_spoken">
+											<div class="title_row_new">
+												<h3>Grades <span class="field-required">
+														* </span>
+												</h3>
+											</div>
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="form-group level_group custom_checkboxs">
+														<div class="styled-selectors">
+
+															<% let gradeArray=new Array();
+																formData.tutorGrades.map((tutorGrade,index)=>{
+																gradeArray[index]=tutorGrade.dropdown_id.toString();
+																});
+
+																responseData.grades.map(grade=>{
+
+																	checked = '';																
+
+																if(gradeArray.indexOf(grade._id.toString())!==-1){
+																	checked = 'checked="true"';
+																}																
+
+																%>
+																<div>
+																	<input id="tutor_grade_<%=grade._id%>"
+																		name="tutor_grades[]" class="filled-in"
+																		type="checkbox" value="<%=grade._id%>"
+																		<%=checked %> />
+																	<label for="tutor_grade_<%=grade._id%>">
+																		<%= (grade) ? grade.title :""; %>
+																	</label>
+																</div>
+																<% });%>
+														</div>
+														<% if(typeof error !="undefined" && error.tutor_grades){ %>
+															<span class="error help-inline">
+																<%= error.tutor_grades.msg %>
+															</span>
+															<% } %>
+													</div>
+												</div>
+											</div>
+										</div>
+										<% } %>
+
+
+
+											<div class="references">
+												<div class="title_row_new">
+													<h3>Reference Details <span class="field-required"> * </span>
+													</h3>
+												</div>
+
+											
+												<% let j=1; 
+
+												let tutorReferenceArray=new Array();
+
+												
+
+												formData.tutorReferencesDetail.map((tutorReference,index)=>{
+													index = index + 1;
+													tutorReferenceArray['reference_name_'+index]=tutorReference.reference_name;
+													tutorReferenceArray['contact_number_'+index]=tutorReference.contact_number;
+													tutorReferenceArray['designation_'+index]=tutorReference.designation;
+													tutorReferenceArray['organisation_'+index]=tutorReference.organisation;
+												});	
+
+												 %>
+
+
+												    <% let i=1; %>
+													<% while (i <=TUTOR_REFERENCES_COUNT) { %>
+														
+
+														<div class="row">
+															<div class="col-lg-12"> <label>Reference <%- i %></label>
+															</div>
+														</div>
+														
+														<div class="row">
+															<div class="col-lg-3">
+																<div class="form-group">
+																	<input type="text" name="reference_name_<%-i%>"
+																		class="form-control" id="" value="<%-tutorReferenceArray['reference_name_'+i]%>"
+																		placeholder="Reference Name">
+
+
+
+																	<% if(typeof error !="undefined" &&
+																		error.reference_name_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.reference_name_+i.msg %>
+																		</span>
+																		<% } %>
+
+																</div>
+															</div>
+															<div class="col-lg-3">
+																<div class="form-group">
+
+																	<input type="text" name="contact_number_<%-i%>"
+																		class="form-control" id="" value="<%-tutorReferenceArray['contact_number_'+i]%>"
+																		placeholder="Contact Number">
+
+																	<% if(typeof error !="undefined" &&
+																		error.contact_number_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.contact_number_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+															<div class="col-lg-3">
+																<div class="form-group">
+
+																	<input type="text" name="designation_<%-i%>"
+																		class="form-control" id="" value="<%-tutorReferenceArray['designation_'+i]%>"
+																		placeholder="Designation">
+
+																	<% if(typeof error !="undefined" &&
+																		error.designation_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.designation_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+															<div class="col-lg-3">
+																<div class="form-group">
+																	<input type="text" name="organisation_<%-i%>"
+																		class="form-control" id="" value="<%-tutorReferenceArray['organisation_'+i]%>"
+																		placeholder="Organisation">
+
+																	<% if(typeof error !="undefined" &&
+																		error.organisation_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.organisation_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+														</div>
+														<% i++; } %>
+
+											</div>
+
+
+
+
+
+
+
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="save-btn">
+														<button class="btn btn-primary" type="submit">
+															Submit</button>
+														<a href='<%= WEBSITE_URL %>tutor/dashboard'>
+															<button class="btn btn-cancel" type="button">Cancel</button>
+														</a>
+													</div>
+												</div>
+											</div>
+											</form>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+	</div>
+	</div>
+
+	 <!-- <script src="<%=WEBSITE_JS_PATH%>tutorEditAdvanceProfileValidation.js" type="text/javascript"></script>  -->
+
+	<script>
+		var maxLength = '<%= TUTOR_INTRODUCTION_LENGTH %>';
+
+
+		function textAreaChaCount(textarea_id, count_div_id) {
+			var textlen = maxLength - $('#' + textarea_id).val().length;
+			$('#' + count_div_id).text(textlen);
+		}
+
+
+		$(document).ready(function () {
+
+			textAreaChaCount('brief_intro_desc_textarea', 'brief_intro_desc_rchars');
+			textAreaChaCount('tutoring_benefits_desc_textarea', 'tutoring_benefits_desc_rchars');
+			textAreaChaCount('hobbies_desc_textarea', 'hobbies_desc_rchars');
+
+			$('textarea#brief_intro_desc_textarea').keyup(function () {
+				textAreaChaCount('brief_intro_desc_textarea', 'brief_intro_desc_rchars');
+			});
+
+			$('textarea#tutoring_benefits_desc_textarea').keyup(function () {
+				textAreaChaCount('tutoring_benefits_desc_textarea', 'tutoring_benefits_desc_rchars');
+			});
+
+			$('textarea#hobbies_desc_textarea').keyup(function () {
+				textAreaChaCount('hobbies_desc_textarea', 'hobbies_desc_rchars');
+			});
+		});
+	</script>

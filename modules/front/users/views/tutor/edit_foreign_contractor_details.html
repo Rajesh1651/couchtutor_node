@@ -1,0 +1,300 @@
+<div class="accoutn_section">
+	<div class="container">
+		<div class="account_content">
+			<%- include(WEBSITE_MODULES_PATH + "/elements/tutor_left_link.html" ) %>
+
+				<div class="account_right">
+
+
+					<div class="setting_form dashboard_form tutor_w8_contractor_form">
+						<form id="W8ContractorForm" method="post" role="form" class="mws-form">
+
+
+							<div class="basic_info">
+								<div class="title_row">
+									<h2>Edit W8 Contractor Form</h2>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Name <span class="field-required"> *
+												</span></label>
+
+											<input type="text" name="name" id="" class="form-control"
+												placeholder="Name" value="<%= formData.name %>">
+											<% if(typeof error !="undefined" && error.name){ %>
+												<span class="error help-inline">
+													<%= error.name.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Citizenship <span class="field-required"> *
+												</span></label>
+
+											<input type="text" name="citizenship" id="" class="form-control"
+												placeholder="Citizenship" value="<%= formData.citizenship %>">
+
+											<% if(typeof error !="undefined" && error.citizenship){ %>
+												<span class="error help-inline">
+													<%= error.citizenship.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Address <span class="field-required"> *
+												</span></label>
+
+											<textarea name="address" class="form-control" rows="6" placeholder="Address"
+												id="address"><%= formData.address %></textarea>
+
+											<% if(typeof error !="undefined" && error.address){ %>
+												<span class="error help-inline">
+													<%= error.address.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label for="country_id" class="control-label">Country<span
+													class="field-required">* </span></label>
+
+											<select class="autocomplete form-control show-tick" id="country_id"
+												data-live-search='true' onchange='getStateData(this.value)'
+												name="country_id">
+												<option value="">Please select country</option>
+												<%- country_list %>
+											</select>
+
+											<% if(typeof error !="undefined" && error.country_id){ %>
+												<span class="error help-inline">
+													<%= error.country_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label for="state_id" class="control-label">State <span
+													class="field-required"> *
+												</span></label>
+
+											<div id="state_id_div">
+
+												<select class="autocomplete form-control show-tick" id="state_id"
+													data-live-search='true' onchange="getCityData(this.value)"
+													name="state_id">
+													<option value="">Please select state</option>
+													<%- state_list %>
+												</select>
+											</div>
+											<% if(typeof error !="undefined" && error.state_id){ %>
+												<span class="error help-inline">
+													<%= error.state_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+								<div class="row clearfix">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="city_id" class="control-label">city <span
+													class="field-required"> *
+												</span></label>
+
+
+											<div id="city_id_div">
+												<select class="autocomplete form-control show-tick" id="city_id"
+													data-live-search='true' name="city_id">
+													<option value="">Please select city</option>
+													<%- city_list %>
+												</select>
+
+											</div>
+											<% if(typeof error !="undefined" && error.city_id){ %>
+												<span class="error help-inline">
+													<%= error.city_id.msg %>
+												</span>
+												<% } %>
+										</div>
+									</div>
+								</div>
+
+
+								<!-- 
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label>Mailing Address <span class="field-required"> *
+												</span></label>
+
+											<textarea name="mailing_address" class="form-control" rows="6"
+												placeholder="Mailing Address" id="mailing_address"></textarea>
+
+											<span class="error help-inline">
+
+											</span>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label>Mailing Country<span class="field-required"> *
+												</span></label>
+
+											<select name="mailing_country" class="autocomplete form-control show-tick"
+												id="mailing_country" data-live-search='true'
+												onchange='getMailingState(this.value,"mailing_state","mailing_city","mailing_state_div","mailing_city_div","W8ContractorForm")'>
+												<option value="">Please select country</option>
+											</select>
+
+											<span class="error help-inline">
+
+											</span>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label>Mailing State<span class="field-required"> *
+												</span></label>
+
+
+											<div id="mailing_state_div">
+
+												<select name="mailing_state" class="autocomplete form-control show-tick"
+													id="mailing_state" data-live-search='true'
+													onchange='getCity(this.value,"mailing_city","mailing_city_div","W8ContractorForm")'>
+													<option value="">Please select state</option>
+												</select>
+
+											</div>
+											<span class="error help-inline">
+
+											</span>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row clearfix">
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label>Mailing City<span class="field-required"> *
+												</span></label>
+
+											<div id="mailing_city_div">
+												<select name="mailing_city" class="autocomplete form-control show-tick"
+													id="mailing_city" data-live-search='true'>
+													<option value="">Please select city</option>
+												</select>
+											</div>
+											<span class="error help-inline">
+
+											</span>
+										</div>
+									</div>
+
+								</div> -->
+
+
+								<div class="row clearfix">
+									<div class="col-lg-6">
+										<div class="form-group">
+
+											<label>Tin Number<span class="field-required"> *
+												</span></label>
+											<input type="text" name="tin_number" class="form-control" id=""
+												placeholder="Tin Number" value="<%= formData.tin_number %>">
+
+												<% if(typeof error !="undefined" && error.tin_number){ %>
+													<span class="error help-inline">
+														<%= error.tin_number.msg %>
+													</span>
+													<% } %>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Foreign Tax Identification Number<span class="field-required"> *
+												</span></label>
+
+											<input type="text" name="foreign_tax_identification_number"
+												class="form-control" id=""
+												placeholder="Foreign Tax Identification Number" value="<%= formData.foreign_tax_identification_number %>">
+
+												<% if(typeof error !="undefined" && error.foreign_tax_identification_number){ %>
+													<span class="error help-inline">
+														<%= error.foreign_tax_identification_number.msg %>
+													</span>
+													<% } %>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="save-btn">
+											<button class="btn btn-primary" type="submit">
+												Submit</button>
+											<a href='<%= WEBSITE_URL %>tutor/dashboard'>
+												<button class="btn btn-cancel" type="button">Cancel</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+					</div>
+
+
+					</form>
+				</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+</div>
+</div>
+
+<%- contentFor("css") %>
+
+ 
+	<!-- <link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css"> -->
+
+	<%- contentFor("script") %>
+
+		<!-- <script type="text/javascript"
+			src="<%= WEBSITE_ADMIN_JS_PLUGIN_PATH %>bootstrap-select/js/bootstrap-select.js"></script> -->
+
+		<script type="text/javascript" src="<%=WEBSITE_JS_PATH%>get_state_city_ajax.js"></script>

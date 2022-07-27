@@ -13,6 +13,7 @@
 		"bcrypt": "^5.0.1",
 		"clone": "^2.1.2",
 		"date-and-time": "^2.3.1",
+		"dateformat": "^5.0.3",
 		"dotenv": "^16.0.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.3",
@@ -25,11 +26,12 @@
 		"express-validator": "^6.14.0",
 		"html-to-text": "^8.2.0",
 		"i18n": "^0.14.2",
-		"moment": "^2.29.3",
+		"moment": "^2.29.4",
 		"mongodb": "^4.5.0",
 		"node-cache": "^5.1.2",
 		"nodecache": "^0.0.2",
 		"nodemailer": "^6.7.3",
+		"nodemon": "^2.0.19",
 		"randomstring": "^1.2.2",
 		"slug": "^5.3.0"
 	}

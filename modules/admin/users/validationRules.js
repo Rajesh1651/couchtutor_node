@@ -87,6 +87,9 @@ validationObject = {
 		check('last_name',	anyObjectForLocale.__("admin.user.please_enter_name")).trim().notEmpty(),
 		check('gender',		anyObjectForLocale.__("admin.user.please_select_gender")).trim().notEmpty(),
 		check('dateofbirth',anyObjectForLocale.__("admin.user.please_select_date_of_birth")).trim().notEmpty(),
+		check('country_id',	anyObjectForLocale.__("admin.user.please_select_country")).trim().notEmpty(),
+		check('state_id',	anyObjectForLocale.__("admin.user.please_select_state")).trim().notEmpty(),
+		check('city_id',	anyObjectForLocale.__("admin.user.please_select_city")).trim().notEmpty(),
 		check('email',		anyObjectForLocale.__("admin.user.please_enter_email")).trim().notEmpty(),
 		check('email',		anyObjectForLocale.__("admin.user.please_enter_valid_email_address")).isEmail(),
 		check('email', 		anyObjectForLocale.__("admin.user.your_email_id_is_already_exist")).custom((value, {req})=>{	
@@ -149,7 +152,19 @@ validationObject = {
 				var result		=	true;
 			
 			return result;
-		})
+		}),
+		
+	],
+
+
+	validateForEditAdvanceProfile: [
+		check('brief_intro', i18n.__("admin.user.please_enter_brief_intro")).trim().notEmpty(),
+		check('tutoring_benefits', i18n.__("admin.user.please_enter_tutoring_benefits")).trim().notEmpty(),
+		check('hobbies', i18n.__("admin.user.please_enter_hobbies")).trim().notEmpty(),
+		check('tutor_languages', i18n.__("admin.user.please_enter_tutor_languages")).trim().notEmpty(),
+		check('tutor_expertise', i18n.__("admin.user.please_enter_tutor_expertise")).trim().notEmpty(),
+		check('tutor_grades', i18n.__("admin.user.please_enter_tutor_grades")).trim().notEmpty(),
+
 	],
 	
 
@@ -218,7 +233,9 @@ validationObject = {
 		check('last_name',	anyObjectForLocale.__("admin.user.please_enter_name")).trim().notEmpty(),
 		check('gender',		anyObjectForLocale.__("admin.user.please_select_gender")).trim().notEmpty(),
 		check('dateofbirth',anyObjectForLocale.__("admin.user.please_select_date_of_birth")).trim().notEmpty(),
-
+		check('country_id',	anyObjectForLocale.__("admin.user.please_select_country")).trim().notEmpty(),
+		check('state_id',	anyObjectForLocale.__("admin.user.please_select_state")).trim().notEmpty(),
+		check('city_id',	anyObjectForLocale.__("admin.user.please_select_city")).trim().notEmpty(),
 		check('email',		anyObjectForLocale.__("admin.user.please_enter_email")).trim().notEmpty(),
 		check('email',		anyObjectForLocale.__("admin.user.please_enter_valid_email_address")).isEmail(),
 		check('email', 		anyObjectForLocale.__("admin.user.your_email_id_is_already_exist")).custom((value, {req})=>{	

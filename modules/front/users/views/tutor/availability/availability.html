@@ -1,0 +1,201 @@
+ <link rel="stylesheet"
+   href="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+   type="text/css">
+   <script src="<%=WEBSITE_JS_PLUGIN_PATH%>momentjs/moment.js" type="text/javascript"></script>
+   <script
+     src="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"
+     type="text/javascript"></script>
+
+
+
+
+<div class="accoutn_section">
+  <div class="container">
+    <div class="account_content">
+      <%- include(WEBSITE_MODULES_PATH + "/elements/tutor_left_link.html" ) %>
+
+        <div class="account_right">
+          <div class="setup_availability dashboard_form">
+            <div class="title_row">
+              <h2>Setup Your Availability</h2>
+            </div>
+
+
+            <form action="" method="post" name="" class="mws-form" id="tutor_availability_form">
+
+              <ul class="availability_list">
+
+
+                <input id="1_counter" name="1_counter" type="hidden" value="0">
+                <input id="2_counter" name="2_counter" type="hidden" value="0">
+
+
+                <% 
+                
+               // let date = convert_date_to_timestamp(new Date())
+               // console.log('convert_date_to_timestamp = ' + date);
+                
+
+               // let date2 = convert_timestamp_to_date_time(date)
+                //console.log('convert_timestamp_to_date_time = ' + date2);
+                
+
+                if(typeof week_days!==typeof undefined && Object.keys(week_days).length> 0){
+                  Object.keys(week_days).map(day_id=>{
+
+                  %>
+
+
+                  <li>
+                    <div class="days">
+                      <h3>
+                        <%- week_days[day_id] %>
+                      </h3>
+                    </div>
+
+                    <div class="time_row">
+                      <ul class="ul_<%- day_id %>">
+                        <li class="availability_message_info message_info_<%- day_id %>">
+                          <span>Please add your availability on <%-week_days[day_id] %></span>
+                        </li>
+                      </ul>
+                      <span class="error help-block help-inline <%- day_id %>_first_start_slot"></span>
+                      <span class="error help-block help-inline <%- day_id %>_first_end_slot"></span>
+                      <span class="error help-block help-inline day_<%- day_id %>"></span>
+                    </div>
+                    <div class="add_button">
+                      <a href="javascript:void(0)" onclick="add_more('<%- day_id %>');"
+                        class="add-more add_more_<%- day_id %> btn btn-primary">Add</a>
+                    </div>
+                  </li>
+
+                  <% }); } %>
+
+              </ul>
+
+              <div class="row">
+                <div class="save-btn">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <a href='/tutor/dashboard'>
+                    <button class="btn btn-cancel" type="button">Cancel</button>
+                  </a>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+  });
+
+  /**
+       * Function for add more form element
+       * @params day_id as id of days
+       */
+  function add_more(day_id) {
+
+    var counter_value = $('#' + day_id + '_counter').val();
+    var next_counter_value = parseInt(counter_value) + 1;
+    $('#' + day_id + '_counter').val(next_counter_value);
+
+    $.ajax({
+      type: "POST",
+      url: "/tutor/availability_form_element",
+      data: {
+        day_id: day_id,
+        next_counter_value: next_counter_value
+      },      
+      beforeSend: function () {
+        blockedUI();
+      },
+      success: function (result) {
+        unblockedUI();
+        if (result) {
+
+          /* If user is logged-out then redirect to login page **/
+          if (typeof (result.status) != "undefined" && result.status !== null && result.status ==
+            'no_logged_in') {
+            window.location.href ="/";
+          }
+
+
+          $(".ul_" + day_id).append(result);
+          $(".message_info_" + day_id).hide();
+          /**Add Time picker */        
+        }
+      }
+    });
+  }
+
+
+  
+
+var timeDropdownArray = '<%= getTimeDropdownArray()%>';
+
+  $(document).ready(function() {
+            var emptyEndTimeText = 'End Time';
+            var timeDropDownArrayJson = JSON.stringify(timeDropdownArray);
+            var slotIntervalTime = '<%= SLOTE_INTERVAL_TIME %>';
+            var obj = $.parseJSON(timeDropDownArrayJson);
+
+            $(document).on('change', '.start_time_input_box', function() {
+                var startSelectedValue = parseInt($(this).val());
+                var startSelectedText = $('option:selected', $(this)).text();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/tutor/availability_time_slots",
+                    data: {
+                        startTime: startSelectedText
+                    },                    
+                    beforeSend: function() {
+                        blockedUI();
+                    },
+                    success: function(result) {
+                        unblockedUI();
+                        if (result) {
+                            /* If user is logged-out then redirect to login page **/
+                            if (typeof(result.status) != "undefined" && result.status !==
+                                null && result.status == 'no_logged_in') {
+                                window.location.href =
+                                    "{{ route('User.login', ['?return_url=' . Route($current_url)]) }}";
+                            }
+
+                            $(".ul_" + day_id).append(result);
+                            $(".message_info_" + day_id).hide();
+                            /**Add Time picker */
+                        }
+                    }
+                });
+                blockedUI();
+                var dayId = $(this).data("day");
+                var slotId = $(this).data("slot");
+                var relatedEndTimeFieldId = dayId + '_end_time_' + slotId;
+
+
+                if (!isNaN(startSelectedValue)) {
+                    var endValue = parseInt(startSelectedValue + slotIntervalTime);
+                    var endText = obj[endValue];
+
+                    $('#' + relatedEndTimeFieldId).empty();
+                    $('#' + relatedEndTimeFieldId).append(new Option(endText, endValue));
+                } else {
+                    $('#' + relatedEndTimeFieldId).empty();
+                    $('#' + relatedEndTimeFieldId).append(new Option(endText, endValue));
+
+                }
+                unblockedUI();
+            });
+        });
+
+
+</script>

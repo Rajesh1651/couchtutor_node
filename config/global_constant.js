@@ -80,6 +80,8 @@ UNBLOCK = 0;
 USER_STATUS_PENDING = "pending";
 USER_STATUS_APPROVED = "approved";
 USER_STATUS_REJECTED = "rejected";
+USER_STATUS_SUBMITED = "submited";
+
 
 /** Type of Flash messages */
 STATUS_SUCCESS = "success";
@@ -116,10 +118,18 @@ DISCOUNT_TYPE['percentage'] = "percentage";
 
 USAGE_LIMIT = [
 	{
-		"1": "Only 1 time",
-		"2": "Multiple time",
+		value: 1,
+		name: "Only 1 time",		
+	},
+	{
+		value: 2,
+		name: "Multiple time",		
 	}
 ];
+
+
+
+
 
 /** Datatable configurations **/
 SORT_DESC = -1;
@@ -144,6 +154,10 @@ ALLOWED_ADMIN_TO_SET_COOKIE = DEACTIVE;
 SUBJECT_IMAGE_EXTENSION = ["jpg", "jpeg", "png", "svg"];
 SUBJECT_IMAGE_ERROR_MESSAGE = "Please select valid file, Valid file extensions are " + SUBJECT_IMAGE_EXTENSION.join(", ") + ".";
 
+RESUME_EXTENSION = ["pdf","doc","docx"];
+
+
+IMAGE_UPLOAD_FILE_MAX_SIZE_TWO = 2;
 
 
 /** Not allowed html tags list*/
@@ -172,6 +186,17 @@ DATE_RANGE_DATE_TIME_FORMAT = "YYYY-MM-DD HH:mm";
 DATE_RANGE_DATE_FORMAT = "YYYY-MM-DD";
 DATEPICKER_TIME_FORMAT = "HH:mm";
 DEFAULT_TIME_ZONE = "Asia/Kolkata";
+
+
+DISPLAY_DATE_TIME_FORMAT="d/m/Y h:i A";
+MANAGE_SLOT_TIME_FORMAT='H:i';
+//MANAGE_SLOT_TIME_FORMAT_AM_PM='h:i A';
+
+
+
+SESSION_SLOT_INTERVAL= 86400;
+SLOTE_INTERVAL_TIME= 3600;
+
 
 
 TYPE_ACTIVE = "active";
@@ -290,6 +315,10 @@ LANGUAGES_IN_SYSTEM = [
 
 MASTER_TYPES_NAME = []
 MASTER_TYPES_NAME['grades'] = true;
+MASTER_TYPES_NAME['language'] = true;
+MASTER_TYPES_NAME['area_of_expertise'] = true;
+
+
 MASTER_TYPES_NAME['faq_category'] = true;
 DEFAULT_MASTER_TYPE = 'faq_category';
 
@@ -317,6 +346,7 @@ EMAIL_LOG_COLLECTION = 'email_logs';
 COMMENTS_COLLECTION = 'comments';
 PLANS_COLLECTION = 'plans';
 COUPONS_COLLECTION = 'coupons';
+MESSAGES_COLLECTION = 'messages';
 
 
 COUNTRIES_COLLECTION = 'countries';
@@ -325,6 +355,14 @@ CITIES_COLLECTION = 'cities';
 COUNTRY_CODE_COLLECTION = 'country_code';
 
 
+TUTOR_PROFILE_STATUS_COLLECTION = 'tutor_profile_status';
+TUTOR_BASIC_DETAILS_COLLECTION = 'tutor_basic_details';
+TUTOR_LANGUAGE_COLLECTION = 'tutor_languages';
+TUTOR_AREA_OF_EXPERTISE_COLLECTION = 'tutor_area_of_expertise';
+TUTOR_GRADES_COLLECTION = 'tutor_grades';
+TUTOR_REFERANCE_COLLECTION = 'tutor_references';
+TUTOR_W8_CONTRACTOR_FORM_COLLECTION = 'user_foreign_contractors';
+TUTOR_EDUCATION_COLLECTION = 'tutor_education';
 
 
 STUDENT_ROLE_ID = 3;
@@ -354,6 +392,19 @@ DURATION_TYPE_DROPDOWN['years'] = "Year(s)";
 
 
 
+/** RESUME UPLOAD TYPE dropdown **/
+RESUME_UPLOAD_TYPE = [
+	{
+		key: 1,
+		value: "Enter your resume url"
+	},
+	{
+		key: 2,
+		value: "Upload your resume document"
+	}
+];
+
+
 
 
 DATE_RANGE_CANCEL_LABEL = "aaaa";
@@ -361,5 +412,26 @@ JS_DATE_FORMAT = 'DD-MM-YYYY';
 
 ONLY_ONE_TIME_USEAGE_LIMIT = 1;
 N_TIME_USEAGE_LIMIT = 2;
+
+TUTOR_REFERENCES_COUNT = 3;
+
 COUPON_DESCRIPTION_LENGTH = 100;
+TUTOR_INTRODUCTION_LENGTH = 500;
+
+MESSAGE_SUBJECT_MAX_LENGTH = 150;
+MESSAGE_MAX_LENGTH = 300;
+
+
+RESUME_UPLOAD_FILE_MAX_SIZE_TWO = 10;
+
+WEEK_DAYS = {};
+WEEK_DAYS[1] = "Monday";
+WEEK_DAYS[2] = "Tuesday";
+WEEK_DAYS[3] = "Wednesday";
+WEEK_DAYS[4] = "Thursday";
+WEEK_DAYS[5] = "Friday";
+WEEK_DAYS[6] = "Saturday";
+WEEK_DAYS[7] = "Sunday";
+
+
 

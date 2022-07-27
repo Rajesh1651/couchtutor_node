@@ -21,7 +21,7 @@
 									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 										<div class="form-group">
 											<div class="form-line">
-												<input class="form-control" value="<%= query.title %>"  placeholder="<%= __("admin.coupons.search_by_page_title"); %>" name="title" autocomplete="off">
+												<input class="form-control" value="<%= query.coupon_code %>"  placeholder="<%= __("admin.coupons.search_by_page_coupon_code"); %>" name="coupon_code" autocomplete="off">
 											</div>
 										</div>
 									</div>
@@ -100,7 +100,18 @@
 						<% if(results.length > 0) { %>
 							<% results.forEach(function(result){ %>
 								<tr>
-									<td> <%= result.title %>  </td>
+									<td> <%= result.coupon_code %>  </td>
+									<td> <%= result.discounttype %>  </td>
+									<td> <%= result.discount %>  </td>
+									<td> <%= result.usage_limit %>  </td>
+									<td> <%= (result.quantity)?result.quantity:0 %>  </td>
+									<td> 0 </td>
+									<td>
+										<%= moment(result.startdate).format(DISPLAY_DATE_FORMAT)  %>
+										
+										  </td>
+									<td>
+										<%= moment(result.lastdate).format(DISPLAY_DATE_FORMAT)  %> </td>
 									<td> 
 										<% if(result.active){ %> 
 											<span class="label label-success m-l-5 m-t-5"><%= __("admin.system.active")%></span>
@@ -108,9 +119,7 @@
 											<span class="label label-danger m-l-5 m-t-5"><%= __("admin.system.inactive")%></span>
 										<%} %>
 									</td>
-									<td>
-										<%= moment(result.created).format(DISPLAY_DATE_FORMAT)  %>
-									</td>
+									
 									<td>
 									<%									
 									var statusLinkText 	 	= (result && result.active) ?	__("admin.system.deactivate") :  __("admin.system.activate");
@@ -119,32 +128,25 @@
 									var id			= result._id;
 									var status		= result.active;
 									%>
-																
+										
+									
 									<div class="btn-group m-l-5 m-t-5">
 										<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 											<%= __("admin.system.action")%> <span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu min-width-190">
-											<li>
-												<a href="<%=admin_list_url%>/edit/<%= id %>" class="waves-effect waves-block">
-													<i class="material-icons">mode_edit</i> <%= __("admin.system.edit")%>
-												</a>
-											</li>
-											<li>
+											
+											<!-- <li>
 												<a href="<%=admin_list_url%>/view/<%= id %>" class="waves-effect waves-block">
 													<i class="material-icons">find_in_page</i> <%= __("admin.system.view")%>
 												</a>
-											</li>
+											</li> -->
 											<li>
 												<a href="javascript:void(0)" data-href="<%=admin_list_url%>/update_status/<%= id %>/<%= status %>" class=" waves-effect waves-block confirm_box" data-confirm-message="You want to change status?" data-confirm-heading="Are you sure?" title="<%= statusLinkTitle %>">
 													<i class="material-icons"><%= statusLinkIcon %></i><%= statusLinkText %>
 												</a>
 											</li>	
-											<li>
-												<a href="javascript:void(0)" data-href="<%=admin_list_url%>/delete/<%= id %>" class="waves-effect waves-block confirm_box" data-confirm-message="<%= __("admin.cms.delete_confirm_message")%>" data-confirm-heading="<%= __("admin.system.are_you_sure")%>">
-													<i class="material-icons">delete_sweep</i> <%= __("admin.system.delete")%>
-												</a>
-											</li>
+											
 										</ul>
 									</div>
 									</td>

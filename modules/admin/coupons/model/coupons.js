@@ -25,14 +25,14 @@ function Coupons() {
 		let limit = (req.body.length) ? parseInt(req.body.length) : ADMIN_LISTING_LIMIT;
 		let skip = req.skip
 
-		let title = (req.query.title) ? req.query.title : "";
+		let coupon_code = (req.query.coupon_code) ? req.query.coupon_code : "";
 		let statusSearch = (req.query.status) ? parseInt(req.query.status) : "";
 
 		/** Set conditions **/
 		var commonConditions = { is_deleted: NOT_DELETED };
 
-		if (title != "") {
-			commonConditions.title = new RegExp(title, 'i');
+		if (coupon_code != "") {
+			commonConditions.coupon_code = new RegExp(coupon_code, 'i');
 		}
 
 		if (statusSearch != "") {
@@ -49,7 +49,7 @@ function Coupons() {
 
 		const pages = db.collection(COUPONS_COLLECTION);
 
-		pages.find(commonConditions).skip(skip).limit(limit).sort({ title: SORT_ASC }).toArray(function (err, results) {
+		pages.find(commonConditions).skip(skip).limit(limit).sort({ created: SORT_DESC }).toArray(function (err, results) {
 			if (err) throw err;
 
 			pages.find(commonConditions).count(function (errCount, itemCount) {
@@ -68,253 +68,87 @@ function Coupons() {
 
 
 
-/**
-	 * Function for add coupon
-	 *
-	 * @param req 	As	Request Data
-	 * @param res 	As	Response Data
-	 * @param next 	As 	Callback argument to the middleware function
-	 *
-	 * @return render/json
-	 */
- this.add = (req, res, next, validationErrors) => {
-	if (isPost(req) && !validationErrors) {
-		/** Sanitize Data */
-		req.body = sanitizeData(req.body, NOT_ALLOWED_TAGS_XSS);
-
-		let allData = req.body;
-		let title = (req.body.title) ? req.body.title : "";
-		let short_decription = (req.body.short_decription) ? req.body.short_decription : "";
-		let decription = (req.body.decription) ? req.body.decription : "";
-		let meta_title = (req.body.meta_title) ? req.body.meta_title : "";
-		let meta_keywords = (req.body.meta_keywords) ? req.body.meta_keywords : "";
-		let meta_decription = (req.body.meta_decription) ? req.body.meta_decription : "";
-
-		/** Set options **/
-		let options = {
-			title: title,
-			table_name: COUPONS_COLLECTION,
-			slug_field: "slug"
-		};
-
-		/** Make Slug */
-		getDatabaseSlug(options).then(response => {
-			/** Save coupon details */
-			const pages = db.collection(COUPONS_COLLECTION);
-			pages.insertOne({
-				title: title,
-				short_decription: short_decription,
-				decription: decription,
-				meta_title: meta_title,
-				meta_keywords: meta_keywords,
-				meta_decription: meta_decription,
-				slug: (response && response.title) ? response.title : "",
-				active: ACTIVE,
-				is_deleted: NOT_DELETED,
-				created: getUtcDate(),
-				modified: getUtcDate()
-			}, (err, result) => {
-				if (err) {
-					/** Send error response **/
-					req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
-					return res.redirect(LISTING_URL);
-				}
-
-				req.flash(STATUS_SUCCESS, res.__("admin.coupons.record_added_successfully"));
-				return res.redirect(LISTING_URL);
-			});
-		}, error => {
-			req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
-			return res.redirect(LISTING_URL);
-		});
-	}
-	else {
-
-		formData = false;
-		if ((typeof req.session.formData !== typeof undefined) && (req.session.formData != null)) {
-			formData = req.session.formData;
-			req.session.formData = null;
-		}
-
-		req.breadcrumbs(brdObj.add);
-		res.render("add_edit", { 'error': validationErrors, 'formData': formData });
-	}
-};//End addCms()
-
-
-
-
-
-
-
-
 	/**
-	 * Function for view Cms's Detail
-	 *
-	 * @param req 	As 	Request Data
-	 * @param res 	As 	Response Data
-	 * @param next 	As 	Callback argument to the middleware function
-	 *
-	 * @return render
-	 */
-	this.viewCmsDetails = (req, res, next) => {
-		/** Get cms details **/
-		getCmsDetails(req, res, next).then(response => {
-			if (response.status != STATUS_SUCCESS) {
-				/** Send error response **/
-				req.flash(STATUS_ERROR, response.message);
-				res.redirect(LISTING_URL);
-				return;
-			}
-
-			/** Render edit page **/
-			req.breadcrumbs(brdObj.view);
-			res.render('view', { result: response.result });
-		}).catch(next);
-	};//End viewCmsDetails()	
-
-
-
-	/**
-	 * Function to get cms's detail
-	 *
-	 * @param req	As	Request Data
-	 * @param res	As	Response Data
-	 * @param next	As 	Callback argument to the middleware function
-	 *
-	 * @return json
-	 */
-	let getCmsDetails = (req, res, next) => {
-		return new Promise(resolve => {
-			let cmsId = (req.params.id) ? req.params.id : "";
-			/** Get Cms details **/
-			const pages = db.collection(CMS_PAGE_COLLECTION);
-			pages.findOne(
-				{ _id: ObjectId(cmsId) },
-				(err, result) => {
-					if (err) return next(err);
-
-					if (!result) {
-						/** Send error response **/
-						let response = {
-							status: STATUS_ERROR,
-							message: res.__("admin.system.invalid_access")
-						};
-						return resolve(response);
-					}
-
-					if (result && result.is_deleted == DELETED) {
-						/** Send error response **/
-						let response = {
-							status: STATUS_ERROR,
-							message: res.__("admin.cms.record_not_exists")
-						};
-						return resolve(response);
-					}
-
-					/** Set options for append image full path **/
-					let options = {
-						"result": [result]
-					};
-
-					/** Append image with full path **/
-					appendFileExistData(options).then(fileResponse => {
-						let response = {
-							status: STATUS_SUCCESS,
-							result: (fileResponse && fileResponse.result && fileResponse.result[0]) ? fileResponse.result[0] : {}
-						};
-						resolve(response);
-					});
-				}
-			);
-		});
-	};// End getCmsDetails().
-
-
-
-	/**
-	 * Function to update cms's detail
-	 *
-	 * @param req 	As 	Request Data
-	 * @param res 	As 	Response Data
-	 * @param next 	As 	Callback argument to the middleware function
-	 *
-	 * @return render/json
-	 */
-	this.editCms = (req, res, next, validationErrors) => {
+		 * Function for add coupon
+		 *
+		 * @param req 	As	Request Data
+		 * @param res 	As	Response Data
+		 * @param next 	As 	Callback argument to the middleware function
+		 *
+		 * @return render/json
+		 */
+	this.add = (req, res, next, validationErrors) => {
 		if (isPost(req) && !validationErrors) {
-			/** Sanitize Data **/
+			/** Sanitize Data */
 			req.body = sanitizeData(req.body, NOT_ALLOWED_TAGS_XSS);
-			let id = (req.params.id) ? req.params.id : "";
 
 			let allData = req.body;
-			let title = (req.body.title) ? req.body.title : "";
-			let short_decription = (req.body.short_decription) ? req.body.short_decription : "";
-			let decription = (req.body.decription) ? req.body.decription : "";
-			let meta_title = (req.body.meta_title) ? req.body.meta_title : "";
-			let meta_keywords = (req.body.meta_keywords) ? req.body.meta_keywords : "";
-			let meta_decription = (req.body.meta_decription) ? req.body.meta_decription : "";
 
+			let coupon_code = (req.body.coupon_code) ? req.body.coupon_code : "";
+			let description = (req.body.description) ? req.body.description : "";
+			let discounttype = (req.body.discounttype) ? req.body.discounttype : "";
+			let discount = (req.body.discount) ? req.body.discount : 0;
+			let max_discount_allowed = (req.body.max_discount_allowed) ? req.body.max_discount_allowed : "";
+			let usage_limit = (req.body.usage_limit) ? req.body.usage_limit : "";
+			let quantity = (req.body.quantity) ? req.body.quantity : "";
+			let startdate = (req.body.startdate) ? dateToTimeStamp(req.body.startdate) : "";
+			let lastdate = (req.body.lastdate) ? dateToTimeStamp(req.body.lastdate) : "";
 
-			/** Update cms details **/
-			const pages = db.collection(CMS_PAGE_COLLECTION);
-			pages.updateOne(
-				{ _id: ObjectId(id) },
-				{
-					$set: {
-						title: title,
-						short_decription: short_decription,
-						decription: decription,
-						meta_title: meta_title,
-						meta_keywords: meta_keywords,
-						meta_decription: meta_decription,
-						modified: getUtcDate()
-					}
-				},
-				(err, result) => {
+			/** Set options **/
+			let options = {
+				title: coupon_code,
+				table_name: COUPONS_COLLECTION,
+				slug_field: "slug"
+			};
+
+			/** Make Slug */
+			getDatabaseSlug(options).then(response => {
+				/** Save coupon details */
+				const pages = db.collection(COUPONS_COLLECTION);
+				pages.insertOne({
+					coupon_code: coupon_code,
+					description: description,
+					discounttype: discounttype,
+					discount: discount,
+					max_discount_allowed: max_discount_allowed,
+					usage_limit: usage_limit,
+					quantity: quantity,
+					startdate: startdate,
+					lastdate: lastdate,
+					slug: (response && response.title) ? response.title : "",
+					active: ACTIVE,
+					is_deleted: NOT_DELETED,
+					created: getUtcDate(),
+					modified: getUtcDate()
+				}, (err, result) => {
 					if (err) {
 						/** Send error response **/
 						req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
 						return res.redirect(LISTING_URL);
 					}
 
-					/** Send success response **/
-					req.flash(STATUS_SUCCESS, res.__("admin.cms.record_updated_successfully"));
-					res.redirect(LISTING_URL);
-				}
-			);
-
+					req.flash(STATUS_SUCCESS, res.__("admin.coupons.record_added_successfully"));
+					return res.redirect(LISTING_URL);
+				});
+			}, error => {
+				req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
+				return res.redirect(LISTING_URL);
+			});
 		}
 		else {
-			/** Get cms details **/
-			getCmsDetails(req, res, next).then(response => {
-				if (response.status != STATUS_SUCCESS) {
-					/** Send error response **/
-					req.flash(STATUS_ERROR, response.message);
-					res.redirect(LISTING_URL);
-					return;
-				}
 
-				formData = false;
-				if ((typeof req.session.formData !== typeof undefined) && (req.session.formData != null)) {
-					formData = req.session.formData;
-					req.session.formData = null;
-				}
+			formData = false;
+			if ((typeof req.session.formData !== typeof undefined) && (req.session.formData != null)) {
+				formData = req.session.formData;
+				req.session.formData = null;
+			}
 
-				/** Render edit page **/
-				req.breadcrumbs(brdObj.edit);
-				res.render('add_edit', {
-					result: response.result,
-					'error': validationErrors,
-					'formData': formData
-				});
-			}).catch(next);
+			req.breadcrumbs(brdObj.add);
+			res.render("add_edit", { 'error': validationErrors, 'formData': formData });
 		}
-	};//End editCms()
+	};//End addCms()
 
 
-
-	
 
 	/**
 	 * Function for update cms's status
@@ -325,11 +159,11 @@ function Coupons() {
 	 *
 	 * @return null
 	 */
-	this.updateCmsStatus = (req, res, next) => {
-		let cmsId = (req.params.id) ? req.params.id : "";
-		let cmsStatus = (req.params.status) ? req.params.status : "";
+	this.updateStatus = (req, res, next) => {
+		let Id = (req.params.id) ? req.params.id : "";
+		let Status = (req.params.status) ? req.params.status : "";
 
-		if (!cmsId) {
+		if (!Id) {
 			/** Send error response **/
 			req.flash(STATUS_ERROR, res.__("admin.system.invalid_access"));
 			return res.redirect(LISTING_URL);
@@ -337,11 +171,11 @@ function Coupons() {
 
 		/** Set update data **/
 		let updateData = { modified: getUtcDate() };
-		updateData.active = (cmsStatus == ACTIVE) ? DEACTIVE : ACTIVE;
+		updateData.active = (Status == ACTIVE) ? DEACTIVE : ACTIVE;
 
 		/** Update user status*/
-		const pages = db.collection(CMS_PAGE_COLLECTION);
-		pages.updateOne({ _id: ObjectId(cmsId) }, { $set: updateData }, (err, result) => {
+		const pages = db.collection(COUPONS_COLLECTION);
+		pages.updateOne({ _id: ObjectId(Id) }, { $set: updateData }, (err, result) => {
 			if (err) {
 				/** Send error response **/
 				req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
@@ -349,48 +183,99 @@ function Coupons() {
 			}
 
 			/** Send success response **/
-			req.flash(STATUS_SUCCESS, res.__("admin.cms.record_updated_successfully"));
+			req.flash(STATUS_SUCCESS, res.__("admin.coupons.record_updated_successfully"));
 			return res.redirect(LISTING_URL);
 		});
 	};//End updateUserStatus()
 
 
 
-	/**
-	 * Function for delete cms
-	 *
-	 * @param req 	As Request Data
-	 * @param res 	As Response Data
-	 * @param next 	As 	Callback argument to the middleware function
-	 *
-	 * @return null
-	 */
-	this.deleteCms = (req, res, next) => {
-		let cmsId = (req.params.id) ? req.params.id : "";
 
-		if (!cmsId) {
-			/** Send error response **/
-			req.flash(STATUS_ERROR, res.__("admin.system.invalid_access"));
-			return res.redirect(LISTING_URL);
-		}
 
-		/** Set update data **/
-		let updateData = { modified: getUtcDate(), is_deleted: DELETED };
 
-		/** Update user status*/
-		const pages = db.collection(CMS_PAGE_COLLECTION);
-		pages.updateOne({ _id: ObjectId(cmsId) }, { $set: updateData }, (err, result) => {
-			if (err) {
-				/** Send error response **/
-				req.flash(STATUS_ERROR, res.__("admin.system.something_going_wrong_please_try_again"));
-				return res.redirect(LISTING_URL);
-			}
+	// /**
+	//  * Function for view Detail
+	//  *
+	//  * @param req 	As 	Request Data
+	//  * @param res 	As 	Response Data
+	//  * @param next 	As 	Callback argument to the middleware function
+	//  *
+	//  * @return render
+	//  */
+	// this.viewDetails = (req, res, next) => {
+	// 	/** Get cms details **/
+	// 	getDetails(req, res, next).then(response => {
+	// 		if (response.status != STATUS_SUCCESS) {
+	// 			/** Send error response **/
+	// 			req.flash(STATUS_ERROR, response.message);
+	// 			res.redirect(LISTING_URL);
+	// 			return;
+	// 		}
 
-			/** Send success response **/
-			req.flash(STATUS_SUCCESS, res.__("admin.cms.record_deleted_successfully"));
-			return res.redirect(LISTING_URL);
-		});
-	};//End deleteCms()
+	// 		/** Render edit page **/
+	// 		req.breadcrumbs(brdObj.view);
+	// 		res.render('view', { result: response.result });
+	// 	}).catch(next);
+	// };//End viewDetails()	
+
+
+
+	// /**
+	//  * Function to get cms's detail
+	//  *
+	//  * @param req	As	Request Data
+	//  * @param res	As	Response Data
+	//  * @param next	As 	Callback argument to the middleware function
+	//  *
+	//  * @return json
+	//  */
+	// let getDetails = (req, res, next) => {
+	// 	return new Promise(resolve => {
+	// 		let Id = (req.params.id) ? req.params.id : "";
+	// 		/** Get  details **/
+	// 		const pages = db.collection(COUPONS_COLLECTION);
+	// 		pages.findOne(
+	// 			{ _id: ObjectId(Id) },
+	// 			(err, result) => {
+	// 				if (err) return next(err);
+
+	// 				if (!result) {
+	// 					/** Send error response **/
+	// 					let response = {
+	// 						status: STATUS_ERROR,
+	// 						message: res.__("admin.system.invalid_access")
+	// 					};
+	// 					return resolve(response);
+	// 				}
+
+	// 				if (result && result.is_deleted == DELETED) {
+	// 					/** Send error response **/
+	// 					let response = {
+	// 						status: STATUS_ERROR,
+	// 						message: res.__("admin.coupons.record_not_exists")
+	// 					};
+	// 					return resolve(response);
+	// 				}
+
+	// 				/** Set options for append image full path **/
+	// 				let options = {
+	// 					"result": [result]
+	// 				};
+
+	// 				/** Append image with full path **/
+	// 				appendFileExistData(options).then(fileResponse => {
+	// 					let response = {
+	// 						status: STATUS_SUCCESS,
+	// 						result: (fileResponse && fileResponse.result && fileResponse.result[0]) ? fileResponse.result[0] : {}
+	// 					};
+	// 					resolve(response);
+	// 				});
+	// 			}
+	// 		);
+	// 	});
+	// };// End getDetails().
+
+
 
 }
 module.exports = new Coupons();

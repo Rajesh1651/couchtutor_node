@@ -1,0 +1,365 @@
+<!--pop div start here-->
+<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="getting_basic_list_popover"
+  class="modal fade in" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div class="tab-content" id="myTabContent2">
+          <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+            <div class="login_content signup_form">
+              <h1>Education</h1>
+              <div class="lead_form">
+
+                <table class="table table-bordered">
+                  <thead>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <th>University Name</th>
+                      <td data-th='university_name'>
+                        <span class="detail_university_name"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Major</th>
+                      <td data-th='major'>
+                        <span class="detail_major"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th valign='top'>Cumulative GPA</th>
+                      <td data-th='cumulative_gpa'>
+                        <span class="detail_cumulative_gpa"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th valign='top'>Degree</th>
+                      <td data-th='degree'>
+                        <span class="detail_degree"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th valign='top'>Duration</th>
+                      <td data-th='Duration'>
+                        <span class="detail_Duration"></span>
+                      </td>
+                    </tr>
+                   
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="save-btn">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="accoutn_section">
+  <div class="container">
+    <div class="account_content">
+      <%- include(WEBSITE_MODULES_PATH + "/elements/tutor_left_link.html" ) %>
+
+        <div class="account_right">
+          <div class="dashboard_form exp_certi_div">
+
+            <div class="basic_info">
+              <div class="title_row">
+                <h2>Education</h2>
+              </div>
+
+
+              <% center_class='' ; %>
+                <% if(results==null){ %>
+                  <% center_class='text-align-center' ; %>
+                    <% } %>
+
+                      <div class="add_exp form-group add_more_btn <%- center_class %>">
+                        <a onclick="open_model_box('edu_add', 0)"><button class="btn btn-primary">Add
+                            Education</button></a>
+                      </div>
+
+                      <div class="main_table">
+                        <div class="table-responsive">
+                          <table width="100%" cellpadding="0" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>University Mame </th>
+                                <th>Major</th>
+                                <th>Cumulative GPA</th>
+                                <th>Degree</th>
+                                <th>Action</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                              <% if(typeof results !==typeof undefined && results.length> 0){
+                                let blogIndex = 0;
+                                results.map(educationList=>{
+                                %>
+                                <tr>
+                                  <td>
+                                    <%-educationList.university_name%>
+                                  </td>
+                                  <td>
+                                    <%-educationList.major%>
+                                  </td>
+                                  <td>
+                                    <%-educationList.cumulative_gpa%>
+                                  </td>
+                                  <td>
+                                    <%-educationList.degree%>
+                                  </td>
+                                  <td>
+
+                                    <a class="alert_confirm_box theme_orange_color tooltipHelp"
+                                      href="javascript:void(0);" onclick="getPopupEducation('<%- educationList._id %>')"
+                                      class="text-decoration-none theme_blue_color cursor-pointer tooltipHelp"
+                                      data-html="true" data-toggle="tooltip" data-original-title="Description"><i
+                                        class="material-icons font-14">visibility</i></a>
+
+                                    <a onclick="open_model_box('edu_edit','<%- educationList._id %>' )"
+                                      class="text-decoration-none theme_blue_color cursor-pointer tooltipHelp"
+                                      data-html="true" data-toggle="tooltip" data-original-title="Edit"><i
+                                        class="material-icons font-14">mode_edit</i></a>
+
+
+                                    <a class="alert_confirm_box theme_orange_color tooltipHelp"
+                                      href="javascript:void(0);" data-href='delete_education/<%- educationList._id %>'
+                                      data-alert="Are you sure want to delete this records." data-html="true"
+                                      data-toggle="tooltip" data-original-title="Delete" title='Delete'><i
+                                        class="material-icons font-14">delete</i></a>
+
+                                  </td>
+                                </tr>
+
+                                <% blogIndex++; }); } %>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="educationModal" role="dialog">
+  <!-- Modal -->
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="tab-conten">
+
+          <div class="login_content signup_form">
+
+            <h1> Education</h1>
+            <div class="lead_form">
+              <form action="" name="addEducation" id="addEducation" class="mws-form" enctype="multipart/form-data">
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+
+                      <label>University Name <span class="field-required"> *
+                        </span></label>
+                      <input type="text" name="university_name" class="form-control" id="university_name"
+                        placeholder="University Name">
+
+
+                      <input type="hidden" name="type" id="type">
+
+                      <input type="hidden" name="modelId" id="modelId">
+
+
+                      <span class="error help-inline university_name">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+
+
+                      <label>Major <span class="field-required"> *
+                        </span></label>
+                      <input type="text" name="major" class="form-control" id="major" placeholder="Major">
+                      <span class="error help-inline major">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+
+                      <label>Cumulative GPA <span class="field-required"> *
+                        </span></label>
+                      <input type="text" name="cumulative_gpa" class="form-control" id="cumulative_gpa"
+                        placeholder="Cumulative GPA">
+
+                      <span class="error help-inline cumulative_gpa">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+
+                      <label>Degree <span class="field-required"> *
+                        </span></label>
+                      <input type="text" name="degree" class="form-control" id="degree" placeholder="Degree">
+
+                      <span class="error help-inline degree">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-lg-12 col-lg-6">
+                    <div class="form-group custom_checkboxs">
+                      <div class="upper_checkbox styled-selectors">
+                        <div class="upper_checkbox styled-selectors">
+                          <input class="checkAllUser filled-in" id="is_current" name="is_current" type="checkbox">
+                          <label for="is_current" class="table_checkbox"> Please tick if this is your current
+                            education.</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="start_date" class="control-label">Start Date <span class="field-required"> *
+                        </span></label>
+                      <input class="form-control pick_date" placeholder="Start Date" id="date-start" name="start_date"
+                        type="text">
+                      <span class="error help-inline start_date">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6" id="emp_end_date" style="display: block;">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <label for="end_date" class="control-label">End Date <span class="field-required"> *
+                          </span></label>
+                        <input class="form-control pick_date" placeholder="End Date" id="date-end" name="end_date"
+                          type="text">
+                      </div>
+                      <span class="error help-inline end_date">
+
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="form-group text-center save-btn">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="button" class="btn btn-cancel close-popup" data-dismiss="modal">Close</button>
+                </div>
+
+
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<%- contentFor("css") %>
+  <link rel="stylesheet"
+    href="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+    type="text/css">
+
+  <%- contentFor("script") %>
+
+    <script src="<%=WEBSITE_JS_PLUGIN_PATH%>momentjs/moment.js" type="text/javascript"></script>
+    <script src="<%=WEBSITE_JS_PLUGIN_PATH%>bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"
+      type="text/javascript"></script>
+    <script src="<%=WEBSITE_JS_PATH%>custom_calendar.js" type="text/javascript"></script>
+    <script src="<%=WEBSITE_JS_PATH%>tutor_education.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+      var cal_date_format = '<%- JS_DATE_FORMAT %>';
+
+      var edu_model_url = "/tutor/openEducationModel";
+      var cert_model_url = "/tutor/openCertificateModel";
+      var certificate_placeholder = "Certificate Name";
+      var remove_btn_txt = 'Remove';
+      var remove_btn_tooltip = 'Delete';
+      var cert_vali_msg = "cert_vali_msg";
+      var deleteCertificateMsg = "deleteCertificateMsg";
+
+
+      $(document).ready(function () {
+        /** For tooltip ***/
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        showStartEndDateInPastExperience('date-start', 'date-end', cal_date_format);
+
+        if ($("#is_current").is(":checked")) {
+          $('#emp_end_date').hide();
+        }
+
+        $("#is_current").click(function () {
+
+          $(".end_date").html("");
+
+          if ($("#is_current").is(":checked")) {
+            $('#emp_end_date').hide();
+            $('#current_job').val("1");
+          }
+          else {
+            $('#emp_end_date').show();
+            $('#current_job').val("0");
+          }
+        });
+
+
+
+      });
+
+
+
+    </script>

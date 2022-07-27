@@ -24,13 +24,22 @@
         <link href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>sweetalert/sweetalert.css" rel="stylesheet">
         <link href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 
+		<link href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css" rel="stylesheet">
+		
         <link href="<%=WEBSITE_ADMIN_CSS_PATH%>developer.css" rel="stylesheet">
+		<link href="<%=WEBSITE_ADMIN_CSS_PATH%>lightbox.css" rel="stylesheet">
+		
+
+
         <%- defineContent("css") %>
 
 		<!-- Jquery Core Js -->
 		<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>jquery/jquery.min.js" type="text/javascript"></script>
-
+		<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
 		
+	
+
+
     </head>
 
 
@@ -49,7 +58,11 @@
 	
 	var JS_DATE_FORMAT    = '<%=  JS_DATE_FORMAT; %>';
 	var COUPON_DESCRIPTION_LENGTH    = '<%=  COUPON_DESCRIPTION_LENGTH; %>';
+    var WEBSITE_ADMIN_URL ='<%=WEBSITE_ADMIN_URL%>';
+	var defaultTimeZone = '<%=DEFAULT_TIME_ZONE%>';
+	var dateRangeFormat = '<%=DATE_RANGE_DATE_FORMAT%>';
 
+   
 </script>
 
 
@@ -154,17 +167,16 @@
 		<script src="<%=WEBSITE_ADMIN_JS_PATH%>moment.min.js" type="text/javascript"></script>
 		<script src="<%=WEBSITE_ADMIN_JS_PATH%>moment-timezone-with-data.js" type="text/javascript"></script>
 		<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>sweetalert/sweetalert.min.js" type="text/javascript"></script>
-		<!-- Custom Js -->
-
-	
+		<!-- Custom Js -->	
 		<script src="<%=WEBSITE_ADMIN_JS_PATH%>custom.js" type="text/javascript" ></script>
-
+		
 		<!-- Jquery DataTable Plugin Js -->
 		<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>jquery-datatable/jquery.dataTables.js"></script>
 		<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
 		<!-- Jquery DataTable Plugin Js -->
 
 		<script src="<%=WEBSITE_ADMIN_JS_PATH%>admin.js" type="text/javascript"></script>
+		<script src="<%=WEBSITE_ADMIN_JS_PATH%>lightbox.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			<% if (success_status) { %>
 				notice('<%= success_status %>','<%= success_flash_message %>');

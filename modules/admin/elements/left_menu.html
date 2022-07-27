@@ -29,8 +29,8 @@
 							if(typeof module.childs !== typeof undefined && module.childs && module.childs.length > 0){
 								let isToggled 	= (moduleGroupPath.indexOf(active_path) != -1) ? "active toggled" : "";
 								extraString 	= "class='menu-toggle "+isToggled+"'";
-								menuLink		= module.path;
-							}
+								menuLink		= module.path;  
+							}  
 						%>
 						<a href="<%= menuLink%>" <%-extraString%>>
 							<i class="material-icons"><%= module.icon%></i>

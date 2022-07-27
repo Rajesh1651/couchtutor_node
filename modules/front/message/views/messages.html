@@ -1,0 +1,147 @@
+<div class="accoutn_section">
+    <div class="container">
+        <div class="account_content">
+            <% if(user_role_id==TUTOR_ROLE_ID) { %>
+                <%- include(WEBSITE_MODULES_PATH + "/elements/tutor_left_link.html" ) %>
+                    <% } else if(user_role_id==STUDENT_ROLE_ID) { %>
+                        <%- include(WEBSITE_MODULES_PATH + "/elements/student_left_link.html" ) %>
+                            <% } %>
+                                <div class="account_right">
+                                    <div class="dashboard_form">
+                                        <form>
+                                            <div class="basic_info student_booking">
+                                                <div class="title_row">
+                                                    <h2>Messages</h2>
+                                                </div>
+
+
+                                                <div class="student_message">
+                                                    <div class="delete_selected">
+                                                        <div class="selecte_all">
+                                                            <div class="styled-selectors">
+                                                                <div>
+                                                                    <input type="checkbox" name="is_checked"
+                                                                        class="left checkAllUser filled-in styled-checkbox"
+                                                                        id="checkAllUser">
+                                                                    <label for="checkAllUser">Select All</label>
+                                                                </div>
+                                                            </div>
+                                                            <a href="javascript::void(0);" class="btn btn-secondary"
+                                                                id="deleteMessageButton">Delete Selected</a>
+                                                        </div>
+                                                        <div class="total_message">
+                                                            <span>Total Messages <strong>
+                                                                    <%- recordsTotal %>
+                                                                </strong></span> |
+                                                            <span>Unread Messages<strong>
+                                                                    <%- unreadMessage %>
+                                                                </strong></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                 <div class="message_send_rcv">
+                                                    <% if(results.length > 0) { %>
+                                                    <ul>                                                      
+
+                                                            <% results.forEach(function(result){
+                                                                %>
+
+
+                                                                
+                                                        <li class="">
+                                                            <div class="message_box">
+                                                                <div class="message_box_left">
+
+                                                                    <div class="message_box_checkbox">
+                                                                        <div class="styled-selectors">
+                                                                            <input
+                                                                                class="userMessageCheckBox filled-in styled-checkbox"
+                                                                                id="checkbox_36" name="status"
+                                                                                type="checkbox" value="23">
+                                                                            <label for="checkbox_36"></label>
+
+
+                                                                        </div>
+                                                                        <a href="javascript:void(0);"
+                                                                            class="reply_message_popup" data-id="36"
+                                                                            data-thread-id="23"
+                                                                            data-sender-slug="M17-1"><img
+                                                                                src="<%=WEBSITE_IMG_URL%>back.svg"
+                                                                                alt="img" loading="lazy"></a>
+                                                                    </div>
+                                                                    <div class="user_msg_profile">
+
+                                                                        <%                                         
+                                                                            getUserDetailById(result.receiver_id).then((userData) => {
+                                        
+                                                                            var full_name = (userData['full_name'])? userData['full_name'] : "";
+                                        
+                                                                           var profileImage = (userData['image'])? userData['image']:"user-male.png";
+                                        
+                                                                            %>
+
+
+
+                                                                            <% }); 
+                                                                            %>
+                                        
+
+                                                                        <figure><a class="items-image"
+                                                                                data-lightbox="roadtripuser-male.png"
+                                                                                href="<%=USERS_URL%>user-male.png">
+                                                                                <div
+                                                                                    class="userProfileImage usermgmt_image">
+                                                                                    <img class="img-circle"
+                                                                                        src="<%=USERS_URL%>user-male.png"
+                                                                                        alt="location"></div>
+                                                                            </a> </figure>
+                                                                        <div class="message_content">
+                                                                            <strong> admin</strong>
+
+                                                                            <span class="rating_star"><img
+                                                                                    src="<%=WEBSITE_IMG_URL%>rating_zero.png"
+                                                                                    alt="rating_zero"></span>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="message_box_right reply_message_popup"
+                                                                    data-id="36" data-thread-id="23"
+                                                                    data-sender-slug="M17-1">
+                                                                    <p><%- result.subject%>,<br>
+                                                                        <%- result.message %></p>
+
+                                                                    <span>
+                                                                        <i><img src="<%=WEBSITE_IMG_URL%>calender2.svg"
+                                                                                alt="icon"></i>
+                                                                       <%- getUtcDate(result.created,"DD/MM/YYYY")%>
+                                                                    </span>
+                                                                    <span>
+                                                                        <i><img src="<%=WEBSITE_IMG_URL%>clock2.svg"
+                                                                                alt="icon"></i>
+                                                                                <%- getUtcDate(result.created,"hh:mm A")%>
+                                                                    </span>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <% }) %>
+                                                       
+                                                    </ul>
+                                                    <% } else {%>
+                                                        <center><h1>No Result Found.</h1></center>
+                                                       
+                                                   <% }%>
+                                                </div> 
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

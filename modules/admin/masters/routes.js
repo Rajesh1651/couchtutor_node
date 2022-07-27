@@ -16,21 +16,21 @@ app.use(modulePath, checkAdminLogin, (req, res, next) => {
 
  
 /** Routing is used to get master data list **/
-app.all(modulePath+":type",  /* checkAdminLogin, */ (req, res, next) => {
+app.all(modulePath+":type",   checkAdminLogin,  (req, res, next) => {
     adminMasters.getMasterDataList(req, res, next);
 });
 
 
 
 /** Routing is used to render add master data **/
-app.get(modulePath+":type/add", /* checkAdminLogin, */ (req, res, next) => {
+app.get(modulePath+":type/add",  checkAdminLogin,  (req, res, next) => {
     adminMasters.addMasterData(req, res, next, false);
 });
 
 
 
 /** Routing is used to add master data **/
-app.post(modulePath+":type/add", /* checkAdminLogin, */ vr.validateForMaster, (req,res,next)=>{
+app.post(modulePath+":type/add",  checkAdminLogin,  vr.validateForMaster, (req,res,next)=>{
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		var validationErrors	=	errors.mapped();
@@ -44,21 +44,21 @@ app.post(modulePath+":type/add", /* checkAdminLogin, */ vr.validateForMaster, (r
 
 
 /** Routing is used to update master data status **/
-app.all(modulePath+":type/update_status/:id/:status", /* checkAdminLogin, */ (req, res,next)=>{
+app.all(modulePath+":type/update_status/:id/:status", checkAdminLogin, (req, res,next)=>{
     adminMasters.updateMasterStatus(req,res,next);
 });
 
 
 
 /** Routing is used to render edit master data **/
-app.get(modulePath+":type/edit/:id", /* checkAdminLogin, */ (req,res,next) => {
+app.get(modulePath+":type/edit/:id",  checkAdminLogin,  (req,res,next) => {
     adminMasters.editMaster(req,res,next, false);
 });
 
 
 
 /** Routing is used to edit master data **/
-app.post(modulePath+":type/edit/:id", /* checkAdminLogin, */ vr.validateForMaster, (req,res,next)=>{
+app.post(modulePath+":type/edit/:id",  checkAdminLogin, vr.validateForMaster, (req,res,next)=>{
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		var validationErrors	=	errors.mapped();

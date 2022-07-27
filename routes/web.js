@@ -53,11 +53,11 @@ var configure = function (router, mongo) {
 				return next();
 			}
 			else {
-				res.redirect('/login');
+				res.redirect('/');
 			}
 		}
 		else {
-			res.redirect('/login');
+			res.redirect('/');
 		}
 	}//end checkUserLogin();
 
@@ -255,6 +255,7 @@ var configure = function (router, mongo) {
 	require(WEBSITE_MODULES_PATH + "users/routes");
 	require(WEBSITE_MODULES_PATH + "subjects/routes");
 	require(WEBSITE_MODULES_PATH + "plans/routes");
+	require(WEBSITE_MODULES_PATH + "message/routes");
 	
 
 

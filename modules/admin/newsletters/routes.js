@@ -4,7 +4,7 @@ const modulePath					= 	"/"+ADMIN_NAME+"/newsletters/";
 const adminNewsletter    				=   require(modelPath);
 
 /** Middleware for set current view folder and layout **/
-app.use(modulePath, /*checkAdminLogin,*/ (req, res, next) => {
+app.use(modulePath, checkAdminLogin, (req, res, next) => {
 	app.set('views', __dirname + '/views');
 	app.set('layout', WEBSITE_ADMIN_LAYOUT_PATH+"default");
     next();

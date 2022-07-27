@@ -23,3 +23,4 @@ app.post(FRONT_END_NAME+"newsletters-save", vr.validateForNewsLetter, (req, res,
 		});		
 	   }
 });
+

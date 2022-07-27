@@ -1,0 +1,387 @@
+<% formData=(result) ? result : formData; %>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade active in">
+			<div class="row" id="powerwidgets">
+				<div class="container-fluid">
+					<div class="row clearfix">
+						<div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
+							<div class="card">
+								<div class="header">
+									<h2>Advance Profile </h2>
+
+									<ul class="header-dropdown m-r--5 btn-right-top-margin">
+										<li>
+											<a
+												href='<%= WEBSITE_ADMIN_URL+"users/" + userType%>/edit_links/<%-userId%>'>
+												<button type="button" class="btn bg-indigo waves-effect"><i
+														class="material-icons font-14">keyboard_backspace</i>Back</button>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="body">
+
+									<form id="tutorEditAdvanceProfileForm" method="post" role="form" class="mws-form">
+
+										<div class="row clearfix">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label>Brief Introduction <span class="required"> *
+															</span></label>
+
+														<textarea name="brief_intro" class="form-control"
+															id="brief_intro_desc_textarea"
+															placeholder="Brief introduction"><%= formData.tutorBasicDetail[0].brief_intro %></textarea>
+
+														<% if(typeof error !="undefined" && error.brief_intro){ %>
+															<span class="error help-inline brief_intro">
+																<%= error.brief_intro.msg %>
+															</span>
+															<% } %>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row clearfix">
+											<div class="col-lg-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label>Why I love to tutor?</label>
+														<textarea name="tutoring_benefits" class="form-control"
+															id="tutoring_benefits_desc_textarea"
+															placeholder="Why I love to tutor?"><%= formData.tutorBasicDetail[0].tutoring_benefits %></textarea>
+
+														<% if(typeof error !="undefined" && error.tutoring_benefits){ %>
+															<span class="error help-inline tutoring_benefits">
+																<%= error.tutoring_benefits.msg %>
+															</span>
+															<% } %>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row clearfix">
+											<div class="col-lg-12">
+												<div class="form-line">
+													<div class="form-group">
+														<label>Hobbies/Interests</label>
+														<textarea name="hobbies" class="form-control"
+															id="hobbies_desc_textarea"
+															placeholder="Hobbies/Interests"><%= formData.tutorBasicDetail[0].hobbies %></textarea>
+
+														<% if(typeof error !="undefined" && error.hobbies){ %>
+															<span class="error help-inline hobbies">
+																<%= error.hobbies.msg %>
+															</span>
+															<% } %>
+													</div>
+												</div>
+											</div>
+										</div>
+										<% let j=1; let tutorReferenceArray=new Array();
+											formData.tutorReferencesDetail.map((tutorReference,index)=>{
+											index = index + 1;
+											tutorReferenceArray['reference_name_'+index]=tutorReference.reference_name;
+											tutorReferenceArray['contact_number_'+index]=tutorReference.contact_number;
+											tutorReferenceArray['designation_'+index]=tutorReference.designation;
+											tutorReferenceArray['organisation_'+index]=tutorReference.organisation;
+											});
+											%>
+
+											<div class="row clearfix">
+												<div class="alert alert-warning">Reference Details </div>
+											</div>
+
+											<% let i=1; %>
+												<% while (i <=TUTOR_REFERENCES_COUNT) { %>
+
+
+													<div class="row clearfix">
+														<div class="col-lg-6">
+															<div class="form-group">
+																<div class="form-line">
+																	<label>Reference Name -<%-i%></label>
+																	<input type="text" name="reference_name_<%-i%>"
+																		class="form-control" id=""
+																		value="<%-tutorReferenceArray['reference_name_'+i]%>">
+
+
+
+																	<% if(typeof error !="undefined" &&
+																		error.reference_name_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.reference_name_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="form-group">
+																<div class="form-line">
+																	<label>Designation -<%-i%></label>
+																	<input type="text" name="designation_<%-i%>"
+																		class="form-control" id=""
+																		value="<%-tutorReferenceArray['designation_'+i]%>">
+
+																	<% if(typeof error !="undefined" &&
+																		error.designation_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.designation_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+														</div>
+
+													</div>
+													<div class="row clearfix">
+
+														<div class="col-lg-6">
+															<div class="form-group">
+																<div class="form-line">
+																	<label>Organisation_ -<%-i%></label>
+																	<input type="text" name="organisation_<%-i%>"
+																		class="form-control" id=""
+																		value="<%-tutorReferenceArray['organisation_'+i]%>">
+
+																	<% if(typeof error !="undefined" &&
+																		error.organisation_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.organisation_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+														</div>
+
+														<div class="col-lg-6">
+															<div class="form-group">
+																<div class="form-line">
+																	<label>Contact Number -<%-i%></label>
+																	<input type="text" name="contact_number_<%-i%>"
+																		class="form-control" id=""
+																		value="<%-tutorReferenceArray['contact_number_'+i]%>">
+
+																	<% if(typeof error !="undefined" &&
+																		error.contact_number_+i){ %>
+																		<span class="error help-inline">
+																			<%= error.contact_number_+i.msg %>
+																		</span>
+																		<% } %>
+																</div>
+															</div>
+														</div>
+
+													</div>
+													<% i++; } %>
+
+														<% if(typeof responseData.languageList!==typeof undefined &&
+															Object.keys(responseData.languageList).length> 0){
+															%>
+															<div class="row clearfix">
+																<div class="alert alert-warning">Spoken Languages <span
+																		class="required"> * </span> </div>
+															</div>
+
+															<div class="row clearfix">
+
+
+																<% let tutorLanguagesArray=new Array();
+																	formData.tutorLanguages.map((tutorLanguages,index)=>
+																	{
+																	tutorLanguagesArray[index]=tutorLanguages.dropdown_id.toString();
+																	});
+																	responseData.languageList.map((language,key)=>{
+																	checked = '';
+
+																	if(tutorLanguagesArray.indexOf(language._id.toString())!==-1){
+																	checked = 'checked="true"';
+																	}
+																	%>
+																	<div class="col-sm-3">
+																		<div class="form-group">
+																			<input id="tutor_language_<%=language._id%>"
+																				name="tutor_languages[]"
+																				class="filled-in" type="checkbox"
+																				value="<%=language._id%>" <%=checked %>
+																			/>
+																			<label
+																				for="tutor_language_<%=language._id%>">
+																				<%= (language) ? language.title :""; %>
+																			</label>
+																		</div>
+																	</div>
+																	<% });%>
+															</div>
+															<% if(typeof error !="undefined" && error.tutor_languages){
+																%>
+																<span class="error help-inline">
+																	<%= error.tutor_languages.msg %>
+																</span>
+																<% }  } %>
+
+																		<div class="row clearfix">
+																			<div class="alert alert-warning">Area Of
+																				Expertise <span class="required"> *
+																				</span> </div>
+																		</div>
+																		<% if(typeof
+																			responseData.areaOfExpertise!==typeof
+																			undefined &&
+																			Object.keys(responseData.areaOfExpertise).length>
+																			0){
+																			%>
+																			<div class="row clearfix">
+																				<div class="col-sm-12">
+																					<div class="form-group">
+																						<div class="form-line">
+																							<select
+																								name="tutor_expertise[]"
+																								id="gender"
+																								class="form-control show-tick"
+																								data-live-search="true"
+																								multiple>
+																								<% let
+																									tutorExpertiseAreasArray=new
+																									Array();
+																									formData.tutorExpertiseAreas.map((tutorExpertis,index)=>
+																									{
+																									tutorExpertiseAreasArray[index]=tutorExpertis.dropdown_id.toString();
+																									});
+
+																									responseData.areaOfExpertise.map(areaOfExpertise=>
+																									{
+
+																									selected = '';
+
+																									if(tutorExpertiseAreasArray.indexOf(areaOfExpertise._id.toString())!==-1){
+																									selected =
+																									'selected="selected"';
+																									}
+
+																									%>
+
+																									<option
+																										value="<%=areaOfExpertise._id%>"
+																										<%=selected%> >
+																										<%= (areaOfExpertise)
+																											?
+																											areaOfExpertise.title
+																											:""; %>
+																									</option>
+																									<% });%>
+																							</select>
+																						</div>
+																						<% if(typeof error !="undefined"
+																							&& error.tutor_expertise){
+																							%>
+																							<span
+																								class="error help-inline">
+																								<%= error.tutor_expertise.msg
+																									%>
+																							</span>
+																							<% } %>
+																					</div>
+																				</div>
+																			</div>
+																			<% } %>
+
+
+																				<div class="row clearfix">
+																					<div class="alert alert-warning">
+																						Grades <span class="required"> *
+																						</span> </div>
+																				</div>
+
+																				<div class="row clearfix">
+
+																					<% if(typeof
+																						responseData.grades!==typeof
+																						undefined &&
+																						Object.keys(responseData.grades).length>
+																						0){
+																						%>
+
+
+
+																						<% let gradeArray=new Array();
+																							formData.tutorGrades.map((tutorGrade,index)=>
+																							{
+																							gradeArray[index]=tutorGrade.dropdown_id.toString();
+																							});
+
+																							responseData.grades.map(grade=>{
+
+																							checked = '';
+
+																							if(gradeArray.indexOf(grade._id.toString())!==-1){
+																							checked = 'checked="true"';
+																							}
+
+																							%>
+																							<div class="col-sm-3">
+																								<div class="form-group">
+																									<input
+																										id="tutor_grade_<%=grade._id%>"
+																										name="tutor_grades[]"
+																										class="filled-in"
+																										type="checkbox"
+																										value="<%=grade._id%>"
+																										<%=checked %> />
+																									<label
+																										for="tutor_grade_<%=grade._id%>">
+																										<%= (grade) ?
+																											grade.title
+																											:""; %>
+																									</label>
+																								</div>
+																							</div>
+																							<% });%>
+																						
+																							<div class="col-sm-12">
+																								<% if(typeof error
+																									!="undefined" &&
+																									error.tutor_grades){
+																									%>
+																				
+																				<span class="error help-inline">
+																					<%= error.tutor_grades.msg %>
+																				</span>
+																			</div>
+																		</div>
+																				<% } %>
+
+																			
+
+																					<% } %>
+
+
+
+																						<button type="submit"
+																							class="btn bg-pink btn-sm waves-effect btn-submit"><i
+																								class="material-icons font-14">save</i>
+																							Submit</button>
+
+																						<a href=""
+																							class="text-decoration-none"><button
+																								type="button"
+																								class="btn bg-blue-grey btn-sm waves-effect"><i
+																									class="material-icons font-14">refresh</i>Reset</button></a>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -2,18 +2,18 @@ const asyncParallel = require("async/parallel");
 const async = require("async");
 const { ObjectId } = require('mongodb');
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 
-const subjectSchema = new mongoose.Schema({
+// const subjectSchema = new mongoose.Schema({
     
-})
+// })
   
-const topicSchema = new mongoose.Schema({
-})
+// const topicSchema = new mongoose.Schema({
+// })
 
-const subject = new mongoose.model('subject', subjectSchema);
-const topic = new mongoose.model('topic', topicSchema);
+// const subject = new mongoose.model('subject', subjectSchema);
+// const topic = new mongoose.model('topic', topicSchema);
 
 
 

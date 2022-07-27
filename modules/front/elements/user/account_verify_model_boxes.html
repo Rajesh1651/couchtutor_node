@@ -1,0 +1,53 @@
+<!-- Organization student cant change his mobile nimber and email address -->
+
+<% let email=(auth.email) ? auth.email : '' ; %>
+
+
+	<div aria-hidden="false" aria-labelledby="updateEmail" role="dialog" tabindex="-1" id="updateEmailModal"
+		class="login_signup modal fade in">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content leadform">
+
+				<form method="post" action="javascript:void(0)" id="emailUpdateForm">
+
+					<div class="modal-body">
+						<div class="tab-content" id="myTabContent5">
+							<div class="login_content">
+								<h1>Update Email</h1>
+
+								<div class="lead_form">
+									<div class="tab-pane active show  fade " id="updatePhone" role="tabpanel"
+										aria-labelledby="login-tab">
+										<div class="form_title">
+											<div class="mws-form-item">
+
+												<input type="text" name="email" class="form-control" id="email"
+													value="<%- email %>" placeholder="Please Enter Email">
+
+											</div>
+											<span class="has-error error-message error help-inline email_err"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="save-btn text-center">
+							<button type="submit" class="login-button btn btn-primary" id="submitEmailBtn">Submit
+							</button>
+							<a class="login-button close-popup" data-dismiss="modal">
+								<button class="btn btn-cancel" type="button">Close</button>
+							</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var updateEmailUrl = '<%= WEBSITE_URL %>user/updateEmail';		
+	</script>
+
+	<script src="<%=WEBSITE_JS_PATH%>user_profile.js"></script>
+	<!--End Modal -->

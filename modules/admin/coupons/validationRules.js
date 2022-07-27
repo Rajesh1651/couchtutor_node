@@ -18,12 +18,11 @@ i18n.configure({
 validationObject = {
  
 	validateForCoupon : [
-		check('title',				anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_PAGE_TITLE_HERE")).trim().notEmpty(),
-		check('meta_title',			anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_META_TITLE_HERE")).trim().notEmpty(),
-		check('meta_keywords',		anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_META_KEYWORDS_HERE")).trim().notEmpty(),
-		check('short_decription',	anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_SHORT_DESCRIPTION_HERE")).trim().notEmpty(),
-		check('meta_decription',	anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_META_DESCRIPTION_HERE")).trim().notEmpty(),
-		check('decription',			anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_DESCRIPTION_HERE")).trim().notEmpty(),		
+		check('coupon_code',		anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_coupon_code")).trim().notEmpty(),
+		check('description',		anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_description")).trim().notEmpty(),
+		check('discounttype',		anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_discounttype")).trim().notEmpty(),
+		check('discount',	        anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_discount")).trim().notEmpty(),
+		check('usage_limit',	anyObjectForLocale.__("ADMIN.COUPONS.PLEASE_ENTER_usage_limit")).trim().notEmpty(),			
 	]
 }
  

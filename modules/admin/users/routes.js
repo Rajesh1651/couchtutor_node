@@ -206,6 +206,45 @@ app.get(modulePath+":user_type/update_verified_user_status/:id",checkAdminLogin,
 
 
 
+/** ======================= tutor ===========================*/
+
+/** Routing is used to get tutor edit list **/
+app.all(modulePath+":user_type/edit_links/:id",/*checkAdminLogin,*/(req, res)=>{
+	
+    adminUser.getTutorEditLinks(req, res);
+});
+
+
+
+
+/** Routing is used to  Tutor Edit AdvanceProfile **/
+app.get(modulePath+":user_type/edit_advance_profile/:id/",/*checkAdminLogin,*/(req, res,next)=>{
+	
+    adminUser.getTutorEditAdvanceProfile(req, res,next,false);
+});
+
+
+/** Routing is used to  Tutor Edit AdvanceProfile **/
+app.post(modulePath+":user_type/edit_advance_profile/:id/",/* checkAdminLogin,*/ vr.validateForEditAdvanceProfile, (req,res,next)=>{
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {		
+	
+		var validationErrors	=	errors.mapped();
+		req.session.formData 	=	req.body;
+		adminUser.getTutorEditAdvanceProfile(req, res, next, validationErrors );
+
+	}
+	else {
+		adminUser.getTutorEditAdvanceProfile(req, res, next, false);
+	}
+});
+
+
+
+/** Routing is used to get tutor edit list **/
+app.all(modulePath+":user_type/reject_status_modal",/*checkAdminLogin,*/(req, res)=>{	
+    adminUser.tutorRejectPopUp(req, res);
+});
 
 
 
@@ -283,7 +322,6 @@ app.post(modulePath+":user_type/update_user_detail/:action/:id",checkAdminLogin,
 	}
  
 });
-
 
 
 

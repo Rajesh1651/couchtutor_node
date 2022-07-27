@@ -99,9 +99,6 @@ function Home() {
 			    main_slider		: response.sliders[0]
 			};
 
-
-console.log(result);
-
 			res.render('index', result);
 	
 

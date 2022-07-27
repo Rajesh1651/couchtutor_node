@@ -1,5 +1,5 @@
 <%
-	var statusType = (typeof status_type !== typeof undefined && status_type)	?	status_type :"";
+	var statusType = (typeof status_type !== typeof undefined && status_type)	?	status_type :"all";
 	var userType = (typeof user_type !== typeof undefined && user_type)	?	user_type :"";
 %>
 
@@ -108,11 +108,9 @@
 					<table id="datatable-listing" class="row-border full-length-header hover table table-bordered cb-data-table" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th><%= __("admin.user.full_name")%></th>
-								<th><%= __("admin.system.email")%></th>
-								<th><%= __("admin.user.phone_number")%></th>
-								<th><%= __("admin.system.status")%></th>
-								<th><%= __("admin.system.created")%></th>
+								<th class="align-center"><%= __("admin.user.full_name")%></th>
+								<th><%= __("admin.system.contact")%></th>								
+								<th><%= __("admin.system.status")%></th>								
 								<th><%= __("admin.system.action")%></th>
 							</tr>
 						</thead>
@@ -122,9 +120,37 @@
 						<% if(users.length > 0) { %>
 							<% users.forEach(function(user){ %>
 								<tr>
-									<td> <%= user.full_name %>  </td>
-									<td> <%= user.email %>  </td>
-									<td> <%= user.phone_number %>  </td>
+									<td class="align-center"> 
+
+										<% 
+										var profileImage = (user['image'])? user['image']:"user-male.png";
+										
+										%>
+
+										<a class="items-image" data-lightbox="roadtripuser-male.png" href="<%=USERS_URL + profileImage%>"><div class="usermgmt_image"><img class="img-circle" src="<%=USERS_URL + profileImage%>" alt="" height ='60px', width ='60px'></div></a>
+										<br>
+										<%= user.full_name %>  
+                                       <br>
+										<small><%= __("admin.system.created")%> : <%= moment(user.dateofbirth).format(DISPLAY_DATE_FORMAT)  %></small>
+									
+									</td>
+									<td> <%= user.email %>
+										
+										<% if(user.is_verified == ACTIVE) { %>
+                                                <span class="btn-circle tooltipHelp color-success" data-html="true"
+                                                    data-toggle="tooltip" data-original-title="<% __('admin.system.email_verified') %>">
+                                                    <i class="material-icons">verified_user</i>
+                                                </span>
+                                            <% } else { %>
+                                                <span class="btn-circle tooltipHelp color-danger" data-html="true"
+                                                    data-toggle="tooltip" data-original-title="<%= __('admin.system.email_not_verified') %>">
+                                                    <i class="material-icons">report_problem</i>
+                                                </span>
+												<% } %>
+									</br> 
+										<%= user.phone_number %> 
+									
+									</td>									
 									<td> 
 										<% 
 											var active 			= 	(user && user.active) ?	user.active : "";
@@ -156,9 +182,7 @@
 											<span class="label label-danger m-l-5 m-t-5"><%= __("admin.system.rejected")%></span>
 										<%} %>	
 									</td>
-									<td>
-										<%= moment(user.dateofbirth).format(DISPLAY_DATE_FORMAT)  %>
-									</td>
+									
 									<td>
 									<%									
 									var statusLinkText 	 	= (user && user.active) ?	__("admin.system.deactivate") :  __("admin.system.activate");
@@ -175,10 +199,17 @@
 											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu min-width-190">
-											<li>
-												<a href="<%=admin_list_url%>/<%= userType %>/edit/<%= id %>" class="waves-effect waves-block">
+											<li>	
+												
+												<% if(userType == TUTOR_ROLE_SLUG) {%>
+												<a href="<%=admin_list_url%>/<%= userType %>/edit_links/<%= id %>" class="waves-effect waves-block">
 													<i class="material-icons">mode_edit</i> <%= __("admin.system.edit")%>
 												</a>
+												<% } else { %>
+													<a href="<%=admin_list_url%>/<%= userType %>/edit/<%= id %>" class="waves-effect waves-block">
+														<i class="material-icons">mode_edit</i> <%= __("admin.system.edit")%>
+													</a>
+													<% } %>
 											</li>
 											<li>
 												<a href="<%=admin_list_url%>/<%= userType %>/view/<%= id %>" class="waves-effect waves-block">
